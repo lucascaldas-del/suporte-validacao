@@ -301,8 +301,8 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 
 /* ===== TUTORIAL ONBOARDING ===== */
 .tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}
-.tut-overlay.open{display:flex;animation:fadeUp .3s ease}
-.tut-card{background:#fff;border-radius:24px;width:100%;max-width:620px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:90vh;display:flex;flex-direction:column}
+.tut-overlay.open{display:flex !important;animation:fadeUp .3s ease}
+.tut-card{background:#ffffff !important;color:#111 !important;border-radius:24px;width:100%;max-width:620px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:90vh;display:flex;flex-direction:column}
 .tut-header{background:var(--yellow);padding:18px 22px;border-bottom:2px solid var(--y2,#e8c800);flex-shrink:0}
 .tut-header h2{font-size:17px;font-weight:800;color:#333}
 .tut-header p{font-size:12px;color:#666;margin-top:2px}
@@ -312,12 +312,12 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .tut-slide.exit{opacity:0;transform:translateX(-20px)}
 .tut-footer{background:#f9f9f9;border-top:1px solid var(--border,#e0e0e0);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .tut-step-tag{display:inline-block;background:var(--yellow);color:#333;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;border:1px solid var(--y2,#e8c800)}
-.tut-title{font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:5px;line-height:1.2}
-.tut-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:14px}
+.tut-title{font-size:18px;font-weight:800;color:#111 !important;margin-bottom:5px;line-height:1.2}
+.tut-desc{font-size:13px;color:#333 !important;line-height:1.6;margin-bottom:14px}
 .tut-hl{background:#fffde7;border:2px solid var(--y2,#e8c800);border-radius:10px;padding:10px 13px;margin-bottom:12px;font-size:12px;line-height:1.5;display:flex;gap:9px}
 .tut-hl-ico{font-size:18px;flex-shrink:0}
 .tut-steps{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
-.tut-steps li{display:flex;gap:8px;font-size:13px;color:#555;align-items:flex-start;line-height:1.4}
+.tut-steps li{display:flex;gap:8px;font-size:13px;color:#333 !important;align-items:flex-start;line-height:1.4}
 .tut-num{width:22px;height:22px;background:var(--yellow);border:2px solid var(--y2,#e8c800);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
 .tut-dots{display:flex;gap:5px}
 .tut-dot{width:7px;height:7px;border-radius:50%;background:#ddd;cursor:pointer;transition:all .2s}
@@ -333,7 +333,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .tut-phone-ico{width:18px;height:18px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
 .tut-phone-lbl{font-size:10px;font-weight:800;color:#333}
 .tut-phone-bd{padding:10px;background:#f7f7f7;min-height:120px;font-size:11px}
-.tut-two{display:grid;grid-template-columns:1fr 200px;gap:14px;align-items:start}
+.tut-two{display:grid;grid-template-columns:1fr 200px;gap:14px;align-items:start;color:#1a1a1a}
 @media(max-width:500px){.tut-two{grid-template-columns:1fr}.tut-phone{display:none}}
 @media(max-width:560px){.grid-2{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}}
 </style>
@@ -1550,13 +1550,18 @@ let _tutCur = 0;
 const TUT_TOTAL = 6;
 
 function initTutorial(user) {
-  // Só mostra para solicitantes e apenas na primeira vez
   if (user.role !== 'solicitante') return;
   const key = 'tut_done_' + user.id;
-  if (LS.get(key)) return; // já viu
+  if (LS.get(key)) return;
   _tutCur = 0;
   buildTutDots();
-  document.getElementById('tut-overlay').classList.add('open');
+  tutGoTo(0);
+  const ov = document.getElementById('tut-overlay');
+  if (!ov) { console.error('tut-overlay not found'); return; }
+  // Force display
+  ov.style.cssText = 'display:flex !important; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:9999; align-items:center; justify-content:center; padding:16px;';
+  ov.classList.add('open');
+  console.log('Tutorial iniciado para', user.name);
 }
 
 function buildTutDots() {
@@ -1588,8 +1593,18 @@ function tutNext() {
 }
 
 function closeTutorial() {
-  document.getElementById('tut-overlay').classList.remove('open');
+  const ov = document.getElementById('tut-overlay');
+  if (ov) { ov.classList.remove('open'); ov.style.cssText = 'display:none'; }
   if (currentUser) LS.set('tut_done_' + currentUser.id, true);
+}
+// Para forçar tutorial aparecer novamente:
+// resetTutorial() no console do navegador
+function resetTutorial() {
+  if (currentUser) {
+    localStorage.removeItem('tut_done_' + currentUser.id);
+    initTutorial(currentUser);
+    console.log('Tutorial resetado!');
+  }
 }
 // ====================================================
 //  REQUEST ACCESS
