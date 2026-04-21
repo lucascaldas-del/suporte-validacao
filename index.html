@@ -1431,14 +1431,34 @@ function exportCSV() {
 //  USERS & REQUESTS
 // ====================================================
 function renderUsers() {
-  document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Papel</th><th></th></tr></thead><tbody>${
-    _cache.users.map(u => `<tr>
-      <td style="font-weight:700">${u.name}</td>
-      <td><code class="usr">${u.username}</code></td>
-      <td><span class="badge ${{ admin: 'b-notfound', analista: 'b-progress', solicitante: 'b-open' }[u.role] || 'b-open'}">${u.role}</span></td>
-      <td>${u.id !== 'admin-001' ? `<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>` : '—'}</td>
-    </tr>`).join('')
+  document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Papel</th><th>Treinamento</th><th></th></tr></thead><tbody>${
+    _cache.users.map(u => {
+      const tutKey = 'tut_done_' + u.id;
+      const tutDone = LS.get(tutKey);
+      const tutBadge = u.role === 'solicitante'
+        ? (tutDone
+            ? `<span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">✅ Concluído</span>`
+            : `<span style="background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">⏳ Pendente</span>`)
+        : `<span style="color:#999;font-size:11px">—</span>`;
+      const resetBtn = u.role === 'solicitante'
+        ? `<button class="btn btn-sm" style="background:#fffde7;color:#b45309;border:1.5px solid #fcd34d;margin-right:4px" onclick="resetUserTutorial('${u.id}','${u.name}')">🎓 Ativar</button>`
+        : '';
+      return `<tr>
+        <td style="font-weight:700">${u.name}</td>
+        <td><code class="usr">${u.username}</code></td>
+        <td><span class="badge ${{ admin: 'b-notfound', analista: 'b-progress', solicitante: 'b-open' }[u.role] || 'b-open'}">${u.role}</span></td>
+        <td>${tutBadge}</td>
+        <td style="display:flex;gap:4px;align-items:center">${resetBtn}${u.id !== 'admin-001' ? `<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>` : '—'}</td>
+      </tr>`;
+    }).join('')
   }</tbody></table></div>`;
+}
+
+function resetUserTutorial(userId, userName) {
+  const tutKey = 'tut_done_' + userId;
+  localStorage.removeItem(tutKey);
+  toast('🎓 Treinamento de ' + userName + ' foi reativado! Na próxima vez que ela logar, o tutorial vai aparecer automaticamente.', 4000);
+  renderUsers();
 }
 function openNewUser() {
   ['nu-name', 'nu-user', 'nu-pass'].forEach(id => document.getElementById(id).value = '');
