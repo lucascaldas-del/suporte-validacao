@@ -29,8 +29,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 }
 .page{display:none;min-height:100vh}.page.active{display:block;animation:fadeUp .25s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* LOGIN */
 .login-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
   background:#f2f2f2;background-image:radial-gradient(ellipse 60% 60% at 50% 0%,#ffe60030 0%,transparent 70%)}
 .login-card{width:100%;max-width:400px}
@@ -50,8 +48,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .back-btn:hover{color:var(--yellow)}
 .hi-name{font-size:17px;font-weight:800;color:var(--text);margin-bottom:16px}
 .hi-name em{color:var(--yellow);font-style:normal}
-
-/* REQUEST ACCESS */
 .req-link{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--text3)}
 .req-link button{background:none;border:none;color:var(--blue);font-size:13px;font-weight:700;cursor:pointer;padding:0;transition:color .15s}
 .req-link button:hover{color:var(--yellow)}
@@ -64,8 +60,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .role-opt-icon{font-size:22px;display:block;margin-bottom:4px}
 .role-opt-lbl{font-size:12px;font-weight:700;color:var(--text)}
 .role-opt-desc{font-size:10px;color:var(--text3);margin-top:2px}
-
-/* TOPBAR */
 .topbar{height:54px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;position:sticky;top:0;z-index:200}
 .logo-mark{width:30px;height:30px;background:var(--yellow);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:1.5px solid #e8c800}
 .logo-text{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.2px}
@@ -81,13 +75,9 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .rt-adm{background:#fce8e6;color:#c5221f;border:1px solid #f28b82}
 .topbar-exit{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
 .topbar-exit:hover{border-color:var(--red);color:var(--red);background:#fce8e6}
-
-/* LAYOUT */
 .app-layout{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 .app-body{flex:1}
 .wrap{max-width:980px;margin:0 auto;padding:18px 14px}
-
-/* TABS */
 .tabs{display:flex;gap:2px;margin-bottom:18px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:4px}
 .tab-btn{flex:1;padding:8px 10px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text2);border-radius:var(--radius);transition:all .15s;white-space:nowrap;text-align:center}
 .tab-btn.active{background:var(--yellow);color:#333333;border:1.5px solid #e8c800}
@@ -95,8 +85,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .adm-tab{padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);background:var(--bg2);color:var(--text2);border-radius:var(--radius-lg);transition:all .15s}
 .adm-tab.active{background:var(--yellow);color:#333333;border-color:#e8c800}
 .adm-tab:hover:not(.active){border-color:var(--yellow);color:var(--yellow)}
-
-/* CARDS */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:18px;margin-bottom:12px}
 .card-title{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .ci{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
@@ -105,15 +93,11 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .ci-g{background:var(--green-dim);color:var(--green)}
 .ci-r{background:var(--red-dim);color:var(--red)}
 .ci-p{background:var(--purple-dim);color:var(--purple)}
-
-/* STATS */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px}
 .sbox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
 .slbl{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}
 .sval{font-size:26px;font-weight:800;line-height:1;font-family:var(--mono)}
 .sv-y{color:var(--yellow)}.sv-b{color:var(--blue)}.sv-g{color:var(--green)}.sv-r{color:var(--red)}.sv-a{color:var(--amber)}
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--radius-lg);font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .15s;min-height:38px;font-family:'DM Sans',sans-serif}
 .btn-y{background:var(--yellow);color:#333333;border:1.5px solid #e8c800}.btn-y:hover{filter:brightness(1.08)}
 .btn-ghost{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2)}.btn-ghost:hover{border-color:var(--yellow);color:var(--yellow)}
@@ -123,8 +107,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .btn-p{background:var(--purple-dim);color:var(--purple);border:1.5px solid #a855f730}
 .btn-sm{padding:5px 11px;font-size:12px;min-height:30px}
 .btn-block{width:100%;margin-bottom:8px}
-
-/* BADGES */
 .badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700;white-space:nowrap}
 .b-open{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
 .b-progress{background:var(--blue-dim);color:var(--blue);border:1px solid #4c7bff30}
@@ -136,8 +118,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .b-pnormal{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
 .b-phigh{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
 .b-purgent{background:var(--red-dim);color:var(--red);border:1px solid #ef444430}
-
-/* TICKET CARD */
 .tkt{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-xl);margin-bottom:10px;cursor:pointer;transition:all .18s;overflow:hidden}
 .tkt:hover{border-color:var(--yellow);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,230,0,.25)}
 .tkt-warn{border-color:var(--amber)!important}
@@ -157,8 +137,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .sla-bg{background:#eeeeee;border-radius:99px;height:5px;overflow:hidden}
 .sla-fill{height:100%;border-radius:99px;transition:width .6s}
 .sla-ok{background:var(--green)}.sla-warn{background:var(--amber)}.sla-exp{background:var(--red)}
-
-/* MODAL / SHEET */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:999;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
 .overlay.open{display:flex;animation:fIn .15s ease}
 @keyframes fIn{from{opacity:0}to{opacity:1}}
@@ -178,8 +156,6 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .ids-ta{width:100%;padding:11px 13px;border:none;outline:none;font-size:13px;font-family:var(--mono);min-height:110px;resize:vertical;color:var(--text);background:var(--bg3)}
 .ids-footer{background:var(--bg4);padding:6px 13px;font-size:11px;color:var(--text3)}
 .ferr{font-size:12px;color:var(--red);margin-bottom:10px;display:none;font-weight:600}
-
-/* RESP FORM */
 .resp-blk{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:12px;margin-bottom:8px}
 .resp-id{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--yellow);margin-bottom:8px}
 .resp-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
@@ -190,14 +166,10 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .rb.sel{transform:scale(1.04)}
 .resp-obs{width:100%;padding:8px 11px;background:#ffffff;border:1.5px solid var(--border2);border-radius:var(--radius);font-size:12px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
 .resp-obs:focus{border-color:var(--yellow)}.resp-obs::placeholder{color:var(--text3)}
-
-/* IDS VIEW */
 .id-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .id-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:var(--radius-lg)}
 .id-code{font-family:var(--mono);font-weight:700;flex:1;color:var(--text);font-size:13px}
 .id-obs{font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:2}
-
-/* TABLE */
 .tbl-wrap{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);padding:8px 10px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
@@ -205,23 +177,15 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .tbl tr:hover td{background:var(--bg3)}
 .tbl tr:last-child td{border-bottom:none}
 code.usr{background:var(--bg4);padding:2px 7px;border-radius:5px;font-family:var(--mono);font-size:11px;color:var(--text2)}
-
-/* CHART */
 .chart-wrap{position:relative;height:185px;margin-top:10px}
-
-/* RANKING */
 .rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .rank-row:last-child{border-bottom:none}
 .rank-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
 .r1{background:#f5d800;color:#0f0f14}.r2{background:#9ca3af;color:#0f0f14}.r3{background:#cd7f32;color:#fff}.rn{background:#eeeeee;color:#666666}
 .rank-name{flex:1;font-size:13px;font-weight:600}
 .rank-score{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--blue)}
-
-/* TOAST */
 .toast{position:fixed;top:64px;left:50%;transform:translateX(-50%) translateY(-8px);background:#333333;color:#ffffff;border:1px solid #444444;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;transition:all .22s;z-index:2000;pointer-events:none;white-space:nowrap;max-width:92vw;box-shadow:var(--shadow)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* MISC */
 .sla-banner{background:#fce8e6;border:1.5px solid #f28b82;border-radius:var(--radius-lg);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;font-weight:600;display:none}
 .empty{text-align:center;padding:32px;color:#999999;font-size:14px}
 .empty-ico{font-size:32px;display:block;margin-bottom:8px}
@@ -239,35 +203,25 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .cfg-sts{border-radius:var(--radius-lg);padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600}
 .cfg-ok{background:var(--green-dim);border:1.5px solid #22c55e30;color:var(--green)}
 .cfg-warn{background:var(--amber-dim);border:1.5px solid #f59e0b30;color:var(--amber)}
-
-/* LOADING SCREEN */
 .loading-screen{position:fixed;inset:0;background:#f2f2f2;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:14px}
 .loading-logo{width:60px;height:60px;background:var(--yellow);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;animation:pulse 1.2s ease-in-out infinite;color:#333}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ffe60060}50%{box-shadow:0 0 0 16px #ffe60000}}
 .loading-txt{font-size:14px;color:var(--text2);font-weight:600}
-
-
-/* COPY BUTTON */
 .copy-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--border2);border-radius:5px;background:var(--bg3);cursor:pointer;font-size:12px;flex-shrink:0;transition:all .15s;margin-left:4px}
 .copy-btn:hover{border-color:var(--yellow);background:var(--yellow-dim)}
 .copy-all-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border:1.5px solid var(--border2);border-radius:99px;background:var(--bg3);cursor:pointer;font-size:11px;font-weight:700;color:var(--text2);transition:all .15s;margin-left:6px}
 .copy-all-btn:hover{border-color:var(--yellow);background:var(--yellow-dim);color:var(--text)}
-/* VALUE SELECT */
 .value-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .value-opt{padding:11px 10px;border:2px solid var(--border2);border-radius:var(--radius-lg);cursor:pointer;text-align:center;transition:all .15s;background:var(--bg3)}
 .value-opt:hover{border-color:var(--yellow)}
 .value-opt.selected{border-color:var(--yellow);background:var(--yellow-dim)}
 .value-opt-lbl{font-size:13px;font-weight:700;color:var(--text)}
 .value-opt-sub{font-size:10px;color:var(--text3);margin-top:2px}
-/* DUPLICATE WARN */
 .dup-warn{background:#fff8e6;border:1.5px solid #f5a62350;border-radius:var(--radius-lg);padding:10px 13px;margin-bottom:10px;font-size:12px;color:#8a5c00;display:none}
 .dup-warn-title{font-weight:700;margin-bottom:4px;font-size:13px}
 .dup-warn ul{margin-left:16px;list-style:disc}
-/* RANKING FILTER */
 .rank-filter-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
 .rank-filter-lbl{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
-
-/* REPORT MODAL */
 .report-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1100;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
 .report-modal-overlay.open{display:flex;animation:fIn .2s ease}
 .report-modal{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:540px;overflow:hidden;box-shadow:var(--shadow-lg)}
@@ -285,7 +239,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .report-stat-lbl{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 .report-close-btn{width:100%;padding:13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
 .report-close-btn:hover{border-color:var(--yellow);color:var(--text)}
-/* REPORT PAGE (standalone) */
 .report-page{min-height:100vh;background:#f2f2f2;padding:24px 16px;display:none}
 .report-page.active{display:block;animation:fadeUp .3s ease}
 .report-header{background:var(--yellow);border-radius:var(--radius-xl);padding:24px;margin-bottom:16px;border:2px solid #e8c800}
@@ -298,8 +251,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .report-ids-table tr:last-child td{border-bottom:none}
 .report-ids-table tr:hover td{background:#f9f9f9}
 #modal-ids-table thead th{background:#fff;font-size:10px}
-
-/* ===== TUTORIAL ONBOARDING ===== */
 .tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}
 .tut-overlay.open{display:flex !important;animation:fadeUp .3s ease}
 .tut-card{background:#ffffff !important;color:#111 !important;border-radius:24px;width:100%;max-width:620px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);height:90vh;max-height:90vh;display:flex;flex-direction:column}
@@ -327,7 +278,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .tut-btn-skip:hover{color:#333}
 .tut-btn-next{padding:9px 22px;background:var(--yellow);color:#333;border:2px solid var(--y2,#e8c800);border-radius:99px;font-size:13px;font-weight:800;cursor:pointer;transition:all .15s}
 .tut-btn-next:hover{filter:brightness(1.06)}
-/* phone mockup inside tutorial */
 .tut-phone{width:220px;background:#fff;border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.12);border:2px solid #e0e0e0;overflow:hidden;margin:0 auto 12px;flex-shrink:0}
 .tut-phone-bar{background:var(--yellow);height:36px;display:flex;align-items:center;padding:0 10px;gap:6px;border-bottom:1.5px solid var(--y2,#e8c800)}
 .tut-phone-ico{width:18px;height:18px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
@@ -361,7 +311,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
           <input class="inp" id="inp-user" placeholder="seu.username" autocomplete="username" autocorrect="off" autocapitalize="off"/>
           <div class="ferr-login" id="err-user">Usuário não encontrado</div>
           <button class="btn-login" onclick="loginUser()">Continuar →</button>
-
           <div class="req-link">Não tem acesso? <button onclick="goStep('step-request')">Solicitar acesso</button></div>
         </div>
         <div class="login-step" id="step-request">
@@ -432,8 +381,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
         <button class="adm-tab" data-tab="at-requests" onclick="switchAdmTab(this)">📩 Solicitações <span id="req-badge" style="display:none;background:var(--red);color:#fff;border-radius:99px;padding:1px 7px;font-size:10px;margin-left:3px">0</span></button>
         <button class="adm-tab" data-tab="at-config" onclick="switchAdmTab(this)">⚙️ Config</button>
       </div>
-
-      <!-- DASH -->
       <div id="at-dash">
         <div class="stat-grid" id="adm-stats"></div>
         <div class="grid-2" style="margin-bottom:12px">
@@ -454,8 +401,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
           <div class="card"><div class="card-title"><span class="ci ci-b">⏱</span>SLA — Resumo</div><div id="sla-summary"></div></div>
         </div>
       </div>
-
-      <!-- TICKETS ADM -->
       <div id="at-tickets" style="display:none">
         <div class="srow">
           <input class="sinp" id="tf-search" placeholder="🔍 Buscar..." oninput="renderAdmTickets()"/>
@@ -468,8 +413,6 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
         </div>
         <div id="adm-tkt-list"></div>
       </div>
-
-      <!-- USERS -->
       <div id="at-users" style="display:none">
         <div class="card">
           <div class="card-title" style="justify-content:space-between">
@@ -479,13 +422,9 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
           <div id="users-list"></div>
         </div>
       </div>
-
-      <!-- REQUESTS -->
       <div id="at-requests" style="display:none">
         <div class="card"><div class="card-title"><span class="ci ci-p">📩</span>Solicitações de acesso</div><div id="req-list"></div></div>
       </div>
-
-      <!-- CONFIG -->
       <div id="at-config" style="display:none">
         <div class="card">
           <div class="card-title"><span class="ci ci-b">⚙️</span>Configuração de SLA</div>
@@ -651,15 +590,10 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 
 <script>
 // ====================================================
-//  API — fetch() para URL pública do Apps Script
-//  Funciona para usuários externos sem login Google
+//  SUPABASE CONFIG
 // ====================================================
-// ====================================================
-//  SUPABASE CONFIG — cole suas credenciais abaixo
-//  Crie conta gratis em supabase.com
-// ====================================================
-const SB_URL  = 'https://htijjjxscfwafwgukawu.supabase.co';       // ex: https://xyzabc.supabase.co
-const SB_KEY  = 'sb_publishable_8l-ojufmricoxT3S21gL_w_79MGn1D_';  // Settings > API > anon public
+const SB_URL  = 'https://htijjjxscfwafwgukawu.supabase.co';
+const SB_KEY  = 'sb_publishable_8l-ojufmricoxT3S21gL_w_79MGn1D_';
 
 const SBH = () => ({
   'apikey': SB_KEY,
@@ -704,19 +638,43 @@ function sbParseArr(v) {
   try { return JSON.parse(v); } catch { return []; }
 }
 
+// ====================================================
+//  FIX PRINCIPAL: Mapeamento de colunas Supabase → camelCase
+//  Supabase retorna colunas lowercase (createdat, requesterid...)
+//  mas o código JS usa camelCase (createdAt, requesterId...)
+// ====================================================
 async function apiGet(action) {
   try {
     switch(action) {
-      case 'getUsers':    return await sbGet('usuarios');
+      case 'getUsers': {
+        const rows = await sbGet('usuarios');
+        return rows.map(u => ({
+          ...u,
+          createdAt: u.createdat || u.createdAt || u.createdat
+        }));
+      }
       case 'getTickets': {
         const rows = await sbGet('tickets');
         return rows.map(t => ({
           ...t,
-          ids:       sbParseArr(t.ids),
-          responses: sbParseArr(t.responses)
+          ids:           sbParseArr(t.ids),
+          responses:     sbParseArr(t.responses),
+          requesterId:   t.requesterid   || t.requesterId,
+          requesterName: t.requestername || t.requesterName,
+          analystId:     t.analystid     || t.analystId,
+          analystName:   t.analystname   || t.analystName,
+          respondedAt:   t.respondedat   || t.respondedAt,
+          createdAt:     t.createdat     || t.createdAt,
+          fmCode:        t.fmcode        || t.fmCode
         }));
       }
-      case 'getRequests': return await sbGet('solicitacoes');
+      case 'getRequests': {
+        const rows = await sbGet('solicitacoes');
+        return rows.map(r => ({
+          ...r,
+          createdAt: r.createdat || r.createdAt
+        }));
+      }
       default: return [];
     }
   } catch(e) { console.error('apiGet', e); return []; }
@@ -775,7 +733,6 @@ async function apiPost(action, data) {
   } catch(e) { return { ok: false, error: e.message }; }
 }
 
-// Notificações diretas do browser (sem backend)
 async function sendNotifGchat(data) {
   try {
     const r = await fetch(data.webhook, {
@@ -826,7 +783,6 @@ function toast(msg, dur) {
 //  INIT
 // ====================================================
 window.addEventListener('load', () => {
-  // Esconde loading e mostra login depois de 600ms para garantir que o Apps Script carregou
   setTimeout(() => {
     document.getElementById('loading').style.display = 'none';
     if (window.location.hash && window.location.hash.startsWith('#report/')) {
@@ -936,10 +892,12 @@ function switchAdmTab(btn) {
 }
 
 // ====================================================
-//  SLA HELPERS
+//  SLA HELPERS — CORRIGIDO: fallback para lowercase
 // ====================================================
 function getSLA(t) {
-  const elapsed = (Date.now() - new Date(t.createdAt)) / 3600000;
+  const created = t.createdAt || t.createdat;
+  if (!created) return { elapsed: 0, pct: 0, remaining: _slaHours, expired: false, warn: false };
+  const elapsed = (Date.now() - new Date(created)) / 3600000;
   const pct = Math.min(100, Math.round(elapsed / _slaHours * 100));
   const remaining = Math.max(0, _slaHours - elapsed);
   const expired = elapsed > _slaHours && t.status !== 'done';
@@ -962,11 +920,25 @@ function checkSLABanner() {
 const sLbl = s => ({ open: 'Aberto', progress: 'Em andamento', done: 'Concluído' }[s] || s);
 const sBadge = s => `<span class="badge ${{ open: 'b-open', progress: 'b-progress', done: 'b-done' }[s] || 'b-open'}">${sLbl(s)}</span>`;
 const pBadge = p => `<span class="badge ${{ normal: 'b-pnormal', high: 'b-phigh', urgent: 'b-purgent' }[p] || 'b-pnormal'}">${{ normal: 'Normal', high: '🟡 Alta', urgent: '🔴 Urgente' }[p] || p}</span>`;
+
+// ====================================================
+//  FIX: myTickets — visibilidade correta por papel
+//  Solicitante: vê TODOS os seus tickets (abertos, em andamento, concluídos)
+//  Analista: vê tickets abertos + todos os seus (em andamento E concluídos)
+// ====================================================
 function myTickets() {
-  if (currentUser.role === 'analista') return _cache.tickets.filter(t => t.analystId === currentUser.id || t.status === 'open');
-  if (currentUser.role === 'solicitante') return _cache.tickets.filter(t => t.requesterId === currentUser.id);
+  if (currentUser.role === 'analista') {
+    return _cache.tickets.filter(t =>
+      t.analystId === currentUser.id ||  // seus tickets (progress + done)
+      t.status === 'open'                // tickets abertos para pegar
+    );
+  }
+  if (currentUser.role === 'solicitante') {
+    return _cache.tickets.filter(t => t.requesterId === currentUser.id);
+  }
   return _cache.tickets;
 }
+
 function parseIDs(raw) {
   return raw.split(/[\n,;]+/).map(s => s.trim().toUpperCase()).filter(s => s.length > 0);
 }
@@ -1033,7 +1005,6 @@ function openTicket(id) {
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
 
-  // Duplicate ID check — IDs requested more than twice
   const dupMap = {};
   _cache.tickets.filter(x => x.id !== t.id).forEach(x => (x.ids||[]).forEach(rid => { dupMap[rid] = (dupMap[rid]||0)+1; }));
   const dupIds = (t.ids||[]).filter(rid => (dupMap[rid]||0) >= 2);
@@ -1064,7 +1035,6 @@ function openTicket(id) {
     <div class="sla-bg" style="height:8px;margin-top:5px"><div class="sla-fill ${sla.expired ? 'sla-exp' : sla.warn ? 'sla-warn' : 'sla-ok'}" style="width:${sla.pct}%"></div></div>
   </div>`;
 
-  // Duplicate warning
   if (dupIds.length) {
     html += `<div class="dup-warn" style="display:block">
       <div class="dup-warn-title">⚠️ IDs já solicitados 2+ vezes anteriormente:</div>
@@ -1075,7 +1045,6 @@ function openTicket(id) {
   html += `<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">${total} IDs para validar</div>`;
 
   if (isAnalyst && t.status !== 'done') {
-    // Store IDs list so event delegation can find them safely
     window._openTktIds = t.ids || [];
     html += `<div id="resp-form-list">`;
     (t.ids || []).forEach((id, idx) => {
@@ -1157,11 +1126,16 @@ async function saveResp(finalize) {
   };
   const result = await apiPost('respondTicket', data);
   if (result?.ok !== false) {
+    // FIX: manter AMBOS lowercase e camelCase no cache
     const idx = _cache.tickets.findIndex(x => x.id === ticketId);
-    if (idx >= 0) Object.assign(_cache.tickets[idx], { responses, status: 'done', analystName: currentUser.name, respondedAt });
+    if (idx >= 0) Object.assign(_cache.tickets[idx], {
+      responses, status: 'done',
+      analystId: currentUser.id, analystid: currentUser.id,
+      analystName: currentUser.name, analystname: currentUser.name,
+      respondedAt, respondedat: respondedAt
+    });
     window._respSel = {};
     document.getElementById('ov-view').classList.remove('open');
-    // Build report URL and show modal
     const reportUrl = buildReportUrl(ticketId);
     const ticket = _cache.tickets.find(x => x.id === ticketId);
     showReportModal(ticket, responses, reportUrl);
@@ -1175,8 +1149,13 @@ async function saveResp(finalize) {
 async function claimTicket(id) {
   const r = await apiPost('claimTicket', { ticketId: id, analystId: currentUser.id, analystName: currentUser.name });
   if (r?.ok !== false) {
+    // FIX: manter AMBOS lowercase e camelCase no cache
     const idx = _cache.tickets.findIndex(x => x.id === id);
-    if (idx >= 0) Object.assign(_cache.tickets[idx], { analystId: currentUser.id, analystName: currentUser.name, status: 'progress' });
+    if (idx >= 0) Object.assign(_cache.tickets[idx], {
+      analystId: currentUser.id, analystid: currentUser.id,
+      analystName: currentUser.name, analystname: currentUser.name,
+      status: 'progress'
+    });
     document.getElementById('ov-view').classList.remove('open');
     toast('✅ Ticket assumido!'); renderTickets();
     setTimeout(() => openTicket(id), 320);
@@ -1250,7 +1229,7 @@ async function submitTicket() {
 }
 
 // ====================================================
-//  MY DASHBOARD
+//  MY DASHBOARD — CORRIGIDO: fallback respondedAt
 // ====================================================
 let _chD = null, _chW = null;
 function renderMyDash() {
@@ -1258,7 +1237,10 @@ function renderMyDash() {
     ? _cache.tickets.filter(t => t.status === 'done' && t.analystId === currentUser.id)
     : _cache.tickets.filter(t => t.requesterId === currentUser.id);
   const today = new Date().toLocaleDateString('pt-BR');
-  const todayIds = finished.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === today).flatMap(t => t.ids || []).length;
+  const todayIds = finished.filter(t => {
+    const ra = t.respondedAt || t.respondedat;
+    return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
+  }).flatMap(t => t.ids || []).length;
   const weekIds = weekTkts(finished).flatMap(t => t.ids || []).length;
   const totalIds = finished.flatMap(t => t.ids || []).length;
   const open = currentUser.role === 'solicitante'
@@ -1273,28 +1255,43 @@ function renderMyDash() {
     <div class="sbox"><div class="slbl">SLA médio</div><div class="sval sv-b" style="font-size:18px">${avgSLA(finished)}</div></div>`;
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
-  _chD = mkChart('my-ch-daily', _chD, hours.map(h => h + 'h'), hours.map(h => finished.filter(t => { if (!t.respondedAt) return false; const d = new Date(t.respondedAt); return d.toLocaleDateString('pt-BR') === today && d.getHours() === h; }).flatMap(t => t.ids || []).length), '#f5d800');
+  _chD = mkChart('my-ch-daily', _chD, hours.map(h => h + 'h'), hours.map(h => finished.filter(t => {
+    const ra = t.respondedAt || t.respondedat;
+    if (!ra) return false;
+    const d = new Date(ra);
+    return d.toLocaleDateString('pt-BR') === today && d.getHours() === h;
+  }).flatMap(t => t.ids || []).length), '#f5d800');
   const wd = weekData(finished);
   _chW = mkChart('my-ch-weekly', _chW, wd.labels, wd.data, '#22c55e');
   renderRanking('my-ranking', _cache.tickets, 'my-rank-filter');
 }
 
 function avgSLA(tickets) {
-  const done = tickets.filter(t => t.respondedAt && t.createdAt);
+  const done = tickets.filter(t => (t.respondedAt || t.respondedat) && (t.createdAt || t.createdat));
   if (!done.length) return '—';
-  const avg = done.reduce((s, t) => s + (new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000, 0) / done.length;
+  const avg = done.reduce((s, t) => s + (new Date(t.respondedAt || t.respondedat) - new Date(t.createdAt || t.createdat)) / 3600000, 0) / done.length;
   return avg < 1 ? Math.round(avg * 60) + 'min' : avg.toFixed(1) + 'h';
 }
 function weekTkts(tickets) {
   const now = new Date(), mon = new Date(now);
   mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
-  return tickets.filter(t => t.respondedAt && new Date(t.respondedAt) >= mon);
+  return tickets.filter(t => {
+    const ra = t.respondedAt || t.respondedat;
+    return ra && new Date(ra) >= mon;
+  });
 }
 function weekData(tickets) {
   const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
   const now = new Date(), mon = new Date(now);
   mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
-  return { labels: days, data: days.map((_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); const ds = d.toLocaleDateString('pt-BR'); return tickets.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === ds).flatMap(t => t.ids || []).length; }) };
+  return { labels: days, data: days.map((_, i) => {
+    const d = new Date(mon); d.setDate(mon.getDate() + i);
+    const ds = d.toLocaleDateString('pt-BR');
+    return tickets.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      return ra && new Date(ra).toLocaleDateString('pt-BR') === ds;
+    }).flatMap(t => t.ids || []).length;
+  }) };
 }
 function mkChart(cId, existing, labels, data, color) {
   const canvas = document.getElementById(cId); if (!canvas) return null;
@@ -1327,11 +1324,17 @@ function filterTicketsByPeriod(tickets, period) {
   const now = new Date();
   if (period === 'today') {
     const today = now.toLocaleDateString('pt-BR');
-    return tickets.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === today);
+    return tickets.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
+    });
   }
   if (period === 'week') {
     const mon = new Date(now); mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0,0,0,0);
-    return tickets.filter(t => t.respondedAt && new Date(t.respondedAt) >= mon);
+    return tickets.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      return ra && new Date(ra) >= mon;
+    });
   }
   return tickets;
 }
@@ -1365,7 +1368,10 @@ function renderAdmDash() {
   const done = t.filter(x => x.status === 'done').length;
   const exp = t.filter(x => x.status !== 'done' && getSLA(x).expired).length;
   const today = new Date().toLocaleDateString('pt-BR');
-  const todayIds = t.filter(x => x.respondedAt && new Date(x.respondedAt).toLocaleDateString('pt-BR') === today).flatMap(x => x.ids || []).length;
+  const todayIds = t.filter(x => {
+    const ra = x.respondedAt || x.respondedat;
+    return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
+  }).flatMap(x => x.ids || []).length;
   const totalIds = t.flatMap(x => x.ids || []).length;
   const pend = (_cache.requests || []).filter(r => r.status === 'pending').length;
   const badge = document.getElementById('req-badge');
@@ -1380,7 +1386,12 @@ function renderAdmDash() {
     <div class="sbox"><div class="slbl">Total IDs</div><div class="sval">${totalIds}</div></div>`;
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
-  _chAdmD = mkChart('chart-daily', _chAdmD, hours.map(h => h + 'h'), hours.map(h => t.filter(x => { if (!x.respondedAt) return false; const d = new Date(x.respondedAt); return d.toLocaleDateString('pt-BR') === today && d.getHours() === h; }).flatMap(x => x.ids || []).length), '#f5d800');
+  _chAdmD = mkChart('chart-daily', _chAdmD, hours.map(h => h + 'h'), hours.map(h => t.filter(x => {
+    const ra = x.respondedAt || x.respondedat;
+    if (!ra) return false;
+    const d = new Date(ra);
+    return d.toLocaleDateString('pt-BR') === today && d.getHours() === h;
+  }).flatMap(x => x.ids || []).length), '#f5d800');
   const wd = weekData(t.filter(x => x.status === 'done'));
   _chAdmW = mkChart('chart-weekly', _chAdmW, wd.labels, wd.data, '#22c55e');
   renderRanking('rank-analysts', t, 'adm-rank-filter');
@@ -1419,8 +1430,10 @@ function exportCSV() {
   if (!_cache.tickets.length) { toast('Nenhum dado'); return; }
   const rows = [['ID', 'Título', 'Solicitante', 'Analista', 'Status', 'Prioridade', 'IDs', 'Criado', 'Respondido', 'SLA']];
   _cache.tickets.forEach(t => {
-    const sla = t.respondedAt ? ((new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000).toFixed(1) + 'h' : '—';
-    rows.push([t.id, t.title, t.requesterName || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), new Date(t.createdAt).toLocaleString('pt-BR'), t.respondedAt ? new Date(t.respondedAt).toLocaleString('pt-BR') : '—', sla]);
+    const _rA = t.respondedAt || t.respondedat;
+    const _cA = t.createdAt || t.createdat;
+    const sla = _rA ? ((new Date(_rA) - new Date(_cA)) / 3600000).toFixed(1) + 'h' : '—';
+    rows.push([t.id, t.title, t.requesterName || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), _cA ? new Date(_cA).toLocaleString('pt-BR') : '—', _rA ? new Date(_rA).toLocaleString('pt-BR') : '—', sla]);
   });
   const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
@@ -1457,7 +1470,7 @@ function renderUsers() {
 function resetUserTutorial(userId, userName) {
   const tutKey = 'tut_done_' + userId;
   localStorage.removeItem(tutKey);
-  toast('🎓 Treinamento de ' + userName + ' foi reativado! Na próxima vez que ela logar, o tutorial vai aparecer automaticamente.', 4000);
+  toast('🎓 Treinamento de ' + userName + ' foi reativado!', 4000);
   renderUsers();
 }
 function openNewUser() {
@@ -1561,10 +1574,8 @@ async function testWA() {
   toast(r?.ok ? '✅ WhatsApp funcionando!' : '⚠️ Erro: ' + (r?.error || 'verifique as configurações'));
 }
 
-
-
 // ====================================================
-//  TUTORIAL ONBOARDING — aparece na 1a vez do solicitante
+//  TUTORIAL ONBOARDING
 // ====================================================
 let _tutCur = 0;
 const TUT_TOTAL = 6;
@@ -1578,10 +1589,8 @@ function initTutorial(user) {
   tutGoTo(0);
   const ov = document.getElementById('tut-overlay');
   if (!ov) { console.error('tut-overlay not found'); return; }
-  // Force display
   ov.style.cssText = 'display:flex !important; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:9999; align-items:center; justify-content:center; padding:16px;';
   ov.classList.add('open');
-  console.log('Tutorial iniciado para', user.name);
 }
 
 function buildTutDots() {
@@ -1605,11 +1614,8 @@ function tutGoTo(n) {
 }
 
 function tutNext() {
-  if (_tutCur < TUT_TOTAL - 1) {
-    tutGoTo(_tutCur + 1);
-  } else {
-    closeTutorial();
-  }
+  if (_tutCur < TUT_TOTAL - 1) tutGoTo(_tutCur + 1);
+  else closeTutorial();
 }
 
 function closeTutorial() {
@@ -1617,15 +1623,13 @@ function closeTutorial() {
   if (ov) { ov.classList.remove('open'); ov.style.cssText = 'display:none'; }
   if (currentUser) LS.set('tut_done_' + currentUser.id, true);
 }
-// Para forçar tutorial aparecer novamente:
-// resetTutorial() no console do navegador
 function resetTutorial() {
   if (currentUser) {
     localStorage.removeItem('tut_done_' + currentUser.id);
     initTutorial(currentUser);
-    console.log('Tutorial resetado!');
   }
 }
+
 // ====================================================
 //  REQUEST ACCESS
 // ====================================================
@@ -1670,13 +1674,11 @@ function showReportModal(t, responses, url) {
   const notfound = responses.filter(r => r.status === 'notfound').length;
   const analyzing = responses.filter(r => r.status === 'analyzing').length;
 
-  // Summary stats
   document.getElementById('report-summary-row').innerHTML = `
     <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
 
-  // IDs table
   const icons = { found: '✅', notfound: '❌', analyzing: '🔍', '': '⏳' };
   const labels = { found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', '': 'Pendente' };
   const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', '': 'var(--text3)' };
@@ -1690,7 +1692,6 @@ function showReportModal(t, responses, url) {
     </tr>`;
   }).join('');
 
-  // Link
   document.getElementById('report-link-txt').textContent = url;
   window._reportUrl = url;
   window._reportTicketId = t.id;
@@ -1707,7 +1708,6 @@ function copyReportLink() {
 function shareWhatsApp() {
   const t = window._reportTicket;
   const responses = window._reportResponses || [];
-  const url = window._reportUrl || '';
   if (!t) { toast('⚠️ Sem dados para compartilhar'); return; }
   const msg = buildMsg(t, responses);
   const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
@@ -1726,7 +1726,9 @@ function renderReportPage(ticketId) {
   const found = responses.filter(r => r.status === 'found').length;
   const notfound = responses.filter(r => r.status === 'notfound').length;
   const analyzing = responses.filter(r => r.status === 'analyzing').length;
-  const sla = t.respondedAt && t.createdAt ? ((new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000).toFixed(1) + 'h' : '—';
+  const _rAt = t.respondedAt || t.respondedat;
+  const _cAt = t.createdAt || t.createdat;
+  const sla = _rAt && _cAt ? ((new Date(_rAt) - new Date(_cAt)) / 3600000).toFixed(1) + 'h' : '—';
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
 
@@ -1742,7 +1744,7 @@ function renderReportPage(ticketId) {
     <div style="display:flex;gap:16px;font-size:13px;color:var(--text2)">
       <span>⏱ Tempo de resposta: <strong style="color:var(--text)">${sla}</strong></span>
       <span>📦 Total IDs: <strong style="color:var(--text)">${(t.ids||[]).length}</strong></span>
-      <span>📅 Criado: <strong style="color:var(--text)">${new Date(t.createdAt).toLocaleDateString('pt-BR')}</strong></span>
+      <span>📅 Criado: <strong style="color:var(--text)">${_cAt ? new Date(_cAt).toLocaleDateString('pt-BR') : '—'}</strong></span>
     </div>`;
   document.getElementById('rp-ids-body').innerHTML = (t.ids || []).map(id => {
     const resp = responses.find(r => r.id === id) || {};
@@ -1755,7 +1757,7 @@ function renderReportPage(ticketId) {
       <td style="color:var(--text3);font-size:12px">${resp.obs || '—'}</td>
     </tr>`;
   }).join('');
-  document.getElementById('rp-date').textContent = t.respondedAt ? new Date(t.respondedAt).toLocaleString('pt-BR') : new Date().toLocaleString('pt-BR');
+  document.getElementById('rp-date').textContent = _rAt ? new Date(_rAt).toLocaleString('pt-BR') : new Date().toLocaleString('pt-BR');
   showPage('page-report');
   window.location.hash = 'report/' + ticketId;
 }
@@ -1764,16 +1766,13 @@ function launchIfLogged() {
   if (currentUser) launchApp();
 }
 
-// Check URL hash on load for report links
 function checkHashRoute() {
   const hash = window.location.hash;
   if (hash && hash.startsWith('#report/')) {
     const ticketId = hash.replace('#report/', '');
-    // Try to load from cache, or fetch
     if (_cache.tickets.length) {
       renderReportPage(ticketId);
     } else {
-      // Load data first then render report
       apiGet('getTickets').then(tickets => {
         _cache.tickets = Array.isArray(tickets) ? tickets : [];
         renderReportPage(ticketId);
@@ -1792,7 +1791,6 @@ function buildMsg(t, resps) {
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const dataHora = new Date().toLocaleString('pt-BR');
   const total = (t.ids || []).length;
-  // Build aligned ID lines
   const maxIdLen = Math.max(...(t.ids||[]).map(id => id.length), 11);
   const idLines = (t.ids || []).map(id => {
     const resp = resps.find(r => r.id === id) || {};
@@ -1835,7 +1833,7 @@ async function notifyNew(ticket) {
 }
 </script>
 
-<!-- REPORT MODAL (shown after finalizing) -->
+<!-- REPORT MODAL -->
 <div class="report-modal-overlay" id="ov-report">
   <div class="report-modal">
     <div class="report-modal-top">
@@ -1843,11 +1841,7 @@ async function notifyNew(ticket) {
       <p>Relatório gerado — compartilhe com o grupo</p>
     </div>
     <div class="report-modal-body">
-
-      <!-- Summary table -->
       <div class="report-summary-row" id="report-summary-row" style="margin-bottom:16px"></div>
-
-      <!-- Full IDs result table -->
       <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📦 Resultado por ID</div>
       <div style="overflow-x:auto;max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:16px">
         <table class="report-ids-table" id="modal-ids-table" style="margin-top:0">
@@ -1857,15 +1851,11 @@ async function notifyNew(ticket) {
           <tbody id="modal-ids-body"></tbody>
         </table>
       </div>
-
-      <!-- Report link -->
       <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔗 Link do relatório</div>
       <div class="report-link-box" style="margin-bottom:12px">
         <span class="report-link-txt" id="report-link-txt">—</span>
         <button class="report-copy-big" onclick="copyReportLink()">📋 Copiar</button>
       </div>
-
-      <!-- Share buttons -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
         <button class="btn btn-g" style="min-height:44px;font-size:13px" onclick="openReportPage()">👁 Ver completo</button>
         <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none" onclick="shareWhatsApp()">
@@ -1878,7 +1868,7 @@ async function notifyNew(ticket) {
   </div>
 </div>
 
-<!-- REPORT PAGE (standalone, opened via link) -->
+<!-- REPORT PAGE -->
 <div class="page" id="page-report">
   <div class="report-page active">
     <div style="max-width:680px;margin:0 auto">
@@ -1911,7 +1901,7 @@ async function notifyNew(ticket) {
   </div>
 </div>
 
-<!-- ===== TUTORIAL ONBOARDING — 6 PASSOS ===== -->
+<!-- TUTORIAL ONBOARDING -->
 <div class="tut-overlay" id="tut-overlay">
   <div class="tut-card">
     <div class="tut-header">
@@ -1919,15 +1909,13 @@ async function notifyNew(ticket) {
       <p>Veja como funciona em 6 passos rápidos — só vai aparecer esta vez!</p>
     </div>
     <div class="tut-body" id="tut-body">
-
-      <!-- S0: ACESSAR -->
       <div class="tut-slide active" id="tut-s0">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 1 de 6</div>
             <div class="tut-title">Acessando o sistema</div>
             <div class="tut-desc">Abra o link do sistema no navegador. Digite seu <strong>username</strong>, clique em Continuar, depois insira sua <strong>senha</strong> e clique em Entrar.</div>
-            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div><strong>Dica:</strong> Funciona no celular e no computador. Nenhuma instalação necessária — só abrir o link!</div></div>
+            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div><strong>Dica:</strong> Funciona no celular e no computador. Nenhuma instalação necessária!</div></div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Abra o link do sistema no navegador</span></li>
               <li><div class="tut-num">2</div><span>Digite seu <strong>username</strong> e clique <strong>Continuar →</strong></span></li>
@@ -1944,31 +1932,28 @@ async function notifyNew(ticket) {
                 <div style="font-size:9px;color:#999;margin-bottom:10px">ML Logística</div>
                 <div style="background:#fff;border-radius:10px;padding:12px;width:100%;box-shadow:0 2px 8px rgba(0,0,0,.08)">
                   <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Username</div>
-                  <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:11px;margin-bottom:7px">thiago<span style="display:inline-block;width:1.5px;height:11px;background:#e8c800;animation:blink .8s infinite;vertical-align:middle;margin-left:1px"></span></div>
+                  <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:11px;margin-bottom:7px">thiago</div>
                   <div style="background:#ffe600;border-radius:7px;padding:8px;text-align:center;font-size:11px;font-weight:800;color:#333;border:1.5px solid #e8c800">Continuar →</div>
-                  <div style="text-align:center;margin-top:7px;font-size:9px;color:#3483fa;font-weight:700">Não tem acesso? Solicitar acesso</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- S1: SOLICITAR ACESSO -->
       <div class="tut-slide" id="tut-s1">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 2 de 6</div>
             <div class="tut-title">Primeira vez? Solicite seu acesso</div>
-            <div class="tut-desc">Se não tem conta, clique em <strong>"Solicitar acesso"</strong> na tela de login. Preencha nome, username e senha, selecione <strong>Solicitante</strong> e envie.</div>
+            <div class="tut-desc">Se não tem conta, clique em <strong>"Solicitar acesso"</strong> na tela de login.</div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Clique em <strong>"Solicitar acesso"</strong></span></li>
               <li><div class="tut-num">2</div><span>Preencha seu <strong>nome completo</strong></span></li>
               <li><div class="tut-num">3</div><span>Escolha um <strong>username</strong></span></li>
               <li><div class="tut-num">4</div><span>Selecione <strong>Solicitante</strong> como tipo</span></li>
-              <li><div class="tut-num">5</div><span>Clique em <strong>"Enviar Solicitação"</strong> e aguarde aprovação</span></li>
+              <li><div class="tut-num">5</div><span>Clique em <strong>"Enviar Solicitação"</strong></span></li>
             </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div>O admin verá sua solicitação no painel e aprovará em breve!</div></div>
+            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div>O admin verá sua solicitação e aprovará em breve!</div></div>
           </div>
           <div>
             <div class="tut-phone">
@@ -1976,15 +1961,9 @@ async function notifyNew(ticket) {
               <div style="background:#fff;padding:10px">
                 <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Nome completo</div>
                 <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;margin-bottom:6px">Thiago Souza</div>
-                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Username</div>
-                <div style="background:#f7f7f7;border:1.5px solid #e0e0e0;border-radius:7px;padding:7px 9px;font-size:10px;margin-bottom:6px">thiago</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px">
-                  <div style="border:2px solid #e8c800;border-radius:8px;padding:7px 5px;text-align:center;background:#fffde7">
-                    <div style="font-size:14px">📤</div><div style="font-size:10px;font-weight:800">Solicitante</div>
-                  </div>
-                  <div style="border:1.5px solid #e0e0e0;border-radius:8px;padding:7px 5px;text-align:center">
-                    <div style="font-size:14px">🔍</div><div style="font-size:10px;font-weight:700">Analista</div>
-                  </div>
+                  <div style="border:2px solid #e8c800;border-radius:8px;padding:7px 5px;text-align:center;background:#fffde7"><div style="font-size:14px">📤</div><div style="font-size:10px;font-weight:800">Solicitante</div></div>
+                  <div style="border:1.5px solid #e0e0e0;border-radius:8px;padding:7px 5px;text-align:center"><div style="font-size:14px">🔍</div><div style="font-size:10px;font-weight:700">Analista</div></div>
                 </div>
                 <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📩 Enviar Solicitação</div>
               </div>
@@ -1992,22 +1971,20 @@ async function notifyNew(ticket) {
           </div>
         </div>
       </div>
-
-      <!-- S2: CRIAR CHAMADO -->
       <div class="tut-slide" id="tut-s2">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 3 de 6 — Principal</div>
             <div class="tut-title">Criando um chamado de validação</div>
-            <div class="tut-desc">Na aba <strong>Tickets</strong>, clique em <strong>+ Novo Ticket</strong>. Selecione a transportadora, prioridade, valor e cole os IDs para validar.</div>
+            <div class="tut-desc">Na aba <strong>Tickets</strong>, clique em <strong>+ Novo Ticket</strong>.</div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
               <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
-              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong> do chamado</span></li>
-              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> — 11 dígitos cada, um por linha</span></li>
+              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong></span></li>
+              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> — um por linha</span></li>
               <li><div class="tut-num">5</div><span>Clique em <strong>Enviar Solicitação</strong></span></li>
             </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Um código <strong>FM-XXXXXX</strong> é gerado automaticamente para rastrear o chamado.</div></div>
+            <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Um código <strong>FM-XXXXXX</strong> é gerado automaticamente.</div></div>
           </div>
           <div>
             <div class="tut-phone">
@@ -2015,10 +1992,6 @@ async function notifyNew(ticket) {
               <div style="background:#fff;padding:10px">
                 <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Transportadora</div>
                 <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;font-weight:700;margin-bottom:6px">BASEPEX ENCOM ▾</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
-                  <div style="border:2px solid #e8c800;border-radius:7px;padding:7px 5px;text-align:center;background:#fffde7;font-size:9px;font-weight:700">📉 Até R$1k</div>
-                  <div style="border:1.5px solid #e0e0e0;border-radius:7px;padding:7px 5px;text-align:center;font-size:9px">📈 Acima</div>
-                </div>
                 <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-family:monospace;font-size:9px;line-height:1.7;min-height:50px;margin-bottom:3px">34567898765<br>12656576789<br>12049944056</div>
                 <div style="background:#f5f5f5;padding:3px 9px;font-size:8px;color:#999;border-radius:0 0 5px 5px;margin-bottom:7px">3 IDs detectados</div>
                 <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📤 Enviar Solicitação</div>
@@ -2027,20 +2000,18 @@ async function notifyNew(ticket) {
           </div>
         </div>
       </div>
-
-      <!-- S3: SLA -->
       <div class="tut-slide" id="tut-s3">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 4 de 6</div>
             <div class="tut-title">Acompanhando o chamado e o SLA</div>
-            <div class="tut-desc">Após criar, o chamado aparece na lista com uma <strong>barra de SLA</strong> que mostra o tempo restante para resposta.</div>
+            <div class="tut-desc">Após criar, o chamado aparece na lista com uma <strong>barra de SLA</strong>.</div>
             <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div><strong>SLA</strong> é o prazo de resposta. A barra muda: <span style="color:#00a650;font-weight:700">verde</span> → <span style="color:#f5a623;font-weight:700">amarelo</span> → <span style="color:#e02020;font-weight:700">vermelho</span>.</div></div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Ticket aparece com status <strong>Aberto</strong></span></li>
               <li><div class="tut-num">2</div><span>Analista assume → vira <strong>Em andamento</strong></span></li>
               <li><div class="tut-num">3</div><span>Barra mostra % do tempo utilizado</span></li>
-              <li><div class="tut-num">4</div><span>Clique no ticket para ver quem está atendendo</span></li>
+              <li><div class="tut-num">4</div><span>Clique no ticket para ver detalhes</span></li>
             </ul>
           </div>
           <div>
@@ -2048,38 +2019,26 @@ async function notifyNew(ticket) {
               <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Meus Tickets</span></div>
               <div style="background:#f7f7f7;padding:8px">
                 <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px;margin-bottom:6px">
-                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-375170/20042026</div>
-                  <div style="display:flex;gap:4px;margin-bottom:2px">
-                    <span style="background:#e8f0fe;color:#1a73e8;border:1px solid #aecbfa;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">Em andamento</span>
-                    <span style="font-size:8px;color:#3483fa;font-weight:700">👤 Lucas</span>
-                  </div>
+                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-375170</div>
                   <div style="font-size:11px;font-weight:700">🚚 BASEPEX ENCOM</div>
-                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 18%</span><span style="color:#00a650;font-weight:700">3.2h restantes</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 18%</span><span style="color:#00a650;font-weight:700">3.2h</span></div>
                   <div style="background:#eee;border-radius:99px;height:4px;overflow:hidden"><div style="width:18%;height:100%;background:#00a650;border-radius:99px"></div></div>
-                </div>
-                <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px">
-                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-291045/19042026</div>
-                  <div style="font-size:11px;font-weight:700">🚚 DHL</div>
-                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 65%</span><span style="color:#f5a623;font-weight:700">1.4h</span></div>
-                  <div style="background:#eee;border-radius:99px;height:4px;overflow:hidden"><div style="width:65%;height:100%;background:#f5a623;border-radius:99px"></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- S4: RETORNO -->
       <div class="tut-slide" id="tut-s4">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 5 de 6</div>
             <div class="tut-title">Recebendo o retorno do analista</div>
-            <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>. Clique para ver o status de cada ID com observações.</div>
+            <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>.</div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Ticket vira <strong>Concluído</strong> (verde)</span></li>
               <li><div class="tut-num">2</div><span>Clique para ver o resultado completo</span></li>
-              <li><div class="tut-num">3</div><span>Cada ID tem status individual e observação</span></li>
+              <li><div class="tut-num">3</div><span>Cada ID tem status individual</span></li>
               <li><div class="tut-num">4</div><span>Use <strong>📋</strong> para copiar IDs</span></li>
             </ul>
             <div class="tut-hl"><div class="tut-hl-ico">📊</div><div><span style="color:#00a650;font-weight:700">Localizado</span> · <span style="color:#e02020;font-weight:700">Não encontrado</span> · <span style="color:#f5a623;font-weight:700">Em análise</span></div></div>
@@ -2088,26 +2047,14 @@ async function notifyNew(ticket) {
             <div class="tut-phone">
               <div class="tut-phone-bar"><div class="tut-phone-ico">✅</div><span class="tut-phone-lbl">Ticket Respondido</span></div>
               <div style="background:#fff;padding:10px">
-                <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:7px">
-                  <div style="font-size:18px">✅</div>
-                  <div>
-                    <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700">FM-375170/20042026</div>
-                    <div style="font-size:11px;font-weight:800">🚚 BASEPEX ENCOM</div>
-                    <div style="font-size:9px;color:#999">Analista: Lucas</div>
-                  </div>
-                </div>
                 <div style="display:flex;flex-direction:column;gap:4px">
                   <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
                     <span style="font-family:monospace;font-size:9px;font-weight:700">34567898765</span>
-                    <span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">✅ Localizado</span>
+                    <span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">✅</span>
                   </div>
                   <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
                     <span style="font-family:monospace;font-size:9px;font-weight:700">12656576789</span>
-                    <span style="background:#fce8e6;color:#c5221f;border:1px solid #f28b82;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">❌ Não encontrado</span>
-                  </div>
-                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
-                    <span style="font-family:monospace;font-size:9px;font-weight:700">12049944056</span>
-                    <span style="background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">🟡 Em análise</span>
+                    <span style="background:#fce8e6;color:#c5221f;border:1px solid #f28b82;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">❌</span>
                   </div>
                 </div>
               </div>
@@ -2115,20 +2062,18 @@ async function notifyNew(ticket) {
           </div>
         </div>
       </div>
-
-      <!-- S5: NOTIFICAÇÃO -->
       <div class="tut-slide" id="tut-s5">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 6 de 6 — Automático</div>
             <div class="tut-title">Resultado chega no grupo!</div>
-            <div class="tut-desc">Assim que o analista finalizar, o sistema envia automaticamente o resultado para o <strong>grupo do WhatsApp</strong>. Sem precisar cobrar!</div>
+            <div class="tut-desc">O sistema envia automaticamente o resultado para o <strong>grupo do WhatsApp</strong>.</div>
             <ul class="tut-steps">
               <li><div class="tut-num">1</div><span>Analista clica <strong>Finalizar &amp; Enviar</strong></span></li>
               <li><div class="tut-num">2</div><span>Mensagem automática vai para o <strong>grupo</strong></span></li>
               <li><div class="tut-num">3</div><span>Contém chamado, transportadora, IDs e resultado</span></li>
             </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo. Simples assim!</div></div>
+            <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo!</div></div>
             <div style="background:#ffe600;border:2px solid #e8c800;border-radius:12px;padding:14px;text-align:center;margin-top:12px">
               <div style="font-size:16px;font-weight:800;color:#333">Pronto para começar! 🚀</div>
               <div style="font-size:12px;color:#555;margin-top:3px">Crie seu primeiro chamado clicando em <strong>+ Novo Ticket</strong></div>
@@ -2138,25 +2083,16 @@ async function notifyNew(ticket) {
             <div class="tut-phone" style="border-radius:16px">
               <div style="background:#075e54;padding:8px 10px;display:flex;align-items:center;gap:6px">
                 <div style="width:22px;height:22px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">👥</div>
-                <span style="color:#fff;font-size:10px;font-weight:700">Suporte ML - Logística</span>
+                <span style="color:#fff;font-size:10px;font-weight:700">Suporte ML</span>
               </div>
-              <div style="background:#e5ddd5;padding:8px;min-height:160px">
-                <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
-                  <div style="background:#e7ffdb;border-radius:8px 8px 0 8px;padding:7px 10px;font-size:9px;line-height:1.5;max-width:160px">
-                    Chamado BASEPEX com 3 IDs 🚚
-                    <div style="font-size:8px;color:#999;text-align:right;margin-top:2px">14:36 ✓✓</div>
-                  </div>
-                </div>
+              <div style="background:#e5ddd5;padding:8px;min-height:140px">
                 <div style="background:#fff;border-radius:8px 0 8px 8px;padding:8px 10px;font-size:9px;line-height:1.7;max-width:200px;box-shadow:0 1px 2px rgba(0,0,0,.1)">
                   <strong>TICKET RESPONDIDO</strong><br>
                   FM-375170 · BASEPEX<br>
                   ──────────────<br>
                   TOTAL: 3 IDs<br>
                   Localizado: 2<br>
-                  Nao encontrado: 1<br>
-                  ──────────────<br>
-                  34567898765 (OK)<br>
-                  12656576789 (X)
+                  Nao encontrado: 1
                   <div style="font-size:8px;color:#999;text-align:right;margin-top:2px">15:02 ✓✓</div>
                 </div>
               </div>
@@ -2164,8 +2100,7 @@ async function notifyNew(ticket) {
           </div>
         </div>
       </div>
-
-    </div><!-- /tut-body -->
+    </div>
     <div class="tut-footer">
       <button class="tut-btn-skip" onclick="closeTutorial()">Pular tutorial</button>
       <div class="tut-dots" id="tut-dots"></div>
