@@ -1547,7 +1547,7 @@ async function testWA() {
 //  TUTORIAL ONBOARDING — aparece na 1a vez do solicitante
 // ====================================================
 let _tutCur = 0;
-const TUT_TOTAL = 5;
+const TUT_TOTAL = 6;
 
 function initTutorial(user) {
   // Só mostra para solicitantes e apenas na primeira vez
@@ -1876,105 +1876,257 @@ async function notifyNew(ticket) {
   </div>
 </div>
 
-<!-- ===== TUTORIAL ONBOARDING ===== -->
+<!-- ===== TUTORIAL ONBOARDING — 6 PASSOS ===== -->
 <div class="tut-overlay" id="tut-overlay">
   <div class="tut-card">
     <div class="tut-header">
-      <h2>👋 Bem-vindo ao Suporte & Validação!</h2>
-      <p>Veja como funciona em 5 passos rápidos</p>
+      <h2>👋 Bem-vindo ao Suporte &amp; Validação!</h2>
+      <p>Veja como funciona em 6 passos rápidos — só vai aparecer esta vez!</p>
     </div>
     <div class="tut-body" id="tut-body">
 
-      <!-- Slide 0: Criar chamado -->
+      <!-- S0: ACESSAR -->
       <div class="tut-slide active" id="tut-s0">
         <div class="tut-two">
           <div>
-            <div class="tut-step-tag">Passo 1 de 5</div>
-            <div class="tut-title">Crie um chamado de validação</div>
-            <div class="tut-desc">Clique em <strong>+ Novo Ticket</strong> e preencha a transportadora, prioridade, valor e os IDs que precisam de validação.</div>
-            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div>Os IDs devem ter <strong>11 dígitos</strong>. Cole um por linha ou separados por vírgula.</div></div>
+            <div class="tut-step-tag">Passo 1 de 6</div>
+            <div class="tut-title">Acessando o sistema</div>
+            <div class="tut-desc">Abra o link do sistema no navegador. Digite seu <strong>username</strong>, clique em Continuar, depois insira sua <strong>senha</strong> e clique em Entrar.</div>
+            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div><strong>Dica:</strong> Funciona no celular e no computador. Nenhuma instalação necessária — só abrir o link!</div></div>
             <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
-              <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
-              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong></span></li>
-              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> e envie</span></li>
+              <li><div class="tut-num">1</div><span>Abra o link do sistema no navegador</span></li>
+              <li><div class="tut-num">2</div><span>Digite seu <strong>username</strong> e clique <strong>Continuar →</strong></span></li>
+              <li><div class="tut-num">3</div><span>Digite sua <strong>senha</strong> e clique <strong>Entrar →</strong></span></li>
+              <li><div class="tut-num">4</div><span>Você verá a tela de <strong>Tickets</strong> automaticamente</span></li>
             </ul>
           </div>
           <div>
             <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">🚚</div><span class="tut-phone-lbl">Nova Solicitação</span></div>
-              <div class="tut-phone-bd">
-                <div style="background:#fff;border:2px solid var(--y2,#e8c800);border-radius:8px;padding:7px 9px;margin-bottom:6px;font-size:11px;font-weight:700">BASEPEX ENCOM ▾</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
-                  <div style="background:#fffde7;border:2px solid var(--y2,#e8c800);border-radius:7px;padding:7px 5px;text-align:center;font-size:10px;font-weight:700">📉 Até R$1k</div>
-                  <div style="border:2px solid #e0e0e0;border-radius:7px;padding:7px 5px;text-align:center;font-size:10px">📈 Acima</div>
+              <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Suporte &amp; Validação</span></div>
+              <div style="background:#f2f2f2;padding:14px 10px;display:flex;flex-direction:column;align-items:center">
+                <div style="width:36px;height:36px;background:#ffe600;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:6px;border:2px solid #e8c800">🎫</div>
+                <div style="font-size:11px;font-weight:800;margin-bottom:1px">Suporte &amp; Validação</div>
+                <div style="font-size:9px;color:#999;margin-bottom:10px">ML Logística</div>
+                <div style="background:#fff;border-radius:10px;padding:12px;width:100%;box-shadow:0 2px 8px rgba(0,0,0,.08)">
+                  <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Username</div>
+                  <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:11px;margin-bottom:7px">thiago<span style="display:inline-block;width:1.5px;height:11px;background:#e8c800;animation:blink .8s infinite;vertical-align:middle;margin-left:1px"></span></div>
+                  <div style="background:#ffe600;border-radius:7px;padding:8px;text-align:center;font-size:11px;font-weight:800;color:#333;border:1.5px solid #e8c800">Continuar →</div>
+                  <div style="text-align:center;margin-top:7px;font-size:9px;color:#3483fa;font-weight:700">Não tem acesso? Solicitar acesso</div>
                 </div>
-                <div style="background:#fff;border:2px solid var(--y2,#e8c800);border-radius:8px;padding:7px 9px;font-family:monospace;font-size:10px;line-height:1.7;min-height:50px">34567898765<br>12656576789</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 1: Código FM -->
+      <!-- S1: SOLICITAR ACESSO -->
       <div class="tut-slide" id="tut-s1">
-        <div class="tut-step-tag">Passo 2 de 5</div>
-        <div class="tut-title">Seu chamado recebe um código FM</div>
-        <div class="tut-desc">Ao enviar, o sistema gera automaticamente um código <strong>FM-XXXXXX/DATA</strong> para identificar e rastrear seu chamado.</div>
-        <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Use o botão <strong>📋</strong> ao lado do código para copiar e compartilhar no grupo facilmente.</div></div>
-        <div style="background:#f5f5f5;border-radius:12px;padding:16px;text-align:center;margin-top:10px">
-          <div style="font-family:monospace;font-size:20px;font-weight:800;color:var(--y2,#e8c800);margin-bottom:4px">FM-374821/21042026</div>
-          <div style="font-size:12px;color:#666">Código gerado automaticamente ao criar o chamado</div>
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 2 de 6</div>
+            <div class="tut-title">Primeira vez? Solicite seu acesso</div>
+            <div class="tut-desc">Se não tem conta, clique em <strong>"Solicitar acesso"</strong> na tela de login. Preencha nome, username e senha, selecione <strong>Solicitante</strong> e envie.</div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Clique em <strong>"Solicitar acesso"</strong></span></li>
+              <li><div class="tut-num">2</div><span>Preencha seu <strong>nome completo</strong></span></li>
+              <li><div class="tut-num">3</div><span>Escolha um <strong>username</strong></span></li>
+              <li><div class="tut-num">4</div><span>Selecione <strong>Solicitante</strong> como tipo</span></li>
+              <li><div class="tut-num">5</div><span>Clique em <strong>"Enviar Solicitação"</strong> e aguarde aprovação</span></li>
+            </ul>
+            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div>O admin verá sua solicitação no painel e aprovará em breve!</div></div>
+          </div>
+          <div>
+            <div class="tut-phone">
+              <div class="tut-phone-bar"><div class="tut-phone-ico">📋</div><span class="tut-phone-lbl">Solicitar Acesso</span></div>
+              <div style="background:#fff;padding:10px">
+                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Nome completo</div>
+                <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;margin-bottom:6px">Thiago Souza</div>
+                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Username</div>
+                <div style="background:#f7f7f7;border:1.5px solid #e0e0e0;border-radius:7px;padding:7px 9px;font-size:10px;margin-bottom:6px">thiago</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px">
+                  <div style="border:2px solid #e8c800;border-radius:8px;padding:7px 5px;text-align:center;background:#fffde7">
+                    <div style="font-size:14px">📤</div><div style="font-size:10px;font-weight:800">Solicitante</div>
+                  </div>
+                  <div style="border:1.5px solid #e0e0e0;border-radius:8px;padding:7px 5px;text-align:center">
+                    <div style="font-size:14px">🔍</div><div style="font-size:10px;font-weight:700">Analista</div>
+                  </div>
+                </div>
+                <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📩 Enviar Solicitação</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Slide 2: SLA -->
+      <!-- S2: CRIAR CHAMADO -->
       <div class="tut-slide" id="tut-s2">
-        <div class="tut-step-tag">Passo 3 de 5</div>
-        <div class="tut-title">Acompanhe o prazo de resposta (SLA)</div>
-        <div class="tut-desc">Cada ticket tem uma barra de SLA mostrando o tempo restante para o analista responder. Fique de olho!</div>
-        <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:12px;padding:14px;margin-top:10px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:5px"><span>SLA 18%</span><span style="color:var(--green,#00a650);font-weight:700">3.2h restantes</span></div>
-          <div style="background:#eee;border-radius:99px;height:8px;overflow:hidden"><div style="width:18%;height:100%;background:var(--green,#00a650);border-radius:99px"></div></div>
-          <div style="display:flex;gap:12px;margin-top:10px;font-size:11px">
-            <span style="color:var(--green,#00a650)">🟢 Verde = ok</span>
-            <span style="color:var(--amber,#f5a623)">🟡 Amarelo = atenção</span>
-            <span style="color:var(--red,#e02020)">🔴 Vermelho = expirado</span>
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 3 de 6 — Principal</div>
+            <div class="tut-title">Criando um chamado de validação</div>
+            <div class="tut-desc">Na aba <strong>Tickets</strong>, clique em <strong>+ Novo Ticket</strong>. Selecione a transportadora, prioridade, valor e cole os IDs para validar.</div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
+              <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
+              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong> do chamado</span></li>
+              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> — 11 dígitos cada, um por linha</span></li>
+              <li><div class="tut-num">5</div><span>Clique em <strong>Enviar Solicitação</strong></span></li>
+            </ul>
+            <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Um código <strong>FM-XXXXXX</strong> é gerado automaticamente para rastrear o chamado.</div></div>
+          </div>
+          <div>
+            <div class="tut-phone">
+              <div class="tut-phone-bar"><div class="tut-phone-ico">🚚</div><span class="tut-phone-lbl">Nova Solicitação</span></div>
+              <div style="background:#fff;padding:10px">
+                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Transportadora</div>
+                <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;font-weight:700;margin-bottom:6px">BASEPEX ENCOM ▾</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
+                  <div style="border:2px solid #e8c800;border-radius:7px;padding:7px 5px;text-align:center;background:#fffde7;font-size:9px;font-weight:700">📉 Até R$1k</div>
+                  <div style="border:1.5px solid #e0e0e0;border-radius:7px;padding:7px 5px;text-align:center;font-size:9px">📈 Acima</div>
+                </div>
+                <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-family:monospace;font-size:9px;line-height:1.7;min-height:50px;margin-bottom:3px">34567898765<br>12656576789<br>12049944056</div>
+                <div style="background:#f5f5f5;padding:3px 9px;font-size:8px;color:#999;border-radius:0 0 5px 5px;margin-bottom:7px">3 IDs detectados</div>
+                <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📤 Enviar Solicitação</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 3: Retorno -->
+      <!-- S3: SLA -->
       <div class="tut-slide" id="tut-s3">
-        <div class="tut-step-tag">Passo 4 de 5</div>
-        <div class="tut-title">Veja o resultado de cada ID</div>
-        <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>. Clique para ver o status de cada ID com observações.</div>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px">
-          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">34567898765</span><span style="background:#e6f7ef;color:#007a3d;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #b2dfcc">✅ Localizado</span></div>
-          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">12656576789</span><span style="background:#fce8e6;color:#c5221f;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #f28b82">❌ Não encontrado</span></div>
-          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">12049944056</span><span style="background:#fff8e6;color:#b45309;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #fcd34d">🟡 Em análise</span></div>
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 4 de 6</div>
+            <div class="tut-title">Acompanhando o chamado e o SLA</div>
+            <div class="tut-desc">Após criar, o chamado aparece na lista com uma <strong>barra de SLA</strong> que mostra o tempo restante para resposta.</div>
+            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div><strong>SLA</strong> é o prazo de resposta. A barra muda: <span style="color:#00a650;font-weight:700">verde</span> → <span style="color:#f5a623;font-weight:700">amarelo</span> → <span style="color:#e02020;font-weight:700">vermelho</span>.</div></div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Ticket aparece com status <strong>Aberto</strong></span></li>
+              <li><div class="tut-num">2</div><span>Analista assume → vira <strong>Em andamento</strong></span></li>
+              <li><div class="tut-num">3</div><span>Barra mostra % do tempo utilizado</span></li>
+              <li><div class="tut-num">4</div><span>Clique no ticket para ver quem está atendendo</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="tut-phone">
+              <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Meus Tickets</span></div>
+              <div style="background:#f7f7f7;padding:8px">
+                <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px;margin-bottom:6px">
+                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-375170/20042026</div>
+                  <div style="display:flex;gap:4px;margin-bottom:2px">
+                    <span style="background:#e8f0fe;color:#1a73e8;border:1px solid #aecbfa;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">Em andamento</span>
+                    <span style="font-size:8px;color:#3483fa;font-weight:700">👤 Lucas</span>
+                  </div>
+                  <div style="font-size:11px;font-weight:700">🚚 BASEPEX ENCOM</div>
+                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 18%</span><span style="color:#00a650;font-weight:700">3.2h restantes</span></div>
+                  <div style="background:#eee;border-radius:99px;height:4px;overflow:hidden"><div style="width:18%;height:100%;background:#00a650;border-radius:99px"></div></div>
+                </div>
+                <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px">
+                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-291045/19042026</div>
+                  <div style="font-size:11px;font-weight:700">🚚 DHL</div>
+                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 65%</span><span style="color:#f5a623;font-weight:700">1.4h</span></div>
+                  <div style="background:#eee;border-radius:99px;height:4px;overflow:hidden"><div style="width:65%;height:100%;background:#f5a623;border-radius:99px"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Slide 4: Notificação grupo -->
+      <!-- S4: RETORNO -->
       <div class="tut-slide" id="tut-s4">
-        <div class="tut-step-tag">Passo 5 de 5</div>
-        <div class="tut-title">O resultado chega automaticamente no grupo!</div>
-        <div class="tut-desc">Assim que o analista finalizar, o sistema envia o resultado automaticamente para o grupo de <strong>WhatsApp</strong> e/ou <strong>Google Chat</strong>. Sem precisar cobrar!</div>
-        <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo. Simples assim!</div></div>
-        <div style="background:#e5ddd5;border-radius:12px;padding:12px;margin-top:10px">
-          <div style="background:#fff;border-radius:8px 0 8px 8px;padding:10px 12px;font-size:11px;line-height:1.7;max-width:280px">
-            <strong>TICKET RESPONDIDO</strong><br>
-            Chamado: FM-374821<br>
-            Transportadora: BASEPEX ENCOM<br>
-            ────────────────<br>
-            TOTAL: 3 IDs<br>
-            Localizado: 2 · Nao encontrado: 1
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 5 de 6</div>
+            <div class="tut-title">Recebendo o retorno do analista</div>
+            <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>. Clique para ver o status de cada ID com observações.</div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Ticket vira <strong>Concluído</strong> (verde)</span></li>
+              <li><div class="tut-num">2</div><span>Clique para ver o resultado completo</span></li>
+              <li><div class="tut-num">3</div><span>Cada ID tem status individual e observação</span></li>
+              <li><div class="tut-num">4</div><span>Use <strong>📋</strong> para copiar IDs</span></li>
+            </ul>
+            <div class="tut-hl"><div class="tut-hl-ico">📊</div><div><span style="color:#00a650;font-weight:700">Localizado</span> · <span style="color:#e02020;font-weight:700">Não encontrado</span> · <span style="color:#f5a623;font-weight:700">Em análise</span></div></div>
+          </div>
+          <div>
+            <div class="tut-phone">
+              <div class="tut-phone-bar"><div class="tut-phone-ico">✅</div><span class="tut-phone-lbl">Ticket Respondido</span></div>
+              <div style="background:#fff;padding:10px">
+                <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:7px">
+                  <div style="font-size:18px">✅</div>
+                  <div>
+                    <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700">FM-375170/20042026</div>
+                    <div style="font-size:11px;font-weight:800">🚚 BASEPEX ENCOM</div>
+                    <div style="font-size:9px;color:#999">Analista: Lucas</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
+                    <span style="font-family:monospace;font-size:9px;font-weight:700">34567898765</span>
+                    <span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">✅ Localizado</span>
+                  </div>
+                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
+                    <span style="font-family:monospace;font-size:9px;font-weight:700">12656576789</span>
+                    <span style="background:#fce8e6;color:#c5221f;border:1px solid #f28b82;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">❌ Não encontrado</span>
+                  </div>
+                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
+                    <span style="font-family:monospace;font-size:9px;font-weight:700">12049944056</span>
+                    <span style="background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">🟡 Em análise</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div style="background:var(--yellow);border:2px solid var(--y2,#e8c800);border-radius:12px;padding:14px;text-align:center;margin-top:16px">
-          <div style="font-size:16px;font-weight:800;color:#333">Pronto para começar! 🚀</div>
-          <div style="font-size:12px;color:#555;margin-top:3px">Crie seu primeiro chamado clicando em <strong>+ Novo Ticket</strong></div>
+      </div>
+
+      <!-- S5: NOTIFICAÇÃO -->
+      <div class="tut-slide" id="tut-s5">
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 6 de 6 — Automático</div>
+            <div class="tut-title">Resultado chega no grupo!</div>
+            <div class="tut-desc">Assim que o analista finalizar, o sistema envia automaticamente o resultado para o <strong>grupo do WhatsApp</strong>. Sem precisar cobrar!</div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Analista clica <strong>Finalizar &amp; Enviar</strong></span></li>
+              <li><div class="tut-num">2</div><span>Mensagem automática vai para o <strong>grupo</strong></span></li>
+              <li><div class="tut-num">3</div><span>Contém chamado, transportadora, IDs e resultado</span></li>
+            </ul>
+            <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo. Simples assim!</div></div>
+            <div style="background:#ffe600;border:2px solid #e8c800;border-radius:12px;padding:14px;text-align:center;margin-top:12px">
+              <div style="font-size:16px;font-weight:800;color:#333">Pronto para começar! 🚀</div>
+              <div style="font-size:12px;color:#555;margin-top:3px">Crie seu primeiro chamado clicando em <strong>+ Novo Ticket</strong></div>
+            </div>
+          </div>
+          <div>
+            <div class="tut-phone" style="border-radius:16px">
+              <div style="background:#075e54;padding:8px 10px;display:flex;align-items:center;gap:6px">
+                <div style="width:22px;height:22px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">👥</div>
+                <span style="color:#fff;font-size:10px;font-weight:700">Suporte ML - Logística</span>
+              </div>
+              <div style="background:#e5ddd5;padding:8px;min-height:160px">
+                <div style="display:flex;justify-content:flex-end;margin-bottom:6px">
+                  <div style="background:#e7ffdb;border-radius:8px 8px 0 8px;padding:7px 10px;font-size:9px;line-height:1.5;max-width:160px">
+                    Chamado BASEPEX com 3 IDs 🚚
+                    <div style="font-size:8px;color:#999;text-align:right;margin-top:2px">14:36 ✓✓</div>
+                  </div>
+                </div>
+                <div style="background:#fff;border-radius:8px 0 8px 8px;padding:8px 10px;font-size:9px;line-height:1.7;max-width:200px;box-shadow:0 1px 2px rgba(0,0,0,.1)">
+                  <strong>TICKET RESPONDIDO</strong><br>
+                  FM-375170 · BASEPEX<br>
+                  ──────────────<br>
+                  TOTAL: 3 IDs<br>
+                  Localizado: 2<br>
+                  Nao encontrado: 1<br>
+                  ──────────────<br>
+                  34567898765 (OK)<br>
+                  12656576789 (X)
+                  <div style="font-size:8px;color:#999;text-align:right;margin-top:2px">15:02 ✓✓</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1986,5 +2138,6 @@ async function notifyNew(ticket) {
     </div>
   </div>
 </div>
+
 </body>
 </html>
