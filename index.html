@@ -166,6 +166,12 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .rb.sel{transform:scale(1.04)}
 .resp-obs{width:100%;padding:8px 11px;background:#ffffff;border:1.5px solid var(--border2);border-radius:var(--radius);font-size:12px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
 .resp-obs:focus{border-color:var(--yellow)}.resp-obs::placeholder{color:var(--text3)}
+.obs-area{margin-top:6px;min-height:34px}
+.obs-pills{display:flex;gap:6px;flex-wrap:wrap}
+.obs-pill{padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);background:var(--bg2);transition:all .15s;color:var(--text)}
+.obs-pill:hover{border-color:var(--blue);color:var(--blue)}
+.obs-pill.sel{background:var(--blue-dim);border-color:var(--blue);color:var(--blue);transform:scale(1.04)}
+.obs-auto{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--red-dim);border:1.5px solid #ef444430;border-radius:var(--radius);font-size:12px;color:var(--red);font-weight:600}
 .id-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .id-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:var(--radius-lg)}
 .id-code{font-family:var(--mono);font-weight:700;flex:1;color:var(--text);font-size:13px}
@@ -980,6 +986,13 @@ function tktCard(t) {
       </div>
       <div class="tkt-arrow">›</div>
     </div>
+    ${t.status === 'done' ? `<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end">
+      <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none;font-size:11px;padding:4px 12px;border-radius:99px" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Enviar
+      </button>
+      <button class="btn btn-sm btn-ghost" style="font-size:11px;padding:4px 10px;border-radius:99px" onclick="resendNotifications('${t.id}');event.stopPropagation()">📤 Grupo</button>
+    </div>` : ''}
     ${t.status !== 'done' ? `<div class="sla-wrap">
       <div class="sla-hdr">
         <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
@@ -1046,11 +1059,31 @@ function openTicket(id) {
 
   if (isAnalyst && t.status !== 'done') {
     window._openTktIds = t.ids || [];
+    window._obsValues = {};
     html += `<div id="resp-form-list">`;
     (t.ids || []).forEach((id, idx) => {
       const ex = responses.find(r => r.id === id) || {};
       if (ex.status) window._respSel[id] = ex.status;
+      if (ex.obs) window._obsValues[id] = ex.obs;
       const safeId = encodeURIComponent(id);
+      // Build obs area based on existing status
+      let obsHtml = '';
+      if (ex.status === 'found') {
+        const isDev = (ex.obs || '') === 'Devolução';
+        const isProc = (ex.obs || '') === 'Processado';
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-pills">
+          <span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
+          <button class="obs-pill ${isDev ? 'sel' : ''}" data-idx="${idx}" data-obs="Devolução" onclick="setObsPill(this)">📦 Devolução</button>
+          <button class="obs-pill ${isProc ? 'sel' : ''}" data-idx="${idx}" data-obs="Processado" onclick="setObsPill(this)">✅ Processado</button>
+        </div></div>`;
+      } else if (ex.status === 'notfound') {
+        if (!ex.obs) window._obsValues[id] = 'Somente Coletado';
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-auto">❌ Obs: Somente Coletado</div></div>`;
+      } else if (ex.status === 'analyzing') {
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs || '').replace(/"/g,'&quot;')}"/></div>`;
+      } else {
+        obsHtml = `<div class="obs-area" data-idx="${idx}"></div>`;
+      }
       html += `<div class="resp-blk" data-idx="${idx}">
         <div class="resp-id" style="display:flex;align-items:center;gap:6px">
           ${id}
@@ -1061,12 +1094,13 @@ function openTicket(id) {
           <button class="rb notfound ${ex.status === 'notfound' ? 'sel' : ''}" data-idx="${idx}" data-status="notfound" onclick="setRespByIdx(this)">❌ Não encontrado</button>
           <button class="rb analyzing ${ex.status === 'analyzing' ? 'sel' : ''}" data-idx="${idx}" data-status="analyzing" onclick="setRespByIdx(this)">🔍 Em análise</button>
         </div>
-        <input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs || '').replace(/"/g,'&quot;')}"/>
+        ${obsHtml}
       </div>`;
     });
     html += `</div>
     <div style="margin-top:14px">
       <button class="btn btn-g btn-block" style="min-height:50px;font-size:15px" id="btn-finalizar" onclick="saveResp(false)">✅ Finalizar & Enviar</button>
+      <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:4px">IDs em análise continuarão em aberto</div>
     </div>`;
     if (t.status === 'open') html += `<button class="btn btn-p btn-block" style="margin-top:8px;min-height:44px" data-tid="${t.id}" onclick="claimTicketById(this.dataset.tid)">🙋 Assumir ticket</button>`;
   } else {
@@ -1085,6 +1119,25 @@ function openTicket(id) {
     });
     html += `</div>`;
     if (t.respondedAt) html += `<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:right">Respondido por ${t.analystName || '—'} em ${new Date(t.respondedAt).toLocaleString('pt-BR')}</div>`;
+
+    // Botões de reenvio para tickets concluídos
+    if (t.status === 'done' && (currentUser.role === 'analista' || currentUser.role === 'admin')) {
+      html += `<div style="margin-top:16px;padding-top:14px;border-top:1.5px solid var(--border)">
+        <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📤 Compartilhar resultado</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:var(--radius-lg)" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Enviar WhatsApp
+          </button>
+          <button class="btn btn-ghost" style="min-height:44px;font-size:13px" onclick="resendNotifications('${t.id}');event.stopPropagation()">
+            📤 Reenviar p/ grupo
+          </button>
+        </div>
+        <button class="btn btn-ghost btn-block" style="margin-top:8px;font-size:12px" onclick="copyReportText('${t.id}');event.stopPropagation()">
+          📋 Copiar texto do relatório
+        </button>
+      </div>`;
+    }
   }
 
   document.getElementById('view-content').innerHTML = html;
@@ -1104,6 +1157,45 @@ function setRespByIdx(btn) {
   window._respSel[id] = status;
   btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
+  // Update obs area based on status
+  const obsArea = document.querySelector(`.obs-area[data-idx="${idx}"]`);
+  if (!obsArea) return;
+  if (status === 'found') {
+    window._obsValues[id] = '';
+    obsArea.innerHTML = `<div class="obs-pills">
+      <span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
+      <button class="obs-pill" data-idx="${idx}" data-obs="Devolução" onclick="setObsPill(this)">📦 Devolução</button>
+      <button class="obs-pill" data-idx="${idx}" data-obs="Processado" onclick="setObsPill(this)">✅ Processado</button>
+    </div>`;
+  } else if (status === 'notfound') {
+    window._obsValues[id] = 'Somente Coletado';
+    obsArea.innerHTML = `<div class="obs-auto">❌ Obs: Somente Coletado</div>`;
+  } else if (status === 'analyzing') {
+    window._obsValues[id] = '';
+    obsArea.innerHTML = `<input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value=""/>`;
+  } else {
+    window._obsValues[id] = '';
+    obsArea.innerHTML = '';
+  }
+}
+function setObsPill(btn) {
+  const idx = parseInt(btn.dataset.idx);
+  const obs = btn.dataset.obs;
+  const id = (window._openTktIds || [])[idx];
+  if (!id) return;
+  window._obsValues[id] = obs;
+  btn.closest('.obs-pills').querySelectorAll('.obs-pill').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function getObsValue(idx) {
+  const id = (window._openTktIds || [])[idx];
+  if (!id) return '';
+  // Check if there's a stored value from pills
+  if (window._obsValues && window._obsValues[id]) return window._obsValues[id];
+  // Check if there's a text input
+  const input = document.querySelector(`.resp-obs[data-idx="${idx}"]`);
+  if (input) return input.value || '';
+  return '';
 }
 function claimTicketById(id) { claimTicket(id); }
 
@@ -1113,37 +1205,80 @@ async function saveResp(finalize) {
   const responses = ids.map((id, idx) => ({
     id,
     status: window._respSel[id] || (t.responses || []).find(r => r.id === id)?.status || '',
-    obs: document.querySelector(`.resp-obs[data-idx="${idx}"]`)?.value || ''
+    obs: getObsValue(idx)
   }));
-  if (!responses.every(r => r.status !== '')) { toast('⚠️ Responda todos os IDs antes de finalizar'); return; }
+
+  // Check: at least one ID must be found or notfound
+  const treated = responses.filter(r => r.status === 'found' || r.status === 'notfound');
+  const analyzing = responses.filter(r => r.status === 'analyzing');
+  const pending = responses.filter(r => r.status === '');
+
+  if (treated.length === 0) { toast('⚠️ Marque pelo menos 1 ID como Localizado ou Não encontrado'); return; }
+
+  // Check found IDs have obs selected (Devolução/Processado)
+  const foundMissing = responses.filter(r => r.status === 'found' && !r.obs);
+  if (foundMissing.length > 0) { toast('⚠️ Selecione Devolução ou Processado para os IDs localizados'); return; }
+
+  // Determine ticket status: done only if ALL IDs are treated (no analyzing/pending)
+  const allTreated = analyzing.length === 0 && pending.length === 0;
+  const newStatus = allTreated ? 'done' : 'progress';
+
   const ticketId = t.id;
   toast('⏳ Finalizando...', 10000);
-  const respondedAt = new Date().toISOString();
+  const respondedAt = allTreated ? new Date().toISOString() : null;
   const data = {
     ticketId, responses,
     analystId: currentUser.id, analystName: currentUser.name,
-    status: 'done', respondedAt
+    status: newStatus, respondedAt: respondedAt || t.respondedAt || null
   };
   const result = await apiPost('respondTicket', data);
   if (result?.ok !== false) {
-    // FIX: manter AMBOS lowercase e camelCase no cache
     const idx = _cache.tickets.findIndex(x => x.id === ticketId);
     if (idx >= 0) Object.assign(_cache.tickets[idx], {
-      responses, status: 'done',
+      responses, status: newStatus,
       analystId: currentUser.id, analystid: currentUser.id,
       analystName: currentUser.name, analystname: currentUser.name,
-      respondedAt, respondedat: respondedAt
+      ...(respondedAt ? { respondedAt, respondedat: respondedAt } : {})
     });
     window._respSel = {};
+    window._obsValues = {};
     document.getElementById('ov-view').classList.remove('open');
-    const reportUrl = buildReportUrl(ticketId);
-    const ticket = _cache.tickets.find(x => x.id === ticketId);
-    showReportModal(ticket, responses, reportUrl);
-    toast('✅ Ticket finalizado!', 3000);
-    await notifyDone(ticketId, reportUrl);
+
+    if (allTreated) {
+      // Fully done — show report modal
+      const reportUrl = buildReportUrl(ticketId);
+      const ticket = _cache.tickets.find(x => x.id === ticketId);
+      showReportModal(ticket, responses, reportUrl);
+      toast('✅ Ticket finalizado!', 3000);
+      await notifyDone(ticketId, reportUrl);
+    } else {
+      // Partial — notify about treated IDs, ticket stays open
+      toast(`✅ ${treated.length} IDs tratados · ${analyzing.length} em análise (ticket continua aberto)`, 4000);
+      // Still notify about partial progress
+      await notifyPartial(ticketId, treated.length, analyzing.length);
+    }
     renderTickets();
     if (currentUser.role === 'admin') renderAdmTickets();
   } else toast('⚠️ Erro: ' + (result?.error || 'tente novamente'));
+}
+
+async function notifyPartial(ticketId, treatedCount, analyzingCount) {
+  const t = _cache.tickets.find(x => x.id === ticketId); if (!t) return;
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  const msg = [
+    '📋 *ATUALIZAÇÃO DE TICKET*',
+    'Chamado: *' + fmDisplay + '*',
+    'Transportadora: *' + t.title + '*',
+    '',
+    'Solicitado por: *' + (t.requesterName || '—') + '*',
+    'Analista: ' + (t.analystName || '—'),
+    '--------------------',
+    'IDs tratados: ' + treatedCount,
+    'IDs em análise: ' + analyzingCount + ' (ticket continua aberto)',
+    '--------------------'
+  ].join('\n');
+  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
+  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
 }
 
 async function claimTicket(id) {
@@ -1801,21 +1936,22 @@ function buildMsg(t, resps) {
   }).join('\n');
   return [
     '*TICKET RESPONDIDO*',
+    '━━━━━━━━━━━━━━━━━━━━',
     'Chamado: *' + fmDisplay + '*',
     'Transportadora: *' + t.title + '*',
     '',
-    'Solicitante: ' + t.requesterName,
-    'Analista: ' + t.analystName,
-    'Data: ' + dataHora,
-    '--------------------',
+    '👤 *Solicitado por: ' + (t.requesterName || '—') + '*',
+    '🔍 Analista: ' + (t.analystName || '—'),
+    '📅 Data: ' + dataHora,
+    '━━━━━━━━━━━━━━━━━━━━',
     'TOTAL: *' + total + ' IDs*',
-    'Localizado: ' + found,
-    'Nao encontrado: ' + notfound,
-    'Em analise: ' + analyzing,
-    '--------------------',
+    '✅ Localizado: ' + found,
+    '❌ Nao encontrado: ' + notfound,
+    ...(analyzing > 0 ? ['🔍 Em analise: ' + analyzing] : []),
+    '━━━━━━━━━━━━━━━━━━━━',
     'ID' + ' '.repeat(Math.max(maxIdLen, 11) - 1) + 'Status',
     idLines,
-    '--------------------'
+    '━━━━━━━━━━━━━━━━━━━━'
   ].join('\n');
 }
 
@@ -1830,6 +1966,41 @@ async function notifyNew(ticket) {
   const msg = `🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}\n⚡ *Prioridade:* ${{ normal: 'Normal', high: 'Alta 🟡', urgent: 'URGENTE 🔴' }[ticket.priority] || ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids || []).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
   const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
   const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+}
+
+// ====================================================
+//  REENVIO — WhatsApp / Grupo / Copiar
+// ====================================================
+function resendWhatsApp(ticketId) {
+  const t = _cache.tickets.find(x => x.id === ticketId);
+  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const resps = t.responses || [];
+  const msg = buildMsg(t, resps);
+  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+}
+
+async function resendNotifications(ticketId) {
+  const t = _cache.tickets.find(x => x.id === ticketId);
+  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const resps = t.responses || [];
+  const msg = buildMsg(t, resps);
+  toast('📤 Reenviando...', 10000);
+  let sent = false;
+  const gchat = LS.get('suporte_gchat');
+  if (gchat) { const r = await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => null); if (r?.ok) sent = true; }
+  const wa = LS.get('suporte_wa') || {};
+  if (wa.phone && wa.apikey) { const r = await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => null); if (r?.ok) sent = true; }
+  if (sent) toast('✅ Relatório reenviado para o grupo!', 3000);
+  else toast('⚠️ Nenhum canal configurado (Google Chat / WhatsApp). Configure em Admin > Config.', 4000);
+}
+
+function copyReportText(ticketId) {
+  const t = _cache.tickets.find(x => x.id === ticketId);
+  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const resps = t.responses || [];
+  const msg = buildMsg(t, resps);
+  copyText(msg);
 }
 </script>
 
