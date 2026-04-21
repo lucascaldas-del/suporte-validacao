@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="theme-color" content="#0f0f14"/>
+<title>Suporte · Validação de IDs</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:#f2f2f2;color:#333333;-webkit-user-select:none;user-select:none;overflow-x:hidden}
+input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-family:'DM Sans',sans-serif}
+:root{
+  --bg:#f2f2f2;--bg2:#ffffff;--bg3:#f7f7f7;--bg4:#eeeeee;
+  --border:#e5e5e5;--border2:#d8d8d8;
+  --yellow:#ffe600;--yellow-dim:#ffe60025;--yellow-glow:0 0 20px #ffe60050;
+  --blue:#3483fa;--blue-dim:#3483fa15;
+  --green:#00a650;--green-dim:#00a65015;
+  --red:#e02020;--red-dim:#e0202015;
+  --amber:#f5a623;--amber-dim:#f5a62315;
+  --purple:#8a2be2;--purple-dim:#8a2be215;
+  --text:#333333;--text2:#666666;--text3:#999999;
+  --radius:8px;--radius-lg:14px;--radius-xl:20px;
+  --shadow:0 1px 6px rgba(0,0,0,.10);--shadow-lg:0 4px 24px rgba(0,0,0,.13);
+  --mono:'Space Mono',monospace;
+}
+.page{display:none;min-height:100vh}.page.active{display:block;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* LOGIN */
+.login-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:#f2f2f2;background-image:radial-gradient(ellipse 60% 60% at 50% 0%,#ffe60030 0%,transparent 70%)}
+.login-card{width:100%;max-width:400px}
+.login-brand{text-align:center;margin-bottom:32px}
+.brand-icon{width:60px;height:60px;background:var(--yellow);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;box-shadow:var(--yellow-glow);border:2px solid #e8c800}
+.login-brand h1{font-size:22px;font-weight:800;color:#333333;letter-spacing:-.3px}
+.login-brand p{font-size:13px;color:var(--text2);margin-top:4px}
+.login-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-xl);padding:28px 26px;box-shadow:var(--shadow-lg)}
+.lbl{display:block;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.inp{width:100%;padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:15px;color:var(--text);outline:none;transition:border-color .15s;margin-bottom:14px}
+.inp:focus{border-color:var(--yellow)}.inp::placeholder{color:var(--text3)}
+.ferr-login{font-size:12px;color:var(--red);margin-bottom:10px;display:none;font-weight:600;padding:8px 12px;background:var(--red-dim);border-radius:var(--radius);border:1px solid #ef444430}
+.btn-login{width:100%;padding:14px;background:var(--yellow);color:#333333;border:none;border-radius:var(--radius-lg);font-size:15px;font-weight:800;cursor:pointer;transition:all .15s}
+.btn-login:hover{filter:brightness(1.08);box-shadow:var(--yellow-glow)}
+.login-step{display:none}.login-step.active{display:block}
+.back-btn{background:none;border:none;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;margin-bottom:18px;padding:0;font-weight:600}
+.back-btn:hover{color:var(--yellow)}
+.hi-name{font-size:17px;font-weight:800;color:var(--text);margin-bottom:16px}
+.hi-name em{color:var(--yellow);font-style:normal}
+
+/* REQUEST ACCESS */
+.req-link{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--text3)}
+.req-link button{background:none;border:none;color:var(--blue);font-size:13px;font-weight:700;cursor:pointer;padding:0;transition:color .15s}
+.req-link button:hover{color:var(--yellow)}
+.req-success{background:var(--green-dim);border:1.5px solid #22c55e30;border-radius:var(--radius-lg);padding:16px;text-align:center;font-size:13px;color:var(--green);font-weight:700;display:none}
+.req-success-icon{font-size:34px;display:block;margin-bottom:8px}
+.role-select-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.role-opt{padding:12px 8px;border:2px solid var(--border2);border-radius:var(--radius-lg);cursor:pointer;text-align:center;transition:all .15s;background:var(--bg3)}
+.role-opt:hover{border-color:var(--yellow)}
+.role-opt.selected{border-color:var(--yellow);background:var(--yellow-dim)}
+.role-opt-icon{font-size:22px;display:block;margin-bottom:4px}
+.role-opt-lbl{font-size:12px;font-weight:700;color:var(--text)}
+.role-opt-desc{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* TOPBAR */
+.topbar{height:54px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;position:sticky;top:0;z-index:200}
+.logo-mark{width:30px;height:30px;background:var(--yellow);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:1.5px solid #e8c800}
+.logo-text{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.2px}
+.logo-sep{color:var(--text3);margin:0 4px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.user-chip{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border2);border-radius:99px;padding:4px 12px 4px 5px;cursor:pointer;transition:border-color .15s}
+.user-chip:hover{border-color:var(--yellow)}
+.user-av{width:26px;height:26px;border-radius:50%;background:var(--yellow);color:#333333;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+.user-nm{font-size:12px;font-weight:700}
+.role-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.3px}
+.rt-sol{background:#e8f0fe;color:#1a73e8;border:1px solid #aecbfa}
+.rt-ana{background:#f3e8fd;color:#7b2fa8;border:1px solid #d7aefb}
+.rt-adm{background:#fce8e6;color:#c5221f;border:1px solid #f28b82}
+.topbar-exit{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
+.topbar-exit:hover{border-color:var(--red);color:var(--red);background:#fce8e6}
+
+/* LAYOUT */
+.app-layout{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
+.app-body{flex:1}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px}
+
+/* TABS */
+.tabs{display:flex;gap:2px;margin-bottom:18px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:4px}
+.tab-btn{flex:1;padding:8px 10px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--text2);border-radius:var(--radius);transition:all .15s;white-space:nowrap;text-align:center}
+.tab-btn.active{background:var(--yellow);color:#333333;border:1.5px solid #e8c800}
+.adm-nav{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.adm-tab{padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);background:var(--bg2);color:var(--text2);border-radius:var(--radius-lg);transition:all .15s}
+.adm-tab.active{background:var(--yellow);color:#333333;border-color:#e8c800}
+.adm-tab:hover:not(.active){border-color:var(--yellow);color:var(--yellow)}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:18px;margin-bottom:12px}
+.card-title{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ci{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.ci-y{background:var(--yellow-dim);color:var(--yellow)}
+.ci-b{background:var(--blue-dim);color:var(--blue)}
+.ci-g{background:var(--green-dim);color:var(--green)}
+.ci-r{background:var(--red-dim);color:var(--red)}
+.ci-p{background:var(--purple-dim);color:var(--purple)}
+
+/* STATS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.sbox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
+.slbl{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase}
+.sval{font-size:26px;font-weight:800;line-height:1;font-family:var(--mono)}
+.sv-y{color:var(--yellow)}.sv-b{color:var(--blue)}.sv-g{color:var(--green)}.sv-r{color:var(--red)}.sv-a{color:var(--amber)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--radius-lg);font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .15s;min-height:38px;font-family:'DM Sans',sans-serif}
+.btn-y{background:var(--yellow);color:#333333;border:1.5px solid #e8c800}.btn-y:hover{filter:brightness(1.08)}
+.btn-ghost{background:var(--bg3);color:var(--text2);border:1.5px solid var(--border2)}.btn-ghost:hover{border-color:var(--yellow);color:var(--yellow)}
+.btn-g{background:var(--green-dim);color:var(--green);border:1.5px solid #22c55e30}
+.btn-r{background:var(--red-dim);color:var(--red);border:1.5px solid #ef444430}
+.btn-b{background:var(--blue-dim);color:var(--blue);border:1.5px solid #4c7bff30}
+.btn-p{background:var(--purple-dim);color:var(--purple);border:1.5px solid #a855f730}
+.btn-sm{padding:5px 11px;font-size:12px;min-height:30px}
+.btn-block{width:100%;margin-bottom:8px}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700;white-space:nowrap}
+.b-open{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
+.b-progress{background:var(--blue-dim);color:var(--blue);border:1px solid #4c7bff30}
+.b-done{background:var(--green-dim);color:var(--green);border:1px solid #22c55e30}
+.b-found{background:var(--green-dim);color:var(--green);border:1px solid #22c55e30}
+.b-notfound{background:var(--red-dim);color:var(--red);border:1px solid #ef444430}
+.b-analyzing{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
+.b-pending{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
+.b-pnormal{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
+.b-phigh{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
+.b-purgent{background:var(--red-dim);color:var(--red);border:1px solid #ef444430}
+
+/* TICKET CARD */
+.tkt{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-xl);margin-bottom:10px;cursor:pointer;transition:all .18s;overflow:hidden}
+.tkt:hover{border-color:var(--yellow);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,230,0,.25)}
+.tkt-warn{border-color:var(--amber)!important}
+.tkt-exp{border-color:var(--red)!important}
+.tkt-head{padding:14px 16px;display:flex;align-items:center;gap:12px}
+.tkt-stripe{width:3px;height:36px;border-radius:99px;flex-shrink:0}
+.sp-normal{background:var(--text3)}.sp-high{background:var(--amber)}.sp-urgent{background:var(--red)}
+.tkt-main{flex:1;min-width:0}
+.tkt-r1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.tkt-code{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--yellow)}
+.tkt-ttl{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tkt-meta{font-size:11px;color:var(--text3);display:flex;gap:10px;flex-wrap:wrap;margin-top:3px}
+.tkt-arrow{color:var(--text3);font-size:18px;flex-shrink:0;transition:all .15s}
+.tkt:hover .tkt-arrow{transform:translateX(3px);color:var(--yellow)}
+.sla-wrap{padding:0 16px 12px}
+.sla-hdr{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;font-weight:600}
+.sla-bg{background:#eeeeee;border-radius:99px;height:5px;overflow:hidden}
+.sla-fill{height:100%;border-radius:99px;transition:width .6s}
+.sla-ok{background:var(--green)}.sla-warn{background:var(--amber)}.sla-exp{background:var(--red)}
+
+/* MODAL / SHEET */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:999;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex;animation:fIn .15s ease}
+@keyframes fIn{from{opacity:0}to{opacity:1}}
+.sheet{background:var(--bg2);border-radius:24px 24px 0 0;border-top:1px solid var(--border2);padding:22px 18px 36px;width:100%;max-width:640px;animation:sUp .22s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto}
+@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-handle{width:36px;height:4px;background:var(--bg4);border-radius:99px;margin:0 auto 18px}
+.sheet-title{font-size:18px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px}
+.sheet-sub{font-size:13px;color:var(--text2);margin-bottom:18px}
+.frow{margin-bottom:14px}
+.frow label{display:block;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px}
+.frow input,.frow select,.frow textarea{width:100%;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:14px;color:var(--text);outline:none;transition:border-color .15s}
+.frow input:focus,.frow select:focus,.frow textarea:focus{border-color:var(--yellow)}
+.frow select option{background:var(--bg3)}
+.frow textarea{resize:vertical;min-height:80px}
+.ids-box{border:1.5px solid var(--border2);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .15s}
+.ids-box:focus-within{border-color:var(--yellow)}
+.ids-ta{width:100%;padding:11px 13px;border:none;outline:none;font-size:13px;font-family:var(--mono);min-height:110px;resize:vertical;color:var(--text);background:var(--bg3)}
+.ids-footer{background:var(--bg4);padding:6px 13px;font-size:11px;color:var(--text3)}
+.ferr{font-size:12px;color:var(--red);margin-bottom:10px;display:none;font-weight:600}
+
+/* RESP FORM */
+.resp-blk{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:12px;margin-bottom:8px}
+.resp-id{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--yellow);margin-bottom:8px}
+.resp-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.rb{padding:6px 13px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);background:var(--bg2);transition:all .15s}
+.rb.found{color:var(--green)}.rb.found:hover,.rb.found.sel{background:var(--green-dim);border-color:var(--green)}
+.rb.notfound{color:var(--red)}.rb.notfound:hover,.rb.notfound.sel{background:var(--red-dim);border-color:var(--red)}
+.rb.analyzing{color:var(--amber)}.rb.analyzing:hover,.rb.analyzing.sel{background:var(--amber-dim);border-color:var(--amber)}
+.rb.sel{transform:scale(1.04)}
+.resp-obs{width:100%;padding:8px 11px;background:#ffffff;border:1.5px solid var(--border2);border-radius:var(--radius);font-size:12px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
+.resp-obs:focus{border-color:var(--yellow)}.resp-obs::placeholder{color:var(--text3)}
+
+/* IDS VIEW */
+.id-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.id-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:var(--radius-lg)}
+.id-code{font-family:var(--mono);font-weight:700;flex:1;color:var(--text);font-size:13px}
+.id-obs{font-size:11px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:2}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);padding:8px 10px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+.tbl tr:hover td{background:var(--bg3)}
+.tbl tr:last-child td{border-bottom:none}
+code.usr{background:var(--bg4);padding:2px 7px;border-radius:5px;font-family:var(--mono);font-size:11px;color:var(--text2)}
+
+/* CHART */
+.chart-wrap{position:relative;height:185px;margin-top:10px}
+
+/* RANKING */
+.rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.rank-row:last-child{border-bottom:none}
+.rank-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.r1{background:#f5d800;color:#0f0f14}.r2{background:#9ca3af;color:#0f0f14}.r3{background:#cd7f32;color:#fff}.rn{background:#eeeeee;color:#666666}
+.rank-name{flex:1;font-size:13px;font-weight:600}
+.rank-score{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--blue)}
+
+/* TOAST */
+.toast{position:fixed;top:64px;left:50%;transform:translateX(-50%) translateY(-8px);background:#333333;color:#ffffff;border:1px solid #444444;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;transition:all .22s;z-index:2000;pointer-events:none;white-space:nowrap;max-width:92vw;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* MISC */
+.sla-banner{background:#fce8e6;border:1.5px solid #f28b82;border-radius:var(--radius-lg);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:14px;font-weight:600;display:none}
+.empty{text-align:center;padding:32px;color:#999999;font-size:14px}
+.empty-ico{font-size:32px;display:block;margin-bottom:8px}
+.srow{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.sinp{flex:1;min-width:140px;padding:9px 13px;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.sinp:focus{border-color:var(--yellow)}.sinp::placeholder{color:var(--text3)}
+select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
+.td-hdr{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.td-icon{font-size:30px;flex-shrink:0}
+.td-ttl{font-size:17px;font-weight:800;letter-spacing:-.3px;line-height:1.2}
+.td-code{font-family:var(--mono);font-size:12px;color:var(--yellow);margin-bottom:4px}
+.td-meta{font-size:12px;color:var(--text3);margin-top:4px}
+.tags-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cfg-sts{border-radius:var(--radius-lg);padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600}
+.cfg-ok{background:var(--green-dim);border:1.5px solid #22c55e30;color:var(--green)}
+.cfg-warn{background:var(--amber-dim);border:1.5px solid #f59e0b30;color:var(--amber)}
+
+/* LOADING SCREEN */
+.loading-screen{position:fixed;inset:0;background:#f2f2f2;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:14px}
+.loading-logo{width:60px;height:60px;background:var(--yellow);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;animation:pulse 1.2s ease-in-out infinite;color:#333}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ffe60060}50%{box-shadow:0 0 0 16px #ffe60000}}
+.loading-txt{font-size:14px;color:var(--text2);font-weight:600}
+
+
+/* COPY BUTTON */
+.copy-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1.5px solid var(--border2);border-radius:5px;background:var(--bg3);cursor:pointer;font-size:12px;flex-shrink:0;transition:all .15s;margin-left:4px}
+.copy-btn:hover{border-color:var(--yellow);background:var(--yellow-dim)}
+.copy-all-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border:1.5px solid var(--border2);border-radius:99px;background:var(--bg3);cursor:pointer;font-size:11px;font-weight:700;color:var(--text2);transition:all .15s;margin-left:6px}
+.copy-all-btn:hover{border-color:var(--yellow);background:var(--yellow-dim);color:var(--text)}
+/* VALUE SELECT */
+.value-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.value-opt{padding:11px 10px;border:2px solid var(--border2);border-radius:var(--radius-lg);cursor:pointer;text-align:center;transition:all .15s;background:var(--bg3)}
+.value-opt:hover{border-color:var(--yellow)}
+.value-opt.selected{border-color:var(--yellow);background:var(--yellow-dim)}
+.value-opt-lbl{font-size:13px;font-weight:700;color:var(--text)}
+.value-opt-sub{font-size:10px;color:var(--text3);margin-top:2px}
+/* DUPLICATE WARN */
+.dup-warn{background:#fff8e6;border:1.5px solid #f5a62350;border-radius:var(--radius-lg);padding:10px 13px;margin-bottom:10px;font-size:12px;color:#8a5c00;display:none}
+.dup-warn-title{font-weight:700;margin-bottom:4px;font-size:13px}
+.dup-warn ul{margin-left:16px;list-style:disc}
+/* RANKING FILTER */
+.rank-filter-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.rank-filter-lbl{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+
+/* REPORT MODAL */
+.report-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1100;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
+.report-modal-overlay.open{display:flex;animation:fIn .2s ease}
+.report-modal{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:540px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.report-modal-top{background:var(--yellow);padding:20px 22px;border-bottom:2px solid #e8c800}
+.report-modal-top h2{font-size:18px;font-weight:800;color:#333;letter-spacing:-.3px}
+.report-modal-top p{font-size:13px;color:#666;margin-top:3px}
+.report-modal-body{padding:22px}
+.report-link-box{display:flex;align-items:center;gap:8px;background:#f7f7f7;border:1.5px solid var(--border2);border-radius:var(--radius-lg);padding:10px 13px;margin-bottom:16px}
+.report-link-txt{flex:1;font-size:12px;font-family:var(--mono);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.report-copy-big{padding:8px 14px;background:var(--yellow);border:1.5px solid #e8c800;border-radius:var(--radius);font-size:12px;font-weight:800;cursor:pointer;color:#333;transition:all .15s;flex-shrink:0}
+.report-copy-big:hover{filter:brightness(1.06)}
+.report-summary-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.report-stat{background:#f7f7f7;border-radius:var(--radius-lg);padding:10px;text-align:center}
+.report-stat-val{font-size:22px;font-weight:800;font-family:var(--mono)}
+.report-stat-lbl{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.report-close-btn{width:100%;padding:13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
+.report-close-btn:hover{border-color:var(--yellow);color:var(--text)}
+/* REPORT PAGE (standalone) */
+.report-page{min-height:100vh;background:#f2f2f2;padding:24px 16px;display:none}
+.report-page.active{display:block;animation:fadeUp .3s ease}
+.report-header{background:var(--yellow);border-radius:var(--radius-xl);padding:24px;margin-bottom:16px;border:2px solid #e8c800}
+.report-header h1{font-size:20px;font-weight:800;color:#333;letter-spacing:-.3px}
+.report-header .rh-sub{font-size:13px;color:#666;margin-top:4px}
+.report-card{background:#fff;border-radius:var(--radius-xl);padding:18px;margin-bottom:12px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.report-ids-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.report-ids-table th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);padding:7px 10px;border-bottom:2px solid var(--border);text-transform:uppercase;letter-spacing:.5px}
+.report-ids-table td{padding:9px 10px;border-bottom:1px solid var(--border)}
+.report-ids-table tr:last-child td{border-bottom:none}
+.report-ids-table tr:hover td{background:#f9f9f9}
+#modal-ids-table thead th{background:#fff;font-size:10px}
+
+/* ===== TUTORIAL ONBOARDING ===== */
+.tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}
+.tut-overlay.open{display:flex;animation:fadeUp .3s ease}
+.tut-card{background:#fff;border-radius:24px;width:100%;max-width:620px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:90vh;display:flex;flex-direction:column}
+.tut-header{background:var(--yellow);padding:18px 22px;border-bottom:2px solid var(--y2,#e8c800);flex-shrink:0}
+.tut-header h2{font-size:17px;font-weight:800;color:#333}
+.tut-header p{font-size:12px;color:#666;margin-top:2px}
+.tut-body{flex:1;overflow:hidden;position:relative}
+.tut-slide{position:absolute;inset:0;overflow-y:auto;padding:20px;opacity:0;transform:translateX(20px);transition:all .3s ease;pointer-events:none}
+.tut-slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.tut-slide.exit{opacity:0;transform:translateX(-20px)}
+.tut-footer{background:#f9f9f9;border-top:1px solid var(--border,#e0e0e0);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tut-step-tag{display:inline-block;background:var(--yellow);color:#333;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;border:1px solid var(--y2,#e8c800)}
+.tut-title{font-size:18px;font-weight:800;color:#1a1a1a;margin-bottom:5px;line-height:1.2}
+.tut-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:14px}
+.tut-hl{background:#fffde7;border:2px solid var(--y2,#e8c800);border-radius:10px;padding:10px 13px;margin-bottom:12px;font-size:12px;line-height:1.5;display:flex;gap:9px}
+.tut-hl-ico{font-size:18px;flex-shrink:0}
+.tut-steps{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.tut-steps li{display:flex;gap:8px;font-size:13px;color:#555;align-items:flex-start;line-height:1.4}
+.tut-num{width:22px;height:22px;background:var(--yellow);border:2px solid var(--y2,#e8c800);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.tut-dots{display:flex;gap:5px}
+.tut-dot{width:7px;height:7px;border-radius:50%;background:#ddd;cursor:pointer;transition:all .2s}
+.tut-dot.on{background:var(--y2,#e8c800);width:16px;border-radius:99px}
+.tut-dot.done{background:var(--green,#00a650)}
+.tut-btn-skip{background:none;border:none;color:#999;font-size:13px;cursor:pointer;padding:0;font-family:inherit}
+.tut-btn-skip:hover{color:#333}
+.tut-btn-next{padding:9px 22px;background:var(--yellow);color:#333;border:2px solid var(--y2,#e8c800);border-radius:99px;font-size:13px;font-weight:800;cursor:pointer;transition:all .15s}
+.tut-btn-next:hover{filter:brightness(1.06)}
+/* phone mockup inside tutorial */
+.tut-phone{width:220px;background:#fff;border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.12);border:2px solid #e0e0e0;overflow:hidden;margin:0 auto 12px;flex-shrink:0}
+.tut-phone-bar{background:var(--yellow);height:36px;display:flex;align-items:center;padding:0 10px;gap:6px;border-bottom:1.5px solid var(--y2,#e8c800)}
+.tut-phone-ico{width:18px;height:18px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
+.tut-phone-lbl{font-size:10px;font-weight:800;color:#333}
+.tut-phone-bd{padding:10px;background:#f7f7f7;min-height:120px;font-size:11px}
+.tut-two{display:grid;grid-template-columns:1fr 200px;gap:14px;align-items:start}
+@media(max-width:500px){.tut-two{grid-template-columns:1fr}.tut-phone{display:none}}
+@media(max-width:560px){.grid-2{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loading">
+  <div class="loading-logo">🎫</div>
+  <div class="loading-txt">Carregando...</div>
+</div>
+
+<!-- LOGIN -->
+<div class="page" id="page-login">
+  <div class="login-bg">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-icon">🎫</div>
+        <h1>Suporte & Validação</h1>
+        <p>ML Logística · Sistema de Tickets</p>
+      </div>
+      <div class="login-box">
+        <div class="login-step active" id="step-user">
+          <label class="lbl">Username</label>
+          <input class="inp" id="inp-user" placeholder="seu.username" autocomplete="username" autocorrect="off" autocapitalize="off"/>
+          <div class="ferr-login" id="err-user">Usuário não encontrado</div>
+          <button class="btn-login" onclick="loginUser()">Continuar →</button>
+
+          <div class="req-link">Não tem acesso? <button onclick="goStep('step-request')">Solicitar acesso</button></div>
+        </div>
+        <div class="login-step" id="step-request">
+          <button class="back-btn" onclick="goStep('step-user')">← Voltar</button>
+          <div class="sheet-title" style="font-size:16px;margin-bottom:4px">📋 Solicitar Acesso</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Preencha os dados — o admin aprovará em breve</div>
+          <div id="req-success-box" class="req-success">
+            <span class="req-success-icon">✅</span>
+            Solicitação enviada com sucesso!<br/>
+            <span style="font-weight:400;font-size:12px;margin-top:4px;display:block">Aguarde a aprovação do administrador.</span>
+          </div>
+          <div id="req-form-fields">
+            <label class="lbl">Nome completo</label>
+            <input class="inp" id="req-name" placeholder="Seu nome" autocorrect="off"/>
+            <label class="lbl">Username desejado</label>
+            <input class="inp" id="req-user" placeholder="ex: joaosilva" autocapitalize="off" autocorrect="off"/>
+            <label class="lbl">Senha</label>
+            <input class="inp" id="req-pass" type="password" placeholder="Crie uma senha"/>
+            <label class="lbl" style="margin-bottom:8px">Tipo de acesso</label>
+            <div class="role-select-row">
+              <div class="role-opt selected" id="role-opt-sol" onclick="selectRole('solicitante')">
+                <span class="role-opt-icon">📤</span>
+                <div class="role-opt-lbl">Solicitante</div>
+                <div class="role-opt-desc">Abre tickets de validação</div>
+              </div>
+              <div class="role-opt" id="role-opt-ana" onclick="selectRole('analista')">
+                <span class="role-opt-icon">🔍</span>
+                <div class="role-opt-lbl">Analista</div>
+                <div class="role-opt-desc">Responde e valida IDs</div>
+              </div>
+            </div>
+            <div class="ferr-login" id="err-req">Preencha todos os campos</div>
+            <button class="btn-login" onclick="submitRequest()">📩 Enviar Solicitação</button>
+          </div>
+        </div>
+        <div class="login-step" id="step-pass">
+          <button class="back-btn" onclick="goStep('step-user')">← Voltar</button>
+          <div class="hi-name">Olá, <em id="login-name">—</em>!</div>
+          <label class="lbl">Senha</label>
+          <input class="inp" id="inp-pass" type="password" placeholder="••••••••"/>
+          <div class="ferr-login" id="err-pass">Senha incorreta</div>
+          <button class="btn-login" onclick="loginPass()">Entrar →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="page" id="page-admin">
+  <div class="app-layout">
+    <div class="topbar">
+      <div class="logo-mark">🎫</div>
+      <span class="logo-text">Suporte <span class="logo-sep">·</span> Admin</span>
+      <div class="topbar-right">
+        <div class="user-chip">
+          <div class="user-av" id="adm-av">A</div>
+          <span class="user-nm" id="adm-nm">Admin</span>
+        </div>
+        <button class="topbar-exit" onclick="logout()">Sair</button>
+      </div>
+    </div>
+    <div class="app-body"><div class="wrap">
+      <div class="adm-nav">
+        <button class="adm-tab active" data-tab="at-dash" onclick="switchAdmTab(this)">📊 Dashboard</button>
+        <button class="adm-tab" data-tab="at-tickets" onclick="switchAdmTab(this)">🎫 Tickets</button>
+        <button class="adm-tab" data-tab="at-users" onclick="switchAdmTab(this)">👥 Usuários</button>
+        <button class="adm-tab" data-tab="at-requests" onclick="switchAdmTab(this)">📩 Solicitações <span id="req-badge" style="display:none;background:var(--red);color:#fff;border-radius:99px;padding:1px 7px;font-size:10px;margin-left:3px">0</span></button>
+        <button class="adm-tab" data-tab="at-config" onclick="switchAdmTab(this)">⚙️ Config</button>
+      </div>
+
+      <!-- DASH -->
+      <div id="at-dash">
+        <div class="stat-grid" id="adm-stats"></div>
+        <div class="grid-2" style="margin-bottom:12px">
+          <div class="card"><div class="card-title"><span class="ci ci-y">📅</span>IDs tratados hoje</div><div class="chart-wrap"><canvas id="chart-daily"></canvas></div></div>
+          <div class="card"><div class="card-title"><span class="ci ci-g">📈</span>Semana atual</div><div class="chart-wrap"><canvas id="chart-weekly"></canvas></div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><div class="card-title"><span class="ci ci-y">🏆</span>Ranking analistas
+      <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
+        <span class="rank-filter-lbl">Filtrar:</span>
+        <select class="sinp" id="adm-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderAdmDash()">
+          <option value="all">Tudo</option>
+          <option value="today">Hoje</option>
+          <option value="week">Esta semana</option>
+        </select>
+      </div>
+    </div><div id="rank-analysts"></div></div>
+          <div class="card"><div class="card-title"><span class="ci ci-b">⏱</span>SLA — Resumo</div><div id="sla-summary"></div></div>
+        </div>
+      </div>
+
+      <!-- TICKETS ADM -->
+      <div id="at-tickets" style="display:none">
+        <div class="srow">
+          <input class="sinp" id="tf-search" placeholder="🔍 Buscar..." oninput="renderAdmTickets()"/>
+          <select class="sinp" id="tf-status" onchange="renderAdmTickets()">
+            <option value="">Todos status</option><option value="open">Aberto</option><option value="progress">Em andamento</option><option value="done">Concluído</option>
+          </select>
+          <select class="sinp" id="tf-analyst" onchange="renderAdmTickets()"><option value="">Todos analistas</option></select>
+          <button class="btn btn-ghost btn-sm" onclick="clearAdmFilters()">✕</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        </div>
+        <div id="adm-tkt-list"></div>
+      </div>
+
+      <!-- USERS -->
+      <div id="at-users" style="display:none">
+        <div class="card">
+          <div class="card-title" style="justify-content:space-between">
+            <span><span class="ci ci-b">👥</span> Usuários</span>
+            <button class="btn btn-y btn-sm" onclick="openNewUser()">+ Novo usuário</button>
+          </div>
+          <div id="users-list"></div>
+        </div>
+      </div>
+
+      <!-- REQUESTS -->
+      <div id="at-requests" style="display:none">
+        <div class="card"><div class="card-title"><span class="ci ci-p">📩</span>Solicitações de acesso</div><div id="req-list"></div></div>
+      </div>
+
+      <!-- CONFIG -->
+      <div id="at-config" style="display:none">
+        <div class="card">
+          <div class="card-title"><span class="ci ci-b">⚙️</span>Configuração de SLA</div>
+          <div class="frow"><label>Tempo máximo de resposta (horas)</label><input id="cfg-sla" type="number" min="1" max="168" placeholder="4"/></div>
+          <div class="frow"><label>Alertar quando atingir (% do tempo)</label><input id="cfg-sla-warn" type="number" min="50" max="95" placeholder="75"/></div>
+          <button class="btn btn-y" onclick="saveSLAConfig()">💾 Salvar SLA</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ci" style="background:#00c45220;color:#00c452">💬</span>Google Chat</div>
+          <div class="cfg-sts cfg-warn" id="gchat-status">⚠️ Webhook não configurado</div>
+          <div class="frow"><label>Webhook URL</label><input id="gchat-wh" placeholder="https://chat.googleapis.com/v1/spaces/..."/></div>
+          <div style="display:flex;gap:8px"><button class="btn btn-y" onclick="saveGchat()">💾 Salvar</button><button class="btn btn-ghost" onclick="testGchat()">📤 Testar</button></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ci ci-g">📱</span>WhatsApp (CallMeBot)</div>
+          <div class="frow"><label>Número (com DDI, ex: 5511999990000)</label><input id="wa-phone" placeholder="5511999990000" inputmode="numeric"/></div>
+          <div class="frow"><label>API Key CallMeBot</label><input id="wa-key" placeholder="API Key"/></div>
+          <div style="display:flex;gap:8px"><button class="btn btn-y" onclick="saveWA()">💾 Salvar</button><button class="btn btn-ghost" onclick="testWA()">📤 Testar</button></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- APP USER -->
+<div class="page" id="page-app">
+  <div class="app-layout">
+    <div class="topbar">
+      <div class="logo-mark">🎫</div>
+      <span class="logo-text">Suporte & Validação</span>
+      <div class="topbar-right">
+        <span class="role-tag" id="app-role-tag">—</span>
+        <div class="user-chip">
+          <div class="user-av" id="app-av">U</div>
+          <span class="user-nm" id="app-nm">—</span>
+        </div>
+        <button class="topbar-exit" onclick="logout()">Sair</button>
+      </div>
+    </div>
+    <div class="app-body"><div class="wrap">
+      <div class="sla-banner" id="sla-banner">🔴 Você tem tickets próximos do prazo ou com SLA expirado!</div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tab-tickets" onclick="switchTab(this)">🎫 Tickets</button>
+        <button class="tab-btn" data-tab="tab-dash" onclick="switchTab(this)">📊 Dashboard</button>
+      </div>
+      <div id="tab-tickets">
+        <div class="srow">
+          <input class="sinp" id="app-search" placeholder="🔍 Buscar ticket ou ID..." oninput="renderTickets()"/>
+          <select class="sinp" id="app-status" onchange="renderTickets()">
+            <option value="">Todos</option><option value="open">Aberto</option><option value="progress">Em andamento</option><option value="done">Concluído</option>
+          </select>
+          <button id="btn-new-tkt" class="btn btn-y" onclick="openNewTicket()" style="display:none">+ Novo Ticket</button>
+        </div>
+        <div id="tickets-list"></div>
+      </div>
+      <div id="tab-dash" style="display:none">
+        <div class="stat-grid" id="my-stats"></div>
+        <div class="card" style="margin-bottom:12px"><div class="card-title"><span class="ci ci-y">📅</span>IDs tratados hoje (por hora)</div><div class="chart-wrap"><canvas id="my-ch-daily"></canvas></div></div>
+        <div class="card" style="margin-bottom:12px"><div class="card-title"><span class="ci ci-g">📈</span>Esta semana</div><div class="chart-wrap"><canvas id="my-ch-weekly"></canvas></div></div>
+        <div class="card"><div class="card-title"><span class="ci ci-y">🏆</span>Ranking da equipe
+      <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
+        <span class="rank-filter-lbl">Filtrar:</span>
+        <select class="sinp" id="my-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderMyDash()">
+          <option value="all">Tudo</option>
+          <option value="today">Hoje</option>
+          <option value="week">Esta semana</option>
+        </select>
+      </div>
+    </div><div id="my-ranking"></div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- MODAL: NOVO TICKET -->
+<div class="overlay" id="ov-ticket" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">🚚 Nova Solicitação</div>
+    <div class="sheet-sub">Selecione a transportadora e informe os IDs</div>
+    <div class="frow">
+      <label>Transportadora</label>
+      <select id="t-title">
+        <option value="">— Selecione —</option>
+        <option>A L C TRANSPORTES</option>
+        <option>BASEPEX ENCOM</option>
+        <option>CEVA</option>
+        <option>DHL</option>
+        <option>FLYPACK</option>
+        <option>Hawk Transportes</option>
+        <option>JM Transportes</option>
+        <option>Kangu Logistics</option>
+        <option>KN Logistica</option>
+        <option>Murici</option>
+        <option>PANTERA LOG TRAN</option>
+        <option>PRA LOG</option>
+        <option>SEQUOIA LM</option>
+        <option>TORRESTRANSP</option>
+      </select>
+    </div>
+    <div class="frow"><label>Prioridade</label>
+      <select id="t-priority">
+        <option value="normal">Normal</option>
+        <option value="high">🟡 Alta</option>
+        <option value="urgent">🔴 Urgente</option>
+      </select>
+    </div>
+    <div class="frow">
+      <label>Valor do chamado</label>
+      <div class="value-row">
+        <div class="value-opt selected" id="val-low" onclick="selectValue('low')">
+          <div class="value-opt-lbl">📉 Até R$ 1.000</div>
+          <div class="value-opt-sub">Abaixo de R$ 1.000</div>
+        </div>
+        <div class="value-opt" id="val-high" onclick="selectValue('high')">
+          <div class="value-opt-lbl">📈 Acima de R$ 1.000</div>
+          <div class="value-opt-sub">Acima de R$ 1.000</div>
+        </div>
+      </div>
+    </div>
+    <div class="frow">
+      <label>IDs para validar <span style="font-weight:400;color:var(--text3)">(11 dígitos — um por linha ou vírgula)</span></label>
+      <div class="ids-box">
+        <textarea class="ids-ta" id="t-ids" placeholder="12345678901&#10;98765432100&#10;11223344556"></textarea>
+        <div class="ids-footer" id="ids-count-lbl">Cole ou digite os IDs (11 dígitos cada)</div>
+      </div>
+    </div>
+    <div class="frow"><label>Observação (opcional)</label><textarea id="t-obs" placeholder="Contexto adicional..."></textarea></div>
+    <div class="ferr" id="err-ticket">Selecione a transportadora e pelo menos 1 ID</div>
+    <button class="btn btn-y btn-block" style="min-height:50px;font-size:15px" onclick="submitTicket()">📤 Enviar Solicitação</button>
+  </div>
+</div>
+
+<!-- MODAL: VER TICKET -->
+<div class="overlay" id="ov-view" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div id="view-content"></div>
+  </div>
+</div>
+
+<!-- MODAL: NOVO USUÁRIO -->
+<div class="overlay" id="ov-newuser" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Novo Usuário</div>
+    <div class="frow"><label>Nome completo</label><input id="nu-name" placeholder="Nome Sobrenome"/></div>
+    <div class="frow"><label>Username</label><input id="nu-user" placeholder="ex: joaosilva" autocapitalize="off"/></div>
+    <div class="frow"><label>Senha</label><input id="nu-pass" type="password" placeholder="Senha inicial"/></div>
+    <div class="frow"><label>Papel</label>
+      <select id="nu-role">
+        <option value="solicitante">Solicitante</option>
+        <option value="analista">Analista</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+    <div class="ferr" id="err-nu">Preencha todos os campos</div>
+    <button class="btn btn-y btn-block" style="min-height:48px" onclick="saveNewUser()">Salvar usuário</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ====================================================
+//  API — fetch() para URL pública do Apps Script
+//  Funciona para usuários externos sem login Google
+// ====================================================
+// ====================================================
+//  SUPABASE CONFIG — cole suas credenciais abaixo
+//  Crie conta gratis em supabase.com
+// ====================================================
+const SB_URL  = 'https://htijjjxscfwafwgukawu.supabase.co';       // ex: https://xyzabc.supabase.co
+const SB_KEY  = 'sb_publishable_8l-ojufmricoxT3S21gL_w_79MGn1D_';  // Settings > API > anon public
+
+const SBH = () => ({
+  'apikey': SB_KEY,
+  'Authorization': 'Bearer ' + SB_KEY,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=representation'
+});
+
+async function sbGet(table, filter) {
+  try {
+    let url = SB_URL + '/rest/v1/' + table + '?select=*';
+    if (filter) url += '&' + filter;
+    const r = await fetch(url, { headers: SBH() });
+    return r.ok ? r.json() : [];
+  } catch(e) { return []; }
+}
+async function sbInsert(table, data) {
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/' + table, {
+      method: 'POST', headers: SBH(), body: JSON.stringify(data)
+    });
+    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+async function sbPatch(table, key, val, data) {
+  try {
+    const url = SB_URL + '/rest/v1/' + table + '?' + key + '=eq.' + encodeURIComponent(val);
+    const r = await fetch(url, { method: 'PATCH', headers: SBH(), body: JSON.stringify(data) });
+    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+async function sbDelete(table, key, val) {
+  try {
+    const url = SB_URL + '/rest/v1/' + table + '?' + key + '=eq.' + encodeURIComponent(val);
+    const r = await fetch(url, { method: 'DELETE', headers: SBH() });
+    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+function sbParseArr(v) {
+  if (Array.isArray(v)) return v;
+  if (!v) return [];
+  try { return JSON.parse(v); } catch { return []; }
+}
+
+async function apiGet(action) {
+  try {
+    switch(action) {
+      case 'getUsers':    return await sbGet('usuarios');
+      case 'getTickets': {
+        const rows = await sbGet('tickets');
+        return rows.map(t => ({
+          ...t,
+          ids:       sbParseArr(t.ids),
+          responses: sbParseArr(t.responses)
+        }));
+      }
+      case 'getRequests': return await sbGet('solicitacoes');
+      default: return [];
+    }
+  } catch(e) { console.error('apiGet', e); return []; }
+}
+
+async function apiPost(action, data) {
+  try {
+    switch(action) {
+      case 'addUser':       return await sbInsert('usuarios', {
+        id: data.id, name: data.name, username: data.username,
+        password: data.password, role: data.role,
+        status: data.status || 'approved',
+        createdat: data.createdAt || new Date().toISOString()
+      });
+      case 'deleteUser':    return await sbDelete('usuarios', 'id', data.id);
+      case 'addTicket':     return await sbInsert('tickets', {
+        id: data.id, title: data.title,
+        ids: JSON.stringify(data.ids || []),
+        obs: data.obs || '', priority: data.priority,
+        requesterid: data.requesterId, requestername: data.requesterName,
+        analystid: data.analystId || null, analystname: data.analystName || null,
+        status: data.status || 'open',
+        responses: JSON.stringify(data.responses || []),
+        respondedat: data.respondedAt || null,
+        createdat: data.createdAt || new Date().toISOString(),
+        fmcode: data.fmCode || null, valor: data.valor || 'low'
+      });
+      case 'respondTicket': return await sbPatch('tickets', 'id', data.ticketId, {
+        analystid: data.analystId, analystname: data.analystName,
+        status: data.status,
+        responses: JSON.stringify(data.responses || []),
+        respondedat: data.respondedAt || null
+      });
+      case 'claimTicket':   return await sbPatch('tickets', 'id', data.ticketId, {
+        analystid: data.analystId, analystname: data.analystName, status: 'progress'
+      });
+      case 'addRequest':    return await sbInsert('solicitacoes', {
+        id: data.id || 'req-'+Date.now(), name: data.name,
+        username: data.username, password: data.password,
+        role: data.role || 'solicitante', status: 'pending',
+        createdat: data.createdAt || new Date().toISOString()
+      });
+      case 'approveRequest': {
+        await sbPatch('solicitacoes', 'username', data.username, { status: 'approved' });
+        return await sbInsert('usuarios', {
+          id: 'u-'+Date.now(), name: data.name, username: data.username,
+          password: data.password, role: data.role || 'solicitante',
+          status: 'approved', createdat: new Date().toISOString()
+        });
+      }
+      case 'rejectRequest': return await sbPatch('solicitacoes','username',data.username,{status:'rejected'});
+      case 'sendGoogleChatReport': return sendNotifGchat(data);
+      case 'sendCallMeBot':        return sendNotifWA(data);
+      default: return { ok: false, error: 'Acao desconhecida' };
+    }
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+
+// Notificações diretas do browser (sem backend)
+async function sendNotifGchat(data) {
+  try {
+    const r = await fetch(data.webhook, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: data.text })
+    });
+    return r.ok ? { ok: true } : { ok: false, error: 'HTTP '+r.status };
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+async function sendNotifWA(data) {
+  try {
+    const url = 'https://api.callmebot.com/whatsapp.php'
+      + '?phone='  + encodeURIComponent(data.phone)
+      + '&apikey=' + encodeURIComponent(data.apikey)
+      + '&text='   + encodeURIComponent(data.message);
+    const r = await fetch(url);
+    return r.ok ? { ok: true } : { ok: false, error: 'HTTP '+r.status };
+  } catch(e) { return { ok: false, error: e.message }; }
+}
+
+// ====================================================
+//  LOCAL STORAGE
+// ====================================================
+const LS = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+
+// ====================================================
+//  STATE
+// ====================================================
+let currentUser = null;
+let _cache = { users: [], requests: [], tickets: [] };
+let _slaHours = 4, _slaWarnPct = 75;
+window._respSel = {};
+
+// ====================================================
+//  TOAST
+// ====================================================
+let _tt;
+function toast(msg, dur) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(_tt); _tt = setTimeout(() => el.classList.remove('show'), dur || 2600);
+}
+
+// ====================================================
+//  INIT
+// ====================================================
+window.addEventListener('load', () => {
+  // Esconde loading e mostra login depois de 600ms para garantir que o Apps Script carregou
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+    if (window.location.hash && window.location.hash.startsWith('#report/')) {
+      checkHashRoute();
+    } else {
+      showPage('page-login');
+    }
+  }, 600);
+});
+
+// ====================================================
+//  LOGIN
+// ====================================================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function goStep(id) {
+  document.querySelectorAll('.login-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+async function loginUser() {
+  const u = (document.getElementById('inp-user').value || '').trim().toLowerCase();
+  const err = document.getElementById('err-user'); err.style.display = 'none';
+  if (!u) { err.textContent = 'Digite o username'; err.style.display = 'block'; return; }
+  toast('🔄 Verificando...', 60000);
+  const users = await apiGet('getUsers');
+  toast('');
+  _cache.users = Array.isArray(users) ? users : [];
+  const found = _cache.users.find(x => (x.username || '').toLowerCase() === u);
+  if (!found) { err.textContent = 'Usuário não encontrado'; err.style.display = 'block'; return; }
+  document.getElementById('login-name').textContent = (found.name || u).split(' ')[0];
+  document.getElementById('inp-pass').value = '';
+  window._loginUser = found;
+  goStep('step-pass');
+}
+
+async function loginPass() {
+  const pw = document.getElementById('inp-pass').value;
+  const err = document.getElementById('err-pass'); err.style.display = 'none';
+  const user = window._loginUser;
+  if (!user || pw !== user.password) { err.style.display = 'block'; return; }
+  toast('🔄 Carregando...', 60000);
+  currentUser = user;
+  await loadAll();
+  toast('');
+  launchApp();
+}
+
+function logout() {
+  currentUser = null;
+  document.getElementById('inp-user').value = '';
+  document.getElementById('inp-pass').value = '';
+  goStep('step-user');
+  showPage('page-login');
+}
+
+async function loadAll() {
+  const cfg = LS.get('suporte_cfg') || {};
+  _slaHours = cfg.slaHours || 4; _slaWarnPct = cfg.slaWarnPct || 75;
+  const [users, requests, tickets] = await Promise.all([
+    apiGet('getUsers'), apiGet('getRequests'), apiGet('getTickets')
+  ]);
+  _cache.users    = Array.isArray(users)    ? users    : [];
+  _cache.requests = Array.isArray(requests) ? requests : [];
+  _cache.tickets  = Array.isArray(tickets)  ? tickets  : [];
+}
+
+function launchApp() {
+  const u = currentUser;
+  if (u.role === 'admin') {
+    document.getElementById('adm-av').textContent = u.name.charAt(0).toUpperCase();
+    document.getElementById('adm-nm').textContent = u.name.split(' ')[0];
+    showPage('page-admin');
+    renderAdmDash(); renderAdmTickets(); renderUsers(); renderRequests(); loadConfig();
+  } else {
+    document.getElementById('app-av').textContent = u.name.charAt(0).toUpperCase();
+    document.getElementById('app-nm').textContent = u.name.split(' ')[0];
+    const tagEl = document.getElementById('app-role-tag');
+    tagEl.textContent = { solicitante: 'Solicitante', analista: 'Analista' }[u.role] || u.role;
+    tagEl.className = 'role-tag ' + ({ solicitante: 'rt-sol', analista: 'rt-ana' }[u.role] || 'rt-sol');
+    if (u.role === 'solicitante') document.getElementById('btn-new-tkt').style.display = 'flex';
+    showPage('page-app');
+    renderTickets(); renderMyDash(); checkSLABanner();
+    setTimeout(() => initTutorial(u), 800);
+  }
+}
+
+// ====================================================
+//  TABS
+// ====================================================
+function switchTab(btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['tab-tickets', 'tab-dash'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById(btn.dataset.tab).style.display = 'block';
+  if (btn.dataset.tab === 'tab-dash') renderMyDash();
+}
+function switchAdmTab(btn) {
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['at-dash', 'at-tickets', 'at-users', 'at-requests', 'at-config'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById(btn.dataset.tab).style.display = 'block';
+  if (btn.dataset.tab === 'at-tickets') { populateAnalystFilter(); renderAdmTickets(); }
+  if (btn.dataset.tab === 'at-dash') renderAdmDash();
+}
+
+// ====================================================
+//  SLA HELPERS
+// ====================================================
+function getSLA(t) {
+  const elapsed = (Date.now() - new Date(t.createdAt)) / 3600000;
+  const pct = Math.min(100, Math.round(elapsed / _slaHours * 100));
+  const remaining = Math.max(0, _slaHours - elapsed);
+  const expired = elapsed > _slaHours && t.status !== 'done';
+  const warn = pct >= _slaWarnPct && !expired && t.status !== 'done';
+  return { elapsed, pct, remaining, expired, warn };
+}
+function fmtSLA(h) {
+  if (h <= 0) return '⚠️ Expirado';
+  if (h < 1) return Math.round(h * 60) + 'min';
+  return h.toFixed(1) + 'h';
+}
+function checkSLABanner() {
+  const has = myTickets().some(t => { const s = getSLA(t); return (s.warn || s.expired) && t.status !== 'done'; });
+  document.getElementById('sla-banner').style.display = has ? 'block' : 'none';
+}
+
+// ====================================================
+//  HELPERS
+// ====================================================
+const sLbl = s => ({ open: 'Aberto', progress: 'Em andamento', done: 'Concluído' }[s] || s);
+const sBadge = s => `<span class="badge ${{ open: 'b-open', progress: 'b-progress', done: 'b-done' }[s] || 'b-open'}">${sLbl(s)}</span>`;
+const pBadge = p => `<span class="badge ${{ normal: 'b-pnormal', high: 'b-phigh', urgent: 'b-purgent' }[p] || 'b-pnormal'}">${{ normal: 'Normal', high: '🟡 Alta', urgent: '🔴 Urgente' }[p] || p}</span>`;
+function myTickets() {
+  if (currentUser.role === 'analista') return _cache.tickets.filter(t => t.analystId === currentUser.id || t.status === 'open');
+  if (currentUser.role === 'solicitante') return _cache.tickets.filter(t => t.requesterId === currentUser.id);
+  return _cache.tickets;
+}
+function parseIDs(raw) {
+  return raw.split(/[\n,;]+/).map(s => s.trim().toUpperCase()).filter(s => s.length > 0);
+}
+
+// ====================================================
+//  RENDER TICKETS
+// ====================================================
+function renderTickets() {
+  const search = (document.getElementById('app-search')?.value || '').toLowerCase();
+  const sf = document.getElementById('app-status')?.value || '';
+  let list = myTickets();
+  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids || []).some(id => id.toLowerCase().includes(search)));
+  if (sf) list = list.filter(t => t.status === sf);
+  list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const el = document.getElementById('tickets-list');
+  if (!list.length) { el.innerHTML = '<div class="empty"><span class="empty-ico">🎫</span>Nenhum ticket encontrado</div>'; return; }
+  el.innerHTML = list.map(t => tktCard(t)).join('');
+}
+
+function tktCard(t) {
+  const sla = getSLA(t);
+  const cls = t.status === 'done' ? '' : (sla.expired ? 'tkt-exp' : sla.warn ? 'tkt-warn' : '');
+  const done = (t.responses || []).filter(r => r.status !== '').length;
+  const total = (t.ids || []).length;
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  const valorBadge = t.valor === 'high' ? '<span class="badge b-phigh">📈 Acima R$1k</span>' : '<span class="badge b-pnormal">📉 Até R$1k</span>';
+  return `<div class="tkt ${cls}" onclick="openTicket('${t.id}')">
+    <div class="tkt-head">
+      <div class="tkt-stripe sp-${t.priority || 'normal'}"></div>
+      <div class="tkt-main">
+        <div class="tkt-r1">
+          <span class="tkt-code">${fmDisplay}</span>
+          ${sBadge(t.status)}
+          ${valorBadge}
+          ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
+        </div>
+        <div class="tkt-ttl">🚚 ${t.title}</div>
+        <div class="tkt-meta"><span>👤 ${t.requesterName}</span><span>📦 ${done}/${total} IDs</span><span>🕐 ${new Date(t.createdAt).toLocaleString('pt-BR')}</span></div>
+      </div>
+      <div class="tkt-arrow">›</div>
+    </div>
+    ${t.status !== 'done' ? `<div class="sla-wrap">
+      <div class="sla-hdr">
+        <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
+        <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}; font-weight:700">${fmtSLA(sla.remaining)}</span>
+      </div>
+      <div class="sla-bg"><div class="sla-fill ${sla.expired ? 'sla-exp' : sla.warn ? 'sla-warn' : 'sla-ok'}" style="width:${sla.pct}%"></div></div>
+    </div>` : ''}
+  </div>`;
+}
+
+// ====================================================
+//  TICKET DETAIL
+// ====================================================
+function openTicket(id) {
+  const t = _cache.tickets.find(x => x.id === id); if (!t) return;
+  window._openTkt = t; window._respSel = {};
+  const isAnalyst = currentUser.role === 'analista' || currentUser.role === 'admin';
+  const sla = getSLA(t);
+  const responses = t.responses || [];
+  const done = responses.filter(r => r.status !== '').length;
+  const total = (t.ids || []).length;
+  const icon = t.status === 'done' ? '✅' : sla.expired ? '🔴' : t.status === 'progress' ? '🔵' : '🟡';
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
+
+  // Duplicate ID check — IDs requested more than twice
+  const dupMap = {};
+  _cache.tickets.filter(x => x.id !== t.id).forEach(x => (x.ids||[]).forEach(rid => { dupMap[rid] = (dupMap[rid]||0)+1; }));
+  const dupIds = (t.ids||[]).filter(rid => (dupMap[rid]||0) >= 2);
+
+  let html = `<div class="td-hdr">
+    <div class="td-icon">${icon}</div>
+    <div style="flex:1;min-width:0">
+      <div class="td-code" style="display:flex;align-items:center;gap:6px">
+        ${fmDisplay}
+        <button class="copy-btn" title="Copiar chamado" data-copy="${encodeURIComponent(fmDisplay)}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
+      </div>
+      <div class="td-ttl">🚚 ${t.title}</div>
+      <div class="td-meta">📤 ${t.requesterName} · ${new Date(t.createdAt).toLocaleString('pt-BR')} · ${done}/${total} IDs · ${valorLabel}</div>
+    </div>
+  </div>
+  <div class="tags-row">${sBadge(t.status)} ${pBadge(t.priority)}
+    <button class="copy-all-btn" data-ids="${encodeURIComponent((t.ids||[]).join('\n'))}" onclick="copyText(decodeURIComponent(this.dataset.ids))">📋 Copiar todos IDs</button>
+    ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
+  </div>`;
+
+  if (t.obs) html += `<div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:var(--text2);margin-bottom:14px">${t.obs}</div>`;
+
+  if (t.status !== 'done') html += `<div style="margin-bottom:16px">
+    <div class="sla-hdr">
+      <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text2)'}">⏱ SLA — ${sla.pct}% utilizado</span>
+      <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text2)'}; font-weight:700">${fmtSLA(sla.remaining)}</span>
+    </div>
+    <div class="sla-bg" style="height:8px;margin-top:5px"><div class="sla-fill ${sla.expired ? 'sla-exp' : sla.warn ? 'sla-warn' : 'sla-ok'}" style="width:${sla.pct}%"></div></div>
+  </div>`;
+
+  // Duplicate warning
+  if (dupIds.length) {
+    html += `<div class="dup-warn" style="display:block">
+      <div class="dup-warn-title">⚠️ IDs já solicitados 2+ vezes anteriormente:</div>
+      <ul>${dupIds.map(d=>`<li>${d} — solicitado ${dupMap[d]} vez(es)</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  html += `<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">${total} IDs para validar</div>`;
+
+  if (isAnalyst && t.status !== 'done') {
+    // Store IDs list so event delegation can find them safely
+    window._openTktIds = t.ids || [];
+    html += `<div id="resp-form-list">`;
+    (t.ids || []).forEach((id, idx) => {
+      const ex = responses.find(r => r.id === id) || {};
+      if (ex.status) window._respSel[id] = ex.status;
+      const safeId = encodeURIComponent(id);
+      html += `<div class="resp-blk" data-idx="${idx}">
+        <div class="resp-id" style="display:flex;align-items:center;gap:6px">
+          ${id}
+          <button class="copy-btn" title="Copiar ID" data-copy="${safeId}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
+        </div>
+        <div class="resp-btns">
+          <button class="rb found ${ex.status === 'found' ? 'sel' : ''}" data-idx="${idx}" data-status="found" onclick="setRespByIdx(this)">✅ Localizado</button>
+          <button class="rb notfound ${ex.status === 'notfound' ? 'sel' : ''}" data-idx="${idx}" data-status="notfound" onclick="setRespByIdx(this)">❌ Não encontrado</button>
+          <button class="rb analyzing ${ex.status === 'analyzing' ? 'sel' : ''}" data-idx="${idx}" data-status="analyzing" onclick="setRespByIdx(this)">🔍 Em análise</button>
+        </div>
+        <input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs || '').replace(/"/g,'&quot;')}"/>
+      </div>`;
+    });
+    html += `</div>
+    <div style="margin-top:14px">
+      <button class="btn btn-g btn-block" style="min-height:50px;font-size:15px" id="btn-finalizar" onclick="saveResp(false)">✅ Finalizar & Enviar</button>
+    </div>`;
+    if (t.status === 'open') html += `<button class="btn btn-p btn-block" style="margin-top:8px;min-height:44px" data-tid="${t.id}" onclick="claimTicketById(this.dataset.tid)">🙋 Assumir ticket</button>`;
+  } else {
+    html += `<div class="id-list">`;
+    (t.ids || []).forEach(id => {
+      const resp = responses.find(r => r.id === id);
+      const bc = resp ? ({ found: 'b-found', notfound: 'b-notfound', analyzing: 'b-analyzing' }[resp.status] || 'b-pending') : 'b-pending';
+      const bl = resp ? ({ found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise' }[resp.status] || 'Pendente') : 'Pendente';
+      const safeId2 = encodeURIComponent(id);
+      html += `<div class="id-item">
+        <span class="id-code">${id}</span>
+        <button class="copy-btn" title="Copiar" data-copy="${safeId2}" onclick="copyText(decodeURIComponent(this.dataset.copy));event.stopPropagation()">📋</button>
+        <span class="badge ${bc}">${bl}</span>
+        ${resp?.obs ? `<span class="id-obs">${resp.obs}</span>` : ''}
+      </div>`;
+    });
+    html += `</div>`;
+    if (t.respondedAt) html += `<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:right">Respondido por ${t.analystName || '—'} em ${new Date(t.respondedAt).toLocaleString('pt-BR')}</div>`;
+  }
+
+  document.getElementById('view-content').innerHTML = html;
+  document.getElementById('ov-view').classList.add('open');
+}
+
+function setResp(id, status, btn) {
+  window._respSel[id] = status;
+  btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function setRespByIdx(btn) {
+  const idx = parseInt(btn.dataset.idx);
+  const status = btn.dataset.status;
+  const id = (window._openTktIds || [])[idx];
+  if (!id) return;
+  window._respSel[id] = status;
+  btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function claimTicketById(id) { claimTicket(id); }
+
+async function saveResp(finalize) {
+  const t = window._openTkt; if (!t) return;
+  const ids = window._openTktIds || t.ids || [];
+  const responses = ids.map((id, idx) => ({
+    id,
+    status: window._respSel[id] || (t.responses || []).find(r => r.id === id)?.status || '',
+    obs: document.querySelector(`.resp-obs[data-idx="${idx}"]`)?.value || ''
+  }));
+  if (!responses.every(r => r.status !== '')) { toast('⚠️ Responda todos os IDs antes de finalizar'); return; }
+  const ticketId = t.id;
+  toast('⏳ Finalizando...', 10000);
+  const respondedAt = new Date().toISOString();
+  const data = {
+    ticketId, responses,
+    analystId: currentUser.id, analystName: currentUser.name,
+    status: 'done', respondedAt
+  };
+  const result = await apiPost('respondTicket', data);
+  if (result?.ok !== false) {
+    const idx = _cache.tickets.findIndex(x => x.id === ticketId);
+    if (idx >= 0) Object.assign(_cache.tickets[idx], { responses, status: 'done', analystName: currentUser.name, respondedAt });
+    window._respSel = {};
+    document.getElementById('ov-view').classList.remove('open');
+    // Build report URL and show modal
+    const reportUrl = buildReportUrl(ticketId);
+    const ticket = _cache.tickets.find(x => x.id === ticketId);
+    showReportModal(ticket, responses, reportUrl);
+    toast('✅ Ticket finalizado!', 3000);
+    await notifyDone(ticketId, reportUrl);
+    renderTickets();
+    if (currentUser.role === 'admin') renderAdmTickets();
+  } else toast('⚠️ Erro: ' + (result?.error || 'tente novamente'));
+}
+
+async function claimTicket(id) {
+  const r = await apiPost('claimTicket', { ticketId: id, analystId: currentUser.id, analystName: currentUser.name });
+  if (r?.ok !== false) {
+    const idx = _cache.tickets.findIndex(x => x.id === id);
+    if (idx >= 0) Object.assign(_cache.tickets[idx], { analystId: currentUser.id, analystName: currentUser.name, status: 'progress' });
+    document.getElementById('ov-view').classList.remove('open');
+    toast('✅ Ticket assumido!'); renderTickets();
+    setTimeout(() => openTicket(id), 320);
+  }
+}
+
+// ====================================================
+//  NOVO TICKET
+// ====================================================
+function openNewTicket() {
+  ['t-title', 't-ids', 't-obs'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('t-priority').value = 'normal';
+  document.getElementById('err-ticket').style.display = 'none';
+  document.getElementById('ids-count-lbl').textContent = 'Cole ou digite os IDs (11 dígitos cada)';
+  selectValue('low');
+  document.getElementById('ov-ticket').classList.add('open');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('t-ids')?.addEventListener('input', function () {
+    const ids = parseIDs(this.value);
+    document.getElementById('ids-count-lbl').textContent = ids.length ? `${ids.length} ID${ids.length > 1 ? 's' : ''} detectado${ids.length > 1 ? 's' : ''} (11 dígitos)` : 'Cole ou digite os IDs (11 dígitos cada)';
+  });
+  document.getElementById('inp-user')?.addEventListener('keydown', e => { if (e.key === 'Enter') loginUser(); });
+  document.getElementById('inp-pass')?.addEventListener('keydown', e => { if (e.key === 'Enter') loginPass(); });
+});
+
+window._selectedValue = 'low';
+function selectValue(v) {
+  window._selectedValue = v;
+  document.getElementById('val-low').classList.toggle('selected', v === 'low');
+  document.getElementById('val-high').classList.toggle('selected', v === 'high');
+}
+function genFMCode() {
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2,'0');
+  const mm = String(now.getMonth()+1).padStart(2,'0');
+  const yyyy = now.getFullYear();
+  const seq = String(Math.floor(Math.random()*900000)+100000);
+  return `FM-${seq}/${dd}${mm}${yyyy}`;
+}
+function copyText(txt) {
+  navigator.clipboard.writeText(txt).then(()=>toast('📋 Copiado!',1400)).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 Copiado!',1400);
+  });
+}
+async function submitTicket() {
+  const title = document.getElementById('t-title').value.trim();
+  const idsRaw = document.getElementById('t-ids').value.trim();
+  const obs = document.getElementById('t-obs').value.trim();
+  const priority = document.getElementById('t-priority').value;
+  const err = document.getElementById('err-ticket'); err.style.display = 'none';
+  const ids = parseIDs(idsRaw);
+  if (!title || !ids.length) { err.style.display = 'block'; return; }
+  toast('📤 Enviando...', 10000);
+  const fmCode = genFMCode();
+  const ticket = {
+    id: 'tkt-' + Date.now(), title, fmCode, ids, obs, priority,
+    valor: window._selectedValue || 'low',
+    requesterId: currentUser.id, requesterName: currentUser.name,
+    status: 'open', responses: [],
+    analystId: null, analystName: null, respondedAt: null,
+    createdAt: new Date().toISOString()
+  };
+  const result = await apiPost('addTicket', ticket);
+  if (result?.ok !== false) {
+    _cache.tickets.unshift(ticket);
+    document.getElementById('ov-ticket').classList.remove('open');
+    toast(`✅ Ticket criado — ${fmCode}`);
+    renderTickets(); await notifyNew(ticket);
+  } else toast('⚠️ Erro ao criar ticket');
+}
+
+// ====================================================
+//  MY DASHBOARD
+// ====================================================
+let _chD = null, _chW = null;
+function renderMyDash() {
+  const finished = currentUser.role === 'analista'
+    ? _cache.tickets.filter(t => t.status === 'done' && t.analystId === currentUser.id)
+    : _cache.tickets.filter(t => t.requesterId === currentUser.id);
+  const today = new Date().toLocaleDateString('pt-BR');
+  const todayIds = finished.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === today).flatMap(t => t.ids || []).length;
+  const weekIds = weekTkts(finished).flatMap(t => t.ids || []).length;
+  const totalIds = finished.flatMap(t => t.ids || []).length;
+  const open = currentUser.role === 'solicitante'
+    ? _cache.tickets.filter(t => t.requesterId === currentUser.id && t.status !== 'done').length
+    : _cache.tickets.filter(t => t.status === 'open').length;
+
+  document.getElementById('my-stats').innerHTML = `
+    <div class="sbox"><div class="slbl">IDs hoje</div><div class="sval sv-y">${todayIds}</div></div>
+    <div class="sbox"><div class="slbl">Esta semana</div><div class="sval sv-g">${weekIds}</div></div>
+    <div class="sbox"><div class="slbl">Total IDs</div><div class="sval">${totalIds}</div></div>
+    <div class="sbox"><div class="slbl">Em aberto</div><div class="sval sv-a">${open}</div></div>
+    <div class="sbox"><div class="slbl">SLA médio</div><div class="sval sv-b" style="font-size:18px">${avgSLA(finished)}</div></div>`;
+
+  const hours = Array.from({ length: 24 }, (_, i) => i);
+  _chD = mkChart('my-ch-daily', _chD, hours.map(h => h + 'h'), hours.map(h => finished.filter(t => { if (!t.respondedAt) return false; const d = new Date(t.respondedAt); return d.toLocaleDateString('pt-BR') === today && d.getHours() === h; }).flatMap(t => t.ids || []).length), '#f5d800');
+  const wd = weekData(finished);
+  _chW = mkChart('my-ch-weekly', _chW, wd.labels, wd.data, '#22c55e');
+  renderRanking('my-ranking', _cache.tickets, 'my-rank-filter');
+}
+
+function avgSLA(tickets) {
+  const done = tickets.filter(t => t.respondedAt && t.createdAt);
+  if (!done.length) return '—';
+  const avg = done.reduce((s, t) => s + (new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000, 0) / done.length;
+  return avg < 1 ? Math.round(avg * 60) + 'min' : avg.toFixed(1) + 'h';
+}
+function weekTkts(tickets) {
+  const now = new Date(), mon = new Date(now);
+  mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
+  return tickets.filter(t => t.respondedAt && new Date(t.respondedAt) >= mon);
+}
+function weekData(tickets) {
+  const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+  const now = new Date(), mon = new Date(now);
+  mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
+  return { labels: days, data: days.map((_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); const ds = d.toLocaleDateString('pt-BR'); return tickets.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === ds).flatMap(t => t.ids || []).length; }) };
+}
+function mkChart(cId, existing, labels, data, color) {
+  const canvas = document.getElementById(cId); if (!canvas) return null;
+  if (existing) existing.destroy();
+  if (window.ChartDataLabels) Chart.register(ChartDataLabels);
+  return new Chart(canvas, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: color + '28', borderColor: color, borderWidth: 2, borderRadius: 6, borderSkipped: false }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        datalabels: {
+          anchor: 'end', align: 'end',
+          color: '#666666', font: { size: 10, weight: 'bold' },
+          formatter: v => v > 0 ? v : '',
+          padding: { bottom: 2 }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 }, color: '#999999' }, grid: { color: '#eeeeee' } },
+        x: { ticks: { font: { size: 11 }, color: '#999999' }, grid: { display: false } }
+      },
+      layout: { padding: { top: 18 } }
+    }
+  });
+}
+function filterTicketsByPeriod(tickets, period) {
+  if (period === 'all') return tickets;
+  const now = new Date();
+  if (period === 'today') {
+    const today = now.toLocaleDateString('pt-BR');
+    return tickets.filter(t => t.respondedAt && new Date(t.respondedAt).toLocaleDateString('pt-BR') === today);
+  }
+  if (period === 'week') {
+    const mon = new Date(now); mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0,0,0,0);
+    return tickets.filter(t => t.respondedAt && new Date(t.respondedAt) >= mon);
+  }
+  return tickets;
+}
+function renderRanking(elId, tickets, filterId) {
+  const el = document.getElementById(elId); if (!el) return;
+  const period = filterId ? (document.getElementById(filterId)?.value || 'all') : 'all';
+  const filtered = filterTicketsByPeriod(tickets, period);
+  const map = {};
+  filtered.filter(t => t.status === 'done' && t.analystName).forEach(t => {
+    const name = t.analystName;
+    map[name] = (map[name] || 0) + (t.ids || []).length;
+  });
+  const sorted = Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  if (!sorted.length) { el.innerHTML = '<div class="empty">Nenhum dado ainda</div>'; return; }
+  const periodLabel = { all: 'Total', today: 'Hoje', week: 'Semana' }[period] || '';
+  el.innerHTML = sorted.map(([name, count], i) => `<div class="rank-row">
+    <div class="rank-num ${i === 0 ? 'r1' : i === 1 ? 'r2' : i === 2 ? 'r3' : 'rn'}">${i + 1}</div>
+    <div class="rank-name">${name}</div>
+    <div class="rank-score">${count} IDs <span style="font-size:10px;color:var(--text3);font-weight:400">${periodLabel}</span></div>
+  </div>`).join('');
+}
+
+// ====================================================
+//  ADMIN DASHBOARD
+// ====================================================
+let _chAdmD = null, _chAdmW = null;
+function renderAdmDash() {
+  const t = _cache.tickets;
+  const open = t.filter(x => x.status === 'open').length;
+  const prog = t.filter(x => x.status === 'progress').length;
+  const done = t.filter(x => x.status === 'done').length;
+  const exp = t.filter(x => x.status !== 'done' && getSLA(x).expired).length;
+  const today = new Date().toLocaleDateString('pt-BR');
+  const todayIds = t.filter(x => x.respondedAt && new Date(x.respondedAt).toLocaleDateString('pt-BR') === today).flatMap(x => x.ids || []).length;
+  const totalIds = t.flatMap(x => x.ids || []).length;
+  const pend = (_cache.requests || []).filter(r => r.status === 'pending').length;
+  const badge = document.getElementById('req-badge');
+  badge.style.display = pend ? 'inline' : 'none'; if (pend) badge.textContent = pend;
+
+  document.getElementById('adm-stats').innerHTML = `
+    <div class="sbox"><div class="slbl">Abertos</div><div class="sval sv-a">${open}</div></div>
+    <div class="sbox"><div class="slbl">Em andamento</div><div class="sval sv-b">${prog}</div></div>
+    <div class="sbox"><div class="slbl">Concluídos</div><div class="sval sv-g">${done}</div></div>
+    <div class="sbox"><div class="slbl">SLA expirado</div><div class="sval sv-r">${exp}</div></div>
+    <div class="sbox"><div class="slbl">IDs hoje</div><div class="sval sv-y">${todayIds}</div></div>
+    <div class="sbox"><div class="slbl">Total IDs</div><div class="sval">${totalIds}</div></div>`;
+
+  const hours = Array.from({ length: 24 }, (_, i) => i);
+  _chAdmD = mkChart('chart-daily', _chAdmD, hours.map(h => h + 'h'), hours.map(h => t.filter(x => { if (!x.respondedAt) return false; const d = new Date(x.respondedAt); return d.toLocaleDateString('pt-BR') === today && d.getHours() === h; }).flatMap(x => x.ids || []).length), '#f5d800');
+  const wd = weekData(t.filter(x => x.status === 'done'));
+  _chAdmW = mkChart('chart-weekly', _chAdmW, wd.labels, wd.data, '#22c55e');
+  renderRanking('rank-analysts', t, 'adm-rank-filter');
+  document.getElementById('sla-summary').innerHTML = `<div style="font-size:13px;color:var(--text2);line-height:2.3">
+    <div>⏱ Tempo médio: <strong style="color:var(--text)">${avgSLA(t.filter(x => x.status === 'done'))}</strong></div>
+    <div>🎯 SLA configurado: <strong style="color:var(--yellow)">${_slaHours}h</strong></div>
+    <div>⚠️ Alerta em: <strong style="color:var(--amber)">${_slaWarnPct}% do SLA</strong></div>
+    <div style="color:var(--red)">🔴 Tickets expirados: <strong>${exp}</strong></div>
+  </div>`;
+}
+
+function renderAdmTickets() {
+  const search = (document.getElementById('tf-search')?.value || '').toLowerCase();
+  const sf = document.getElementById('tf-status')?.value || '';
+  const af = document.getElementById('tf-analyst')?.value || '';
+  let list = [..._cache.tickets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids || []).some(id => id.toLowerCase().includes(search)));
+  if (sf) list = list.filter(t => t.status === sf);
+  if (af) list = list.filter(t => t.analystName === af);
+  const el = document.getElementById('adm-tkt-list');
+  if (!list.length) { el.innerHTML = '<div class="empty"><span class="empty-ico">🎫</span>Nenhum ticket</div>'; return; }
+  el.innerHTML = list.map(t => tktCard(t)).join('');
+}
+function populateAnalystFilter() {
+  const analysts = [...new Set(_cache.tickets.filter(t => t.analystName).map(t => t.analystName))].sort();
+  const sel = document.getElementById('tf-analyst');
+  sel.innerHTML = '<option value="">Todos analistas</option>' + analysts.map(a => `<option>${a}</option>`).join('');
+}
+function clearAdmFilters() {
+  document.getElementById('tf-search').value = '';
+  document.getElementById('tf-status').value = '';
+  document.getElementById('tf-analyst').value = '';
+  renderAdmTickets();
+}
+function exportCSV() {
+  if (!_cache.tickets.length) { toast('Nenhum dado'); return; }
+  const rows = [['ID', 'Título', 'Solicitante', 'Analista', 'Status', 'Prioridade', 'IDs', 'Criado', 'Respondido', 'SLA']];
+  _cache.tickets.forEach(t => {
+    const sla = t.respondedAt ? ((new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000).toFixed(1) + 'h' : '—';
+    rows.push([t.id, t.title, t.requesterName || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), new Date(t.createdAt).toLocaleString('pt-BR'), t.respondedAt ? new Date(t.respondedAt).toLocaleString('pt-BR') : '—', sla]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'tickets_' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
+}
+
+// ====================================================
+//  USERS & REQUESTS
+// ====================================================
+function renderUsers() {
+  document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Papel</th><th></th></tr></thead><tbody>${
+    _cache.users.map(u => `<tr>
+      <td style="font-weight:700">${u.name}</td>
+      <td><code class="usr">${u.username}</code></td>
+      <td><span class="badge ${{ admin: 'b-notfound', analista: 'b-progress', solicitante: 'b-open' }[u.role] || 'b-open'}">${u.role}</span></td>
+      <td>${u.id !== 'admin-001' ? `<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>` : '—'}</td>
+    </tr>`).join('')
+  }</tbody></table></div>`;
+}
+function openNewUser() {
+  ['nu-name', 'nu-user', 'nu-pass'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('nu-role').value = 'solicitante';
+  document.getElementById('err-nu').style.display = 'none';
+  document.getElementById('ov-newuser').classList.add('open');
+}
+async function saveNewUser() {
+  const name = document.getElementById('nu-name').value.trim();
+  const username = document.getElementById('nu-user').value.trim().toLowerCase();
+  const pass = document.getElementById('nu-pass').value.trim();
+  const role = document.getElementById('nu-role').value;
+  const err = document.getElementById('err-nu'); err.style.display = 'none';
+  if (!name || !username || !pass) { err.style.display = 'block'; return; }
+  if (_cache.users.find(u => u.username === username)) { err.textContent = 'Username já existe'; err.style.display = 'block'; return; }
+  const ud = { id: 'u-' + Date.now(), name, username, password: pass, role, status: 'approved', createdAt: new Date().toISOString() };
+  await apiPost('addUser', ud);
+  _cache.users.push(ud);
+  document.getElementById('ov-newuser').classList.remove('open');
+  renderUsers(); toast(`✅ ${name} criado!`);
+}
+async function deleteUser(id) {
+  if (!confirm('Remover este usuário?')) return;
+  await apiPost('deleteUser', { id });
+  _cache.users = _cache.users.filter(u => u.id !== id);
+  renderUsers(); toast('🗑 Usuário removido');
+}
+function renderRequests() {
+  const reqs = (_cache.requests || []).filter(r => r.status === 'pending');
+  const el = document.getElementById('req-list');
+  if (!reqs.length) { el.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:12px">Nenhuma solicitação pendente</div>'; return; }
+  el.innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Data</th><th>Ações</th></tr></thead><tbody>${
+    reqs.map(r => `<tr>
+      <td style="font-weight:700">${r.name}</td>
+      <td><code class="usr">${r.username}</code></td>
+      <td style="font-size:11px;color:var(--text3)">${new Date(r.createdAt).toLocaleDateString('pt-BR')}</td>
+      <td style="display:flex;gap:6px"><button class="btn btn-g btn-sm" onclick="approveReq(${JSON.stringify(r).replace(/"/g,"'")})">✓ Aprovar</button><button class="btn btn-r btn-sm" onclick="rejectReq(${JSON.stringify(r).replace(/"/g,"'")})">✕</button></td>
+    </tr>`).join('')
+  }</tbody></table></div>`;
+}
+async function approveReq(r) {
+  const req = typeof r === 'string' ? JSON.parse(r.replace(/'/g, '"')) : r;
+  await apiPost('approveRequest', req);
+  const idx = _cache.requests.findIndex(x => x.username === req.username); if (idx >= 0) _cache.requests[idx].status = 'approved';
+  _cache.users.push({ id: 'u-' + Date.now(), name: req.name, username: req.username, password: req.password, role: req.role || 'solicitante', status: 'approved', createdAt: new Date().toISOString() });
+  renderRequests(); renderUsers(); renderAdmDash(); toast(`✅ ${req.name} aprovado!`);
+}
+async function rejectReq(r) {
+  const req = typeof r === 'string' ? JSON.parse(r.replace(/'/g, '"')) : r;
+  await apiPost('rejectRequest', req);
+  const idx = _cache.requests.findIndex(x => x.username === req.username); if (idx >= 0) _cache.requests[idx].status = 'rejected';
+  renderRequests(); toast('❌ Rejeitado');
+}
+
+// ====================================================
+//  CONFIG
+// ====================================================
+function loadConfig() {
+  const cfg = LS.get('suporte_cfg') || {};
+  document.getElementById('cfg-sla').value = cfg.slaHours || 4;
+  document.getElementById('cfg-sla-warn').value = cfg.slaWarnPct || 75;
+  document.getElementById('gchat-wh').value = LS.get('suporte_gchat') || '';
+  const wa = LS.get('suporte_wa') || {};
+  document.getElementById('wa-phone').value = wa.phone || '';
+  document.getElementById('wa-key').value = wa.apikey || '';
+  updateGchatStatus();
+}
+function saveSLAConfig() {
+  const h = parseInt(document.getElementById('cfg-sla').value) || 4;
+  const w = parseInt(document.getElementById('cfg-sla-warn').value) || 75;
+  LS.set('suporte_cfg', { slaHours: h, slaWarnPct: w }); _slaHours = h; _slaWarnPct = w;
+  toast(`✅ SLA configurado: ${h}h (alerta em ${w}%)`);
+}
+function saveGchat() {
+  const val = (document.getElementById('gchat-wh')?.value || '').trim();
+  if (!val || !val.startsWith('https://chat.googleapis.com')) { toast('⚠️ URL de webhook inválida'); return; }
+  LS.set('suporte_gchat', val); updateGchatStatus(); toast('✅ Google Chat salvo!');
+}
+function updateGchatStatus() {
+  const w = LS.get('suporte_gchat'), el = document.getElementById('gchat-status'); if (!el) return;
+  el.className = 'cfg-sts ' + (w ? 'cfg-ok' : 'cfg-warn');
+  el.textContent = w ? '✅ Webhook configurado e ativo' : '⚠️ Webhook não configurado';
+}
+async function testGchat() {
+  const w = LS.get('suporte_gchat'); if (!w) { toast('⚠️ Configure o webhook primeiro'); return; }
+  toast('📤 Testando...', 10000);
+  const r = await apiPost('sendGoogleChatReport', { webhook: w, text: '✅ *Teste — Suporte & Validação ML Logística*\nConectado com sucesso!' });
+  toast(r?.ok ? '✅ Google Chat funcionando!' : '⚠️ Erro: ' + (r?.error || 'verifique o webhook'));
+}
+function saveWA() {
+  const phone = (document.getElementById('wa-phone')?.value || '').trim().replace(/\D/g, '');
+  const apikey = (document.getElementById('wa-key')?.value || '').trim();
+  if (!phone || !apikey) { toast('⚠️ Preencha número e API Key'); return; }
+  LS.set('suporte_wa', { phone, apikey }); toast('✅ WhatsApp salvo!');
+}
+async function testWA() {
+  const cfg = LS.get('suporte_wa') || {}; if (!cfg.phone || !cfg.apikey) { toast('⚠️ Configure o WhatsApp primeiro'); return; }
+  toast('📤 Testando...', 10000);
+  const r = await apiPost('sendCallMeBot', { phone: cfg.phone, apikey: cfg.apikey, message: '✅ Teste — Suporte & Validação ML Logística' });
+  toast(r?.ok ? '✅ WhatsApp funcionando!' : '⚠️ Erro: ' + (r?.error || 'verifique as configurações'));
+}
+
+
+
+// ====================================================
+//  TUTORIAL ONBOARDING — aparece na 1a vez do solicitante
+// ====================================================
+let _tutCur = 0;
+const TUT_TOTAL = 5;
+
+function initTutorial(user) {
+  // Só mostra para solicitantes e apenas na primeira vez
+  if (user.role !== 'solicitante') return;
+  const key = 'tut_done_' + user.id;
+  if (LS.get(key)) return; // já viu
+  _tutCur = 0;
+  buildTutDots();
+  document.getElementById('tut-overlay').classList.add('open');
+}
+
+function buildTutDots() {
+  const el = document.getElementById('tut-dots');
+  el.innerHTML = Array.from({length: TUT_TOTAL}, (_, i) =>
+    `<div class="tut-dot${i < _tutCur ? ' done' : i === _tutCur ? ' on' : ''}" onclick="tutGoTo(${i})"></div>`
+  ).join('');
+  const btn = document.getElementById('tut-next');
+  btn.textContent = _tutCur === TUT_TOTAL - 1 ? '✅ Começar!' : 'Próximo →';
+}
+
+function tutGoTo(n) {
+  const old = _tutCur;
+  _tutCur = Math.max(0, Math.min(TUT_TOTAL - 1, n));
+  document.querySelectorAll('.tut-slide').forEach((s, i) => {
+    s.classList.remove('active', 'exit');
+    if (i === _tutCur) s.classList.add('active');
+    else if (i === old) s.classList.add('exit');
+  });
+  buildTutDots();
+}
+
+function tutNext() {
+  if (_tutCur < TUT_TOTAL - 1) {
+    tutGoTo(_tutCur + 1);
+  } else {
+    closeTutorial();
+  }
+}
+
+function closeTutorial() {
+  document.getElementById('tut-overlay').classList.remove('open');
+  if (currentUser) LS.set('tut_done_' + currentUser.id, true);
+}
+// ====================================================
+//  REQUEST ACCESS
+// ====================================================
+window._selectedRole = 'solicitante';
+function selectRole(role) {
+  window._selectedRole = role;
+  document.getElementById('role-opt-sol').classList.toggle('selected', role === 'solicitante');
+  document.getElementById('role-opt-ana').classList.toggle('selected', role === 'analista');
+}
+async function submitRequest() {
+  const name = (document.getElementById('req-name')?.value || '').trim();
+  const username = (document.getElementById('req-user')?.value || '').trim().toLowerCase();
+  const pass = (document.getElementById('req-pass')?.value || '').trim();
+  const err = document.getElementById('err-req'); err.style.display = 'none';
+  if (!name || !username || !pass) { err.textContent = 'Preencha todos os campos'; err.style.display = 'block'; return; }
+  if (username.length < 3) { err.textContent = 'Username muito curto (mínimo 3 caracteres)'; err.style.display = 'block'; return; }
+  if (pass.length < 4) { err.textContent = 'Senha muito curta (mínimo 4 caracteres)'; err.style.display = 'block'; return; }
+  toast('📩 Enviando...', 10000);
+  const req = { id: 'req-' + Date.now(), name, username, password: pass, role: window._selectedRole, status: 'pending', createdAt: new Date().toISOString() };
+  const result = await apiPost('addRequest', req);
+  toast('');
+  if (result?.ok !== false) {
+    document.getElementById('req-form-fields').style.display = 'none';
+    document.getElementById('req-success-box').style.display = 'block';
+    toast('✅ Solicitação enviada!');
+  } else {
+    err.textContent = 'Erro ao enviar: ' + (result?.error || 'tente novamente');
+    err.style.display = 'block';
+  }
+}
+
+// ====================================================
+//  REPORT
+// ====================================================
+function buildReportUrl(ticketId) {
+  const base = window.location.href.split('#')[0].split('?')[0];
+  return base + '#report/' + ticketId;
+}
+
+function showReportModal(t, responses, url) {
+  const found = responses.filter(r => r.status === 'found').length;
+  const notfound = responses.filter(r => r.status === 'notfound').length;
+  const analyzing = responses.filter(r => r.status === 'analyzing').length;
+
+  // Summary stats
+  document.getElementById('report-summary-row').innerHTML = `
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
+
+  // IDs table
+  const icons = { found: '✅', notfound: '❌', analyzing: '🔍', '': '⏳' };
+  const labels = { found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', '': 'Pendente' };
+  const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', '': 'var(--text3)' };
+  document.getElementById('modal-ids-body').innerHTML = (t.ids || []).map(id => {
+    const resp = responses.find(r => r.id === id) || {};
+    const s = resp.status || '';
+    return `<tr>
+      <td style="font-family:var(--mono);font-weight:700;font-size:12px">${id}</td>
+      <td style="font-weight:700;color:${colors[s]};font-size:12px">${icons[s]} ${labels[s]}</td>
+      <td style="color:var(--text3);font-size:11px">${resp.obs || '—'}</td>
+    </tr>`;
+  }).join('');
+
+  // Link
+  document.getElementById('report-link-txt').textContent = url;
+  window._reportUrl = url;
+  window._reportTicketId = t.id;
+  window._reportTicket = t;
+  window._reportResponses = responses;
+  document.getElementById('ov-report').classList.add('open');
+}
+
+function copyReportLink() {
+  const url = window._reportUrl || document.getElementById('report-link-txt').textContent;
+  copyText(url);
+}
+
+function shareWhatsApp() {
+  const t = window._reportTicket;
+  const responses = window._reportResponses || [];
+  const url = window._reportUrl || '';
+  if (!t) { toast('⚠️ Sem dados para compartilhar'); return; }
+  const msg = buildMsg(t, responses);
+  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+}
+
+function openReportPage() {
+  document.getElementById('ov-report').classList.remove('open');
+  renderReportPage(window._reportTicketId);
+}
+
+function renderReportPage(ticketId) {
+  const t = _cache.tickets.find(x => x.id === ticketId);
+  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const responses = t.responses || [];
+  const found = responses.filter(r => r.status === 'found').length;
+  const notfound = responses.filter(r => r.status === 'notfound').length;
+  const analyzing = responses.filter(r => r.status === 'analyzing').length;
+  const sla = t.respondedAt && t.createdAt ? ((new Date(t.respondedAt) - new Date(t.createdAt)) / 3600000).toFixed(1) + 'h' : '—';
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
+
+  document.getElementById('rp-fm').textContent = fmDisplay;
+  document.getElementById('rp-title').textContent = '🚚 ' + t.title;
+  document.getElementById('rp-sub').textContent =
+    `Solicitante: ${t.requesterName} · Analista: ${t.analystName || '—'} · ${valorLabel}`;
+  document.getElementById('rp-summary').innerHTML = `
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
+  document.getElementById('rp-sla-row').innerHTML = `
+    <div style="display:flex;gap:16px;font-size:13px;color:var(--text2)">
+      <span>⏱ Tempo de resposta: <strong style="color:var(--text)">${sla}</strong></span>
+      <span>📦 Total IDs: <strong style="color:var(--text)">${(t.ids||[]).length}</strong></span>
+      <span>📅 Criado: <strong style="color:var(--text)">${new Date(t.createdAt).toLocaleDateString('pt-BR')}</strong></span>
+    </div>`;
+  document.getElementById('rp-ids-body').innerHTML = (t.ids || []).map(id => {
+    const resp = responses.find(r => r.id === id) || {};
+    const status = resp.status || 'pending';
+    const icons = { found: '✅ Localizado', notfound: '❌ Não encontrado', analyzing: '🔍 Em análise', pending: '⏳ Pendente' };
+    const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', pending: 'var(--text3)' };
+    return `<tr>
+      <td style="font-family:var(--mono);font-weight:700">${id}</td>
+      <td style="font-weight:700;color:${colors[status]}">${icons[status] || status}</td>
+      <td style="color:var(--text3);font-size:12px">${resp.obs || '—'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('rp-date').textContent = t.respondedAt ? new Date(t.respondedAt).toLocaleString('pt-BR') : new Date().toLocaleString('pt-BR');
+  showPage('page-report');
+  window.location.hash = 'report/' + ticketId;
+}
+
+function launchIfLogged() {
+  if (currentUser) launchApp();
+}
+
+// Check URL hash on load for report links
+function checkHashRoute() {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#report/')) {
+    const ticketId = hash.replace('#report/', '');
+    // Try to load from cache, or fetch
+    if (_cache.tickets.length) {
+      renderReportPage(ticketId);
+    } else {
+      // Load data first then render report
+      apiGet('getTickets').then(tickets => {
+        _cache.tickets = Array.isArray(tickets) ? tickets : [];
+        renderReportPage(ticketId);
+      });
+    }
+  }
+}
+
+// ====================================================
+//  NOTIFICATIONS
+// ====================================================
+function buildMsg(t, resps) {
+  const found = resps.filter(r => r.status === 'found').length;
+  const notfound = resps.filter(r => r.status === 'notfound').length;
+  const analyzing = resps.filter(r => r.status === 'analyzing').length;
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  const dataHora = new Date().toLocaleString('pt-BR');
+  const total = (t.ids || []).length;
+  // Build aligned ID lines
+  const maxIdLen = Math.max(...(t.ids||[]).map(id => id.length), 11);
+  const idLines = (t.ids || []).map(id => {
+    const resp = resps.find(r => r.id === id) || {};
+    const icon = { found: '(OK)', notfound: '(X)', analyzing: '(?) ' }[resp.status] || '(-)';
+    const statusLbl = { found: 'Localizado', notfound: 'Nao encontrado', analyzing: 'Em analise' }[resp.status] || 'Pendente';
+    const obs = resp.obs ? ' - ' + resp.obs : '';
+    return `${id.padEnd(maxIdLen + 2)}${icon} ${statusLbl}${obs}`;
+  }).join('\n');
+  return [
+    '*TICKET RESPONDIDO*',
+    'Chamado: *' + fmDisplay + '*',
+    'Transportadora: *' + t.title + '*',
+    '',
+    'Solicitante: ' + t.requesterName,
+    'Analista: ' + t.analystName,
+    'Data: ' + dataHora,
+    '--------------------',
+    'TOTAL: *' + total + ' IDs*',
+    'Localizado: ' + found,
+    'Nao encontrado: ' + notfound,
+    'Em analise: ' + analyzing,
+    '--------------------',
+    'ID' + ' '.repeat(Math.max(maxIdLen, 11) - 1) + 'Status',
+    idLines,
+    '--------------------'
+  ].join('\n');
+}
+
+async function notifyDone(ticketId, reportUrl) {
+  const t = _cache.tickets.find(x => x.id === ticketId); if (!t) return;
+  const resps = t.responses || [];
+  const msg = buildMsg(t, resps);
+  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
+  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+}
+async function notifyNew(ticket) {
+  const msg = `🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}\n⚡ *Prioridade:* ${{ normal: 'Normal', high: 'Alta 🟡', urgent: 'URGENTE 🔴' }[ticket.priority] || ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids || []).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
+  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
+  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+}
+</script>
+
+<!-- REPORT MODAL (shown after finalizing) -->
+<div class="report-modal-overlay" id="ov-report">
+  <div class="report-modal">
+    <div class="report-modal-top">
+      <h2>✅ Ticket Finalizado!</h2>
+      <p>Relatório gerado — compartilhe com o grupo</p>
+    </div>
+    <div class="report-modal-body">
+
+      <!-- Summary table -->
+      <div class="report-summary-row" id="report-summary-row" style="margin-bottom:16px"></div>
+
+      <!-- Full IDs result table -->
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📦 Resultado por ID</div>
+      <div style="overflow-x:auto;max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:16px">
+        <table class="report-ids-table" id="modal-ids-table" style="margin-top:0">
+          <thead style="position:sticky;top:0;background:#fff;z-index:1">
+            <tr><th>ID</th><th>Status</th><th>Observação</th></tr>
+          </thead>
+          <tbody id="modal-ids-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Report link -->
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🔗 Link do relatório</div>
+      <div class="report-link-box" style="margin-bottom:12px">
+        <span class="report-link-txt" id="report-link-txt">—</span>
+        <button class="report-copy-big" onclick="copyReportLink()">📋 Copiar</button>
+      </div>
+
+      <!-- Share buttons -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <button class="btn btn-g" style="min-height:44px;font-size:13px" onclick="openReportPage()">👁 Ver completo</button>
+        <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none" onclick="shareWhatsApp()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Enviar WhatsApp
+        </button>
+      </div>
+      <button class="report-close-btn" onclick="document.getElementById('ov-report').classList.remove('open')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT PAGE (standalone, opened via link) -->
+<div class="page" id="page-report">
+  <div class="report-page active">
+    <div style="max-width:680px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div class="logo-mark">🎫</div>
+        <span style="font-size:13px;font-weight:700;color:var(--text2)">Suporte & Validação · ML Logística</span>
+      </div>
+      <div class="report-header" id="rp-header">
+        <div id="rp-fm" style="font-family:var(--mono);font-size:13px;color:#666;margin-bottom:4px"></div>
+        <h1 id="rp-title">Relatório</h1>
+        <div class="rh-sub" id="rp-sub"></div>
+      </div>
+      <div class="report-card">
+        <div class="card-title"><span class="ci ci-b">📊</span>Resumo dos resultados</div>
+        <div class="report-summary-row" id="rp-summary"></div>
+        <div style="margin-top:14px" id="rp-sla-row"></div>
+      </div>
+      <div class="report-card">
+        <div class="card-title"><span class="ci ci-y">📦</span>Resultado por ID</div>
+        <table class="report-ids-table">
+          <thead><tr><th>ID</th><th>Status</th><th>Observação</th></tr></thead>
+          <tbody id="rp-ids-body"></tbody>
+        </table>
+      </div>
+      <div style="text-align:center;padding:20px;font-size:12px;color:var(--text3)">
+        Gerado em <span id="rp-date"></span> · Suporte & Validação ML Logística
+      </div>
+      <button class="btn btn-y btn-block" style="margin-bottom:24px" onclick="showPage('page-login');launchIfLogged()">← Voltar ao sistema</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TUTORIAL ONBOARDING ===== -->
+<div class="tut-overlay" id="tut-overlay">
+  <div class="tut-card">
+    <div class="tut-header">
+      <h2>👋 Bem-vindo ao Suporte & Validação!</h2>
+      <p>Veja como funciona em 5 passos rápidos</p>
+    </div>
+    <div class="tut-body" id="tut-body">
+
+      <!-- Slide 0: Criar chamado -->
+      <div class="tut-slide active" id="tut-s0">
+        <div class="tut-two">
+          <div>
+            <div class="tut-step-tag">Passo 1 de 5</div>
+            <div class="tut-title">Crie um chamado de validação</div>
+            <div class="tut-desc">Clique em <strong>+ Novo Ticket</strong> e preencha a transportadora, prioridade, valor e os IDs que precisam de validação.</div>
+            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div>Os IDs devem ter <strong>11 dígitos</strong>. Cole um por linha ou separados por vírgula.</div></div>
+            <ul class="tut-steps">
+              <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
+              <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
+              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong></span></li>
+              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> e envie</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="tut-phone">
+              <div class="tut-phone-bar"><div class="tut-phone-ico">🚚</div><span class="tut-phone-lbl">Nova Solicitação</span></div>
+              <div class="tut-phone-bd">
+                <div style="background:#fff;border:2px solid var(--y2,#e8c800);border-radius:8px;padding:7px 9px;margin-bottom:6px;font-size:11px;font-weight:700">BASEPEX ENCOM ▾</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
+                  <div style="background:#fffde7;border:2px solid var(--y2,#e8c800);border-radius:7px;padding:7px 5px;text-align:center;font-size:10px;font-weight:700">📉 Até R$1k</div>
+                  <div style="border:2px solid #e0e0e0;border-radius:7px;padding:7px 5px;text-align:center;font-size:10px">📈 Acima</div>
+                </div>
+                <div style="background:#fff;border:2px solid var(--y2,#e8c800);border-radius:8px;padding:7px 9px;font-family:monospace;font-size:10px;line-height:1.7;min-height:50px">34567898765<br>12656576789</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 1: Código FM -->
+      <div class="tut-slide" id="tut-s1">
+        <div class="tut-step-tag">Passo 2 de 5</div>
+        <div class="tut-title">Seu chamado recebe um código FM</div>
+        <div class="tut-desc">Ao enviar, o sistema gera automaticamente um código <strong>FM-XXXXXX/DATA</strong> para identificar e rastrear seu chamado.</div>
+        <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Use o botão <strong>📋</strong> ao lado do código para copiar e compartilhar no grupo facilmente.</div></div>
+        <div style="background:#f5f5f5;border-radius:12px;padding:16px;text-align:center;margin-top:10px">
+          <div style="font-family:monospace;font-size:20px;font-weight:800;color:var(--y2,#e8c800);margin-bottom:4px">FM-374821/21042026</div>
+          <div style="font-size:12px;color:#666">Código gerado automaticamente ao criar o chamado</div>
+        </div>
+      </div>
+
+      <!-- Slide 2: SLA -->
+      <div class="tut-slide" id="tut-s2">
+        <div class="tut-step-tag">Passo 3 de 5</div>
+        <div class="tut-title">Acompanhe o prazo de resposta (SLA)</div>
+        <div class="tut-desc">Cada ticket tem uma barra de SLA mostrando o tempo restante para o analista responder. Fique de olho!</div>
+        <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:12px;padding:14px;margin-top:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:5px"><span>SLA 18%</span><span style="color:var(--green,#00a650);font-weight:700">3.2h restantes</span></div>
+          <div style="background:#eee;border-radius:99px;height:8px;overflow:hidden"><div style="width:18%;height:100%;background:var(--green,#00a650);border-radius:99px"></div></div>
+          <div style="display:flex;gap:12px;margin-top:10px;font-size:11px">
+            <span style="color:var(--green,#00a650)">🟢 Verde = ok</span>
+            <span style="color:var(--amber,#f5a623)">🟡 Amarelo = atenção</span>
+            <span style="color:var(--red,#e02020)">🔴 Vermelho = expirado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Retorno -->
+      <div class="tut-slide" id="tut-s3">
+        <div class="tut-step-tag">Passo 4 de 5</div>
+        <div class="tut-title">Veja o resultado de cada ID</div>
+        <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>. Clique para ver o status de cada ID com observações.</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px">
+          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">34567898765</span><span style="background:#e6f7ef;color:#007a3d;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #b2dfcc">✅ Localizado</span></div>
+          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">12656576789</span><span style="background:#fce8e6;color:#c5221f;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #f28b82">❌ Não encontrado</span></div>
+          <div style="background:#f5f5f5;border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;font-size:12px"><span style="font-family:monospace;font-weight:700">12049944056</span><span style="background:#fff8e6;color:#b45309;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid #fcd34d">🟡 Em análise</span></div>
+        </div>
+      </div>
+
+      <!-- Slide 4: Notificação grupo -->
+      <div class="tut-slide" id="tut-s4">
+        <div class="tut-step-tag">Passo 5 de 5</div>
+        <div class="tut-title">O resultado chega automaticamente no grupo!</div>
+        <div class="tut-desc">Assim que o analista finalizar, o sistema envia o resultado automaticamente para o grupo de <strong>WhatsApp</strong> e/ou <strong>Google Chat</strong>. Sem precisar cobrar!</div>
+        <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo. Simples assim!</div></div>
+        <div style="background:#e5ddd5;border-radius:12px;padding:12px;margin-top:10px">
+          <div style="background:#fff;border-radius:8px 0 8px 8px;padding:10px 12px;font-size:11px;line-height:1.7;max-width:280px">
+            <strong>TICKET RESPONDIDO</strong><br>
+            Chamado: FM-374821<br>
+            Transportadora: BASEPEX ENCOM<br>
+            ────────────────<br>
+            TOTAL: 3 IDs<br>
+            Localizado: 2 · Nao encontrado: 1
+          </div>
+        </div>
+        <div style="background:var(--yellow);border:2px solid var(--y2,#e8c800);border-radius:12px;padding:14px;text-align:center;margin-top:16px">
+          <div style="font-size:16px;font-weight:800;color:#333">Pronto para começar! 🚀</div>
+          <div style="font-size:12px;color:#555;margin-top:3px">Crie seu primeiro chamado clicando em <strong>+ Novo Ticket</strong></div>
+        </div>
+      </div>
+
+    </div><!-- /tut-body -->
+    <div class="tut-footer">
+      <button class="tut-btn-skip" onclick="closeTutorial()">Pular tutorial</button>
+      <div class="tut-dots" id="tut-dots"></div>
+      <button class="tut-btn-next" id="tut-next" onclick="tutNext()">Próximo →</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
