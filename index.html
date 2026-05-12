@@ -292,6 +292,21 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .tut-two{display:grid;grid-template-columns:1fr 200px;gap:14px;align-items:start;color:#1a1a1a}
 @media(max-width:500px){.tut-two{grid-template-columns:1fr}.tut-phone{display:none}}
 @media(max-width:560px){.grid-2{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}}
+/* DELETE TICKET STYLES */
+.tkt-del-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;background:#fce8e6;color:#c5221f;border:1.5px solid #f28b8250;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.tkt-del-btn:hover{background:#f28b8240;border-color:#c5221f;transform:scale(1.03)}
+.del-confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1200;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
+.del-confirm-overlay.open{display:flex;animation:fIn .15s ease}
+.del-confirm-box{background:#fff;border-radius:var(--radius-xl);padding:28px;max-width:420px;width:100%;box-shadow:var(--shadow-lg);text-align:center;animation:sUp .22s cubic-bezier(.4,0,.2,1)}
+.del-confirm-ico{font-size:44px;margin-bottom:14px;display:block}
+.del-confirm-title{font-size:18px;font-weight:800;margin-bottom:6px;color:#333;letter-spacing:-.3px}
+.del-confirm-desc{font-size:13px;color:#666;margin-bottom:8px;line-height:1.5}
+.del-confirm-code{font-family:var(--mono);font-size:13px;color:var(--yellow);font-weight:700;background:#fffde7;border:1.5px solid #e8c800;border-radius:var(--radius);padding:6px 14px;display:inline-block;margin-bottom:18px}
+.del-confirm-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.del-confirm-cancel{padding:13px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.del-confirm-cancel:hover{border-color:var(--yellow);color:var(--text)}
+.del-confirm-yes{padding:13px;background:#e02020;border:1.5px solid #c5221f;border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.del-confirm-yes:hover{background:#c5221f;filter:brightness(1.1)}
 </style>
 </head>
 <body>
@@ -592,6 +607,20 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
   </div>
 </div>
 
+<!-- MODAL: CONFIRMAR DELETE TICKET -->
+<div class="del-confirm-overlay" id="ov-del-ticket" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="del-confirm-box">
+    <span class="del-confirm-ico">🗑️</span>
+    <div class="del-confirm-title">Apagar chamado?</div>
+    <div class="del-confirm-desc">Esta ação é permanente e não pode ser desfeita. O ticket e todas as respostas serão removidos.</div>
+    <div class="del-confirm-code" id="del-ticket-code">—</div>
+    <div class="del-confirm-btns">
+      <button class="del-confirm-cancel" onclick="document.getElementById('ov-del-ticket').classList.remove('open')">Cancelar</button>
+      <button class="del-confirm-yes" id="del-ticket-confirm" onclick="confirmDeleteTicket()">🗑️ Apagar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -646,8 +675,6 @@ function sbParseArr(v) {
 
 // ====================================================
 //  FIX PRINCIPAL: Mapeamento de colunas Supabase → camelCase
-//  Supabase retorna colunas lowercase (createdat, requesterid...)
-//  mas o código JS usa camelCase (createdAt, requesterId...)
 // ====================================================
 async function apiGet(action) {
   try {
@@ -696,6 +723,7 @@ async function apiPost(action, data) {
         createdat: data.createdAt || new Date().toISOString()
       });
       case 'deleteUser':    return await sbDelete('usuarios', 'id', data.id);
+      case 'deleteTicket':  return await sbDelete('tickets', 'id', data.id);
       case 'addTicket':     return await sbInsert('tickets', {
         id: data.id, title: data.title,
         ids: JSON.stringify(data.ids || []),
@@ -774,6 +802,7 @@ let currentUser = null;
 let _cache = { users: [], requests: [], tickets: [] };
 let _slaHours = 4, _slaWarnPct = 75;
 window._respSel = {};
+window._delTicketId = null;
 
 // ====================================================
 //  TOAST
@@ -898,7 +927,7 @@ function switchAdmTab(btn) {
 }
 
 // ====================================================
-//  SLA HELPERS — CORRIGIDO: fallback para lowercase
+//  SLA HELPERS
 // ====================================================
 function getSLA(t) {
   const created = t.createdAt || t.createdat;
@@ -927,16 +956,11 @@ const sLbl = s => ({ open: 'Aberto', progress: 'Em andamento', done: 'Concluído
 const sBadge = s => `<span class="badge ${{ open: 'b-open', progress: 'b-progress', done: 'b-done' }[s] || 'b-open'}">${sLbl(s)}</span>`;
 const pBadge = p => `<span class="badge ${{ normal: 'b-pnormal', high: 'b-phigh', urgent: 'b-purgent' }[p] || 'b-pnormal'}">${{ normal: 'Normal', high: '🟡 Alta', urgent: '🔴 Urgente' }[p] || p}</span>`;
 
-// ====================================================
-//  FIX: myTickets — visibilidade correta por papel
-//  Solicitante: vê TODOS os seus tickets (abertos, em andamento, concluídos)
-//  Analista: vê tickets abertos + todos os seus (em andamento E concluídos)
-// ====================================================
 function myTickets() {
   if (currentUser.role === 'analista') {
     return _cache.tickets.filter(t =>
-      t.analystId === currentUser.id ||  // seus tickets (progress + done)
-      t.status === 'open'                // tickets abertos para pegar
+      t.analystId === currentUser.id ||
+      t.status === 'open'
     );
   }
   if (currentUser.role === 'solicitante') {
@@ -971,6 +995,7 @@ function tktCard(t) {
   const total = (t.ids || []).length;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorBadge = t.valor === 'high' ? '<span class="badge b-phigh">📈 Acima R$1k</span>' : '<span class="badge b-pnormal">📉 Até R$1k</span>';
+  const isAdmin = currentUser && currentUser.role === 'admin';
   return `<div class="tkt ${cls}" onclick="openTicket('${t.id}')">
     <div class="tkt-head">
       <div class="tkt-stripe sp-${t.priority || 'normal'}"></div>
@@ -986,13 +1011,14 @@ function tktCard(t) {
       </div>
       <div class="tkt-arrow">›</div>
     </div>
-    ${t.status === 'done' ? `<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end">
+    ${t.status === 'done' ? `<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
+      ${isAdmin ? `<button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button>` : ''}
       <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none;font-size:11px;padding:4px 12px;border-radius:99px" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Enviar
       </button>
       <button class="btn btn-sm btn-ghost" style="font-size:11px;padding:4px 10px;border-radius:99px" onclick="resendNotifications('${t.id}');event.stopPropagation()">📤 Grupo</button>
-    </div>` : ''}
+    </div>` : `${isAdmin ? `<div style="padding:0 16px 4px;display:flex;justify-content:flex-end"><button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button></div>` : ''}`}
     ${t.status !== 'done' ? `<div class="sla-wrap">
       <div class="sla-hdr">
         <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
@@ -1004,12 +1030,44 @@ function tktCard(t) {
 }
 
 // ====================================================
+//  DELETE TICKET (ADMIN ONLY)
+// ====================================================
+function promptDeleteTicket(ticketId) {
+  const t = _cache.tickets.find(x => x.id === ticketId);
+  if (!t) return;
+  window._delTicketId = ticketId;
+  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
+  document.getElementById('del-ticket-code').textContent = fmDisplay + ' — ' + t.title;
+  document.getElementById('ov-del-ticket').classList.add('open');
+}
+
+async function confirmDeleteTicket() {
+  const ticketId = window._delTicketId;
+  if (!ticketId) return;
+  document.getElementById('ov-del-ticket').classList.remove('open');
+  toast('🗑️ Apagando chamado...', 10000);
+  const result = await apiPost('deleteTicket', { id: ticketId });
+  if (result?.ok !== false) {
+    _cache.tickets = _cache.tickets.filter(x => x.id !== ticketId);
+    toast('✅ Chamado apagado com sucesso!', 3000);
+    // Close ticket detail if open
+    document.getElementById('ov-view').classList.remove('open');
+    renderAdmTickets();
+    renderAdmDash();
+  } else {
+    toast('⚠️ Erro ao apagar: ' + (result?.error || 'tente novamente'), 4000);
+  }
+  window._delTicketId = null;
+}
+
+// ====================================================
 //  TICKET DETAIL
 // ====================================================
 function openTicket(id) {
   const t = _cache.tickets.find(x => x.id === id); if (!t) return;
   window._openTkt = t; window._respSel = {};
   const isAnalyst = currentUser.role === 'analista' || currentUser.role === 'admin';
+  const isAdmin = currentUser.role === 'admin';
   const sla = getSLA(t);
   const responses = t.responses || [];
   const done = responses.filter(r => r.status !== '').length;
@@ -1036,6 +1094,7 @@ function openTicket(id) {
   <div class="tags-row">${sBadge(t.status)} ${pBadge(t.priority)}
     <button class="copy-all-btn" data-ids="${encodeURIComponent((t.ids||[]).join('\n'))}" onclick="copyText(decodeURIComponent(this.dataset.ids))">📋 Copiar todos IDs</button>
     ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
+    ${isAdmin ? `<button class="tkt-del-btn" style="margin-left:auto" onclick="promptDeleteTicket('${t.id}')">🗑️ Apagar chamado</button>` : ''}
   </div>`;
 
   if (t.obs) html += `<div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:var(--text2);margin-bottom:14px">${t.obs}</div>`;
@@ -1066,7 +1125,6 @@ function openTicket(id) {
       if (ex.status) window._respSel[id] = ex.status;
       if (ex.obs) window._obsValues[id] = ex.obs;
       const safeId = encodeURIComponent(id);
-      // Build obs area based on existing status
       let obsHtml = '';
       if (ex.status === 'found') {
         const isDev = (ex.obs || '') === 'Devolução';
@@ -1120,7 +1178,6 @@ function openTicket(id) {
     html += `</div>`;
     if (t.respondedAt) html += `<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:right">Respondido por ${t.analystName || '—'} em ${new Date(t.respondedAt).toLocaleString('pt-BR')}</div>`;
 
-    // Botões de reenvio para tickets concluídos
     if (t.status === 'done' && (currentUser.role === 'analista' || currentUser.role === 'admin')) {
       html += `<div style="margin-top:16px;padding-top:14px;border-top:1.5px solid var(--border)">
         <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📤 Compartilhar resultado</div>
@@ -1157,7 +1214,6 @@ function setRespByIdx(btn) {
   window._respSel[id] = status;
   btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
-  // Update obs area based on status
   const obsArea = document.querySelector(`.obs-area[data-idx="${idx}"]`);
   if (!obsArea) return;
   if (status === 'found') {
@@ -1190,9 +1246,7 @@ function setObsPill(btn) {
 function getObsValue(idx) {
   const id = (window._openTktIds || [])[idx];
   if (!id) return '';
-  // Check if there's a stored value from pills
   if (window._obsValues && window._obsValues[id]) return window._obsValues[id];
-  // Check if there's a text input
   const input = document.querySelector(`.resp-obs[data-idx="${idx}"]`);
   if (input) return input.value || '';
   return '';
@@ -1208,18 +1262,15 @@ async function saveResp(finalize) {
     obs: getObsValue(idx)
   }));
 
-  // Check: at least one ID must be found or notfound
   const treated = responses.filter(r => r.status === 'found' || r.status === 'notfound');
   const analyzing = responses.filter(r => r.status === 'analyzing');
   const pending = responses.filter(r => r.status === '');
 
   if (treated.length === 0) { toast('⚠️ Marque pelo menos 1 ID como Localizado ou Não encontrado'); return; }
 
-  // Check found IDs have obs selected (Devolução/Processado)
   const foundMissing = responses.filter(r => r.status === 'found' && !r.obs);
   if (foundMissing.length > 0) { toast('⚠️ Selecione Devolução ou Processado para os IDs localizados'); return; }
 
-  // Determine ticket status: done only if ALL IDs are treated (no analyzing/pending)
   const allTreated = analyzing.length === 0 && pending.length === 0;
   const newStatus = allTreated ? 'done' : 'progress';
 
@@ -1245,16 +1296,13 @@ async function saveResp(finalize) {
     document.getElementById('ov-view').classList.remove('open');
 
     if (allTreated) {
-      // Fully done — show report modal
       const reportUrl = buildReportUrl(ticketId);
       const ticket = _cache.tickets.find(x => x.id === ticketId);
       showReportModal(ticket, responses, reportUrl);
       toast('✅ Ticket finalizado!', 3000);
       await notifyDone(ticketId, reportUrl);
     } else {
-      // Partial — notify about treated IDs, ticket stays open
       toast(`✅ ${treated.length} IDs tratados · ${analyzing.length} em análise (ticket continua aberto)`, 4000);
-      // Still notify about partial progress
       await notifyPartial(ticketId, treated.length, analyzing.length);
     }
     renderTickets();
@@ -1284,7 +1332,6 @@ async function notifyPartial(ticketId, treatedCount, analyzingCount) {
 async function claimTicket(id) {
   const r = await apiPost('claimTicket', { ticketId: id, analystId: currentUser.id, analystName: currentUser.name });
   if (r?.ok !== false) {
-    // FIX: manter AMBOS lowercase e camelCase no cache
     const idx = _cache.tickets.findIndex(x => x.id === id);
     if (idx >= 0) Object.assign(_cache.tickets[idx], {
       analystId: currentUser.id, analystid: currentUser.id,
@@ -1364,7 +1411,7 @@ async function submitTicket() {
 }
 
 // ====================================================
-//  MY DASHBOARD — CORRIGIDO: fallback respondedAt
+//  MY DASHBOARD
 // ====================================================
 let _chD = null, _chW = null;
 function renderMyDash() {
@@ -1969,7 +2016,7 @@ async function notifyNew(ticket) {
 }
 
 // ====================================================
-//  REENVIO — WhatsApp / Grupo / Copiar
+//  REENVIO
 // ====================================================
 function resendWhatsApp(ticketId) {
   const t = _cache.tickets.find(x => x.id === ticketId);
