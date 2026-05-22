@@ -728,19 +728,26 @@ async function apiPost(action, data) {
       });
       case 'deleteUser':    return await sbDelete('usuarios', 'id', data.id);
       case 'deleteTicket':  return await sbDelete('tickets', 'id', data.id);
-      case 'addTicket':     return await sbInsert('tickets', {
-        id: data.id, title: data.title,
-        ids: JSON.stringify(data.ids || []),
-        obs: data.obs || '', priority: data.priority,
-        requesterid: data.requesterId, requestername: data.requesterName,
-        analystid: data.analystId || null, analystname: data.analystName || null,
-        status: data.status || 'open',
-        responses: JSON.stringify(data.responses || []),
-        respondedat: data.respondedAt || null,
-        createdat: data.createdAt || new Date().toISOString(),
-        fmcode: data.fmCode || null, valor: data.valor || 'low',
-        motorista: data.motorista || null
-      });
+      case 'addTicket': {
+        const base = {
+          id: data.id, title: data.title,
+          ids: JSON.stringify(data.ids || []),
+          obs: data.obs || '', priority: data.priority,
+          requesterid: data.requesterId, requestername: data.requesterName,
+          analystid: data.analystId || null, analystname: data.analystName || null,
+          status: data.status || 'open',
+          responses: JSON.stringify(data.responses || []),
+          respondedat: data.respondedAt || null,
+          createdat: data.createdAt || new Date().toISOString(),
+          fmcode: data.fmCode || null, valor: data.valor || 'low'
+        };
+        const withMotorista = { ...base, motorista: data.motorista || null };
+        const r1 = await sbInsert('tickets', withMotorista);
+        if (r1?.ok === false) {
+          return await sbInsert('tickets', base);
+        }
+        return r1;
+      }
       case 'respondTicket': return await sbPatch('tickets', 'id', data.ticketId, {
         analystid: data.analystId, analystname: data.analystName,
         status: data.status,
