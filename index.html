@@ -114,6 +114,7 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .b-found{background:var(--green-dim);color:var(--green);border:1px solid #22c55e30}
 .b-notfound{background:var(--red-dim);color:var(--red);border:1px solid #ef444430}
 .b-analyzing{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
+.b-lost{background:var(--purple-dim);color:var(--purple);border:1px solid #a855f730}
 .b-pending{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
 .b-pnormal{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
 .b-phigh{background:var(--amber-dim);color:var(--amber);border:1px solid #f59e0b30}
@@ -163,6 +164,7 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .rb.found{color:var(--green)}.rb.found:hover,.rb.found.sel{background:var(--green-dim);border-color:var(--green)}
 .rb.notfound{color:var(--red)}.rb.notfound:hover,.rb.notfound.sel{background:var(--red-dim);border-color:var(--red)}
 .rb.analyzing{color:var(--amber)}.rb.analyzing:hover,.rb.analyzing.sel{background:var(--amber-dim);border-color:var(--amber)}
+.rb.lost{color:var(--purple)}.rb.lost:hover,.rb.lost.sel{background:var(--purple-dim);border-color:var(--purple)}
 .rb.sel{transform:scale(1.04)}
 .resp-obs{width:100%;padding:8px 11px;background:#ffffff;border:1.5px solid var(--border2);border-radius:var(--radius);font-size:12px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
 .resp-obs:focus{border-color:var(--yellow)}.resp-obs::placeholder{color:var(--text3)}
@@ -239,7 +241,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .report-link-txt{flex:1;font-size:12px;font-family:var(--mono);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .report-copy-big{padding:8px 14px;background:var(--yellow);border:1.5px solid #e8c800;border-radius:var(--radius);font-size:12px;font-weight:800;cursor:pointer;color:#333;transition:all .15s;flex-shrink:0}
 .report-copy-big:hover{filter:brightness(1.06)}
-.report-summary-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.report-summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:16px}
 .report-stat{background:#f7f7f7;border-radius:var(--radius-lg);padding:10px;text-align:center}
 .report-stat-val{font-size:22px;font-weight:800;font-family:var(--mono)}
 .report-stat-lbl{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
@@ -574,6 +576,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
       </div>
     </div>
     <div class="frow"><label>Observação (opcional)</label><textarea id="t-obs" placeholder="Contexto adicional..."></textarea></div>
+    <div class="frow"><label>Nome do motorista <span style="font-weight:400;color:var(--text3)">(opcional)</span></label><input id="t-motorista" placeholder="Ex: João Silva" autocorrect="off"/></div>
     <div class="ferr" id="err-ticket">Selecione a transportadora e pelo menos 1 ID</div>
     <button class="btn btn-y btn-block" style="min-height:50px;font-size:15px" onclick="submitTicket()">📤 Enviar Solicitação</button>
   </div>
@@ -698,7 +701,8 @@ async function apiGet(action) {
           analystName:   t.analystname   || t.analystName,
           respondedAt:   t.respondedat   || t.respondedAt,
           createdAt:     t.createdat     || t.createdAt,
-          fmCode:        t.fmcode        || t.fmCode
+          fmCode:        t.fmcode        || t.fmCode,
+          motorista:     t.motorista      || null
         }));
       }
       case 'getRequests': {
@@ -734,7 +738,8 @@ async function apiPost(action, data) {
         responses: JSON.stringify(data.responses || []),
         respondedat: data.respondedAt || null,
         createdat: data.createdAt || new Date().toISOString(),
-        fmcode: data.fmCode || null, valor: data.valor || 'low'
+        fmcode: data.fmCode || null, valor: data.valor || 'low',
+        motorista: data.motorista || null
       });
       case 'respondTicket': return await sbPatch('tickets', 'id', data.ticketId, {
         analystid: data.analystId, analystname: data.analystName,
@@ -995,7 +1000,7 @@ function tktCard(t) {
   const total = (t.ids || []).length;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorBadge = t.valor === 'high' ? '<span class="badge b-phigh">📈 Acima R$1k</span>' : '<span class="badge b-pnormal">📉 Até R$1k</span>';
-  const isAdmin = currentUser && currentUser.role === 'admin';
+  const canDelete = currentUser && (currentUser.role === 'admin' || currentUser.role === 'analista');
   return `<div class="tkt ${cls}" onclick="openTicket('${t.id}')">
     <div class="tkt-head">
       <div class="tkt-stripe sp-${t.priority || 'normal'}"></div>
@@ -1007,18 +1012,18 @@ function tktCard(t) {
           ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
         </div>
         <div class="tkt-ttl">🚚 ${t.title}</div>
-        <div class="tkt-meta"><span>👤 ${t.requesterName}</span><span>📦 ${done}/${total} IDs</span><span>🕐 ${new Date(t.createdAt).toLocaleString('pt-BR')}</span></div>
+        <div class="tkt-meta"><span>👤 ${t.requesterName}</span>${t.motorista ? `<span>🚛 ${t.motorista}</span>` : ''}<span>📦 ${done}/${total} IDs</span><span>🕐 ${new Date(t.createdAt).toLocaleString('pt-BR')}</span></div>
       </div>
       <div class="tkt-arrow">›</div>
     </div>
     ${t.status === 'done' ? `<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
-      ${isAdmin ? `<button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button>` : ''}
+      ${canDelete ? `<button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button>` : ''}
       <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none;font-size:11px;padding:4px 12px;border-radius:99px" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         Enviar
       </button>
       <button class="btn btn-sm btn-ghost" style="font-size:11px;padding:4px 10px;border-radius:99px" onclick="resendNotifications('${t.id}');event.stopPropagation()">📤 Grupo</button>
-    </div>` : `${isAdmin ? `<div style="padding:0 16px 4px;display:flex;justify-content:flex-end"><button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button></div>` : ''}`}
+    </div>` : `${canDelete ? `<div style="padding:0 16px 4px;display:flex;justify-content:flex-end"><button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button></div>` : ''}`}
     ${t.status !== 'done' ? `<div class="sla-wrap">
       <div class="sla-hdr">
         <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
@@ -1052,8 +1057,8 @@ async function confirmDeleteTicket() {
     toast('✅ Chamado apagado com sucesso!', 3000);
     // Close ticket detail if open
     document.getElementById('ov-view').classList.remove('open');
-    renderAdmTickets();
-    renderAdmDash();
+    renderTickets();
+    if (currentUser.role === 'admin') { renderAdmTickets(); renderAdmDash(); }
   } else {
     toast('⚠️ Erro ao apagar: ' + (result?.error || 'tente novamente'), 4000);
   }
@@ -1067,7 +1072,7 @@ function openTicket(id) {
   const t = _cache.tickets.find(x => x.id === id); if (!t) return;
   window._openTkt = t; window._respSel = {};
   const isAnalyst = currentUser.role === 'analista' || currentUser.role === 'admin';
-  const isAdmin = currentUser.role === 'admin';
+  const canDelete = currentUser.role === 'admin' || currentUser.role === 'analista';
   const sla = getSLA(t);
   const responses = t.responses || [];
   const done = responses.filter(r => r.status !== '').length;
@@ -1094,10 +1099,12 @@ function openTicket(id) {
   <div class="tags-row">${sBadge(t.status)} ${pBadge(t.priority)}
     <button class="copy-all-btn" data-ids="${encodeURIComponent((t.ids||[]).join('\n'))}" onclick="copyText(decodeURIComponent(this.dataset.ids))">📋 Copiar todos IDs</button>
     ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
-    ${isAdmin ? `<button class="tkt-del-btn" style="margin-left:auto" onclick="promptDeleteTicket('${t.id}')">🗑️ Apagar chamado</button>` : ''}
+    ${canDelete ? `<button class="tkt-del-btn" style="margin-left:auto" onclick="promptDeleteTicket('${t.id}')">🗑️ Apagar chamado</button>` : ''}
   </div>`;
 
   if (t.obs) html += `<div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:var(--text2);margin-bottom:14px">${t.obs}</div>`;
+
+  if (t.motorista) html += `<div style="background:#e8f0fe;border:1.5px solid #aecbfa;border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:#1a73e8;margin-bottom:14px;font-weight:600">🚛 Motorista: ${t.motorista}</div>`;
 
   if (t.status !== 'done') html += `<div style="margin-bottom:16px">
     <div class="sla-hdr">
@@ -1139,6 +1146,9 @@ function openTicket(id) {
         obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-auto">❌ Obs: Somente Coletado</div></div>`;
       } else if (ex.status === 'analyzing') {
         obsHtml = `<div class="obs-area" data-idx="${idx}"><input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs || '').replace(/"/g,'&quot;')}"/></div>`;
+      } else if (ex.status === 'lost') {
+        if (!ex.obs) window._obsValues[id] = 'Perdidos por FM';
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-auto" style="background:var(--purple-dim);border-color:#a855f730;color:var(--purple)">📦 Obs: Perdidos por FM</div></div>`;
       } else {
         obsHtml = `<div class="obs-area" data-idx="${idx}"></div>`;
       }
@@ -1151,6 +1161,7 @@ function openTicket(id) {
           <button class="rb found ${ex.status === 'found' ? 'sel' : ''}" data-idx="${idx}" data-status="found" onclick="setRespByIdx(this)">✅ Localizado</button>
           <button class="rb notfound ${ex.status === 'notfound' ? 'sel' : ''}" data-idx="${idx}" data-status="notfound" onclick="setRespByIdx(this)">❌ Não encontrado</button>
           <button class="rb analyzing ${ex.status === 'analyzing' ? 'sel' : ''}" data-idx="${idx}" data-status="analyzing" onclick="setRespByIdx(this)">🔍 Em análise</button>
+          <button class="rb lost ${ex.status === 'lost' ? 'sel' : ''}" data-idx="${idx}" data-status="lost" onclick="setRespByIdx(this)">📦 Perdidos por FM</button>
         </div>
         ${obsHtml}
       </div>`;
@@ -1165,8 +1176,8 @@ function openTicket(id) {
     html += `<div class="id-list">`;
     (t.ids || []).forEach(id => {
       const resp = responses.find(r => r.id === id);
-      const bc = resp ? ({ found: 'b-found', notfound: 'b-notfound', analyzing: 'b-analyzing' }[resp.status] || 'b-pending') : 'b-pending';
-      const bl = resp ? ({ found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise' }[resp.status] || 'Pendente') : 'Pendente';
+      const bc = resp ? ({ found: 'b-found', notfound: 'b-notfound', analyzing: 'b-analyzing', lost: 'b-lost' }[resp.status] || 'b-pending') : 'b-pending';
+      const bl = resp ? ({ found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', lost: 'Perdidos por FM' }[resp.status] || 'Pendente') : 'Pendente';
       const safeId2 = encodeURIComponent(id);
       html += `<div class="id-item">
         <span class="id-code">${id}</span>
@@ -1229,6 +1240,9 @@ function setRespByIdx(btn) {
   } else if (status === 'analyzing') {
     window._obsValues[id] = '';
     obsArea.innerHTML = `<input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value=""/>`;
+  } else if (status === 'lost') {
+    window._obsValues[id] = 'Perdidos por FM';
+    obsArea.innerHTML = `<div class="obs-auto" style="background:var(--purple-dim);border-color:#a855f730;color:var(--purple)">📦 Obs: Perdidos por FM</div>`;
   } else {
     window._obsValues[id] = '';
     obsArea.innerHTML = '';
@@ -1262,7 +1276,7 @@ async function saveResp(finalize) {
     obs: getObsValue(idx)
   }));
 
-  const treated = responses.filter(r => r.status === 'found' || r.status === 'notfound');
+  const treated = responses.filter(r => r.status === 'found' || r.status === 'notfound' || r.status === 'lost');
   const analyzing = responses.filter(r => r.status === 'analyzing');
   const pending = responses.filter(r => r.status === '');
 
@@ -1317,6 +1331,7 @@ async function notifyPartial(ticketId, treatedCount, analyzingCount) {
     '📋 *ATUALIZAÇÃO DE TICKET*',
     'Chamado: *' + fmDisplay + '*',
     'Transportadora: *' + t.title + '*',
+    ...(t.motorista ? ['🚛 Motorista: *' + t.motorista + '*'] : []),
     '',
     'Solicitado por: *' + (t.requesterName || '—') + '*',
     'Analista: ' + (t.analystName || '—'),
@@ -1348,7 +1363,7 @@ async function claimTicket(id) {
 //  NOVO TICKET
 // ====================================================
 function openNewTicket() {
-  ['t-title', 't-ids', 't-obs'].forEach(id => document.getElementById(id).value = '');
+  ['t-title', 't-ids', 't-obs', 't-motorista'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('t-priority').value = 'normal';
   document.getElementById('err-ticket').style.display = 'none';
   document.getElementById('ids-count-lbl').textContent = 'Cole ou digite os IDs (11 dígitos cada)';
@@ -1387,6 +1402,7 @@ async function submitTicket() {
   const title = document.getElementById('t-title').value.trim();
   const idsRaw = document.getElementById('t-ids').value.trim();
   const obs = document.getElementById('t-obs').value.trim();
+  const motorista = document.getElementById('t-motorista').value.trim();
   const priority = document.getElementById('t-priority').value;
   const err = document.getElementById('err-ticket'); err.style.display = 'none';
   const ids = parseIDs(idsRaw);
@@ -1394,7 +1410,7 @@ async function submitTicket() {
   toast('📤 Enviando...', 10000);
   const fmCode = genFMCode();
   const ticket = {
-    id: 'tkt-' + Date.now(), title, fmCode, ids, obs, priority,
+    id: 'tkt-' + Date.now(), title, fmCode, ids, obs, motorista, priority,
     valor: window._selectedValue || 'low',
     requesterId: currentUser.id, requesterName: currentUser.name,
     status: 'open', responses: [],
@@ -1610,12 +1626,12 @@ function clearAdmFilters() {
 }
 function exportCSV() {
   if (!_cache.tickets.length) { toast('Nenhum dado'); return; }
-  const rows = [['ID', 'Título', 'Solicitante', 'Analista', 'Status', 'Prioridade', 'IDs', 'Criado', 'Respondido', 'SLA']];
+  const rows = [['ID', 'Título', 'Solicitante', 'Motorista', 'Analista', 'Status', 'Prioridade', 'IDs', 'Criado', 'Respondido', 'SLA']];
   _cache.tickets.forEach(t => {
     const _rA = t.respondedAt || t.respondedat;
     const _cA = t.createdAt || t.createdat;
     const sla = _rA ? ((new Date(_rA) - new Date(_cA)) / 3600000).toFixed(1) + 'h' : '—';
-    rows.push([t.id, t.title, t.requesterName || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), _cA ? new Date(_cA).toLocaleString('pt-BR') : '—', _rA ? new Date(_rA).toLocaleString('pt-BR') : '—', sla]);
+    rows.push([t.id, t.title, t.requesterName || '', t.motorista || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), _cA ? new Date(_cA).toLocaleString('pt-BR') : '—', _rA ? new Date(_rA).toLocaleString('pt-BR') : '—', sla]);
   });
   const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
@@ -1855,15 +1871,17 @@ function showReportModal(t, responses, url) {
   const found = responses.filter(r => r.status === 'found').length;
   const notfound = responses.filter(r => r.status === 'notfound').length;
   const analyzing = responses.filter(r => r.status === 'analyzing').length;
+  const lost = responses.filter(r => r.status === 'lost').length;
 
   document.getElementById('report-summary-row').innerHTML = `
     <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--purple)">${lost}</div><div class="report-stat-lbl">Perdidos FM</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
 
-  const icons = { found: '✅', notfound: '❌', analyzing: '🔍', '': '⏳' };
-  const labels = { found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', '': 'Pendente' };
-  const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', '': 'var(--text3)' };
+  const icons = { found: '✅', notfound: '❌', analyzing: '🔍', lost: '📦', '': '⏳' };
+  const labels = { found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', lost: 'Perdidos por FM', '': 'Pendente' };
+  const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', lost: 'var(--purple)', '': 'var(--text3)' };
   document.getElementById('modal-ids-body').innerHTML = (t.ids || []).map(id => {
     const resp = responses.find(r => r.id === id) || {};
     const s = resp.status || '';
@@ -1908,6 +1926,7 @@ function renderReportPage(ticketId) {
   const found = responses.filter(r => r.status === 'found').length;
   const notfound = responses.filter(r => r.status === 'notfound').length;
   const analyzing = responses.filter(r => r.status === 'analyzing').length;
+  const lost = responses.filter(r => r.status === 'lost').length;
   const _rAt = t.respondedAt || t.respondedat;
   const _cAt = t.createdAt || t.createdat;
   const sla = _rAt && _cAt ? ((new Date(_rAt) - new Date(_cAt)) / 3600000).toFixed(1) + 'h' : '—';
@@ -1917,10 +1936,11 @@ function renderReportPage(ticketId) {
   document.getElementById('rp-fm').textContent = fmDisplay;
   document.getElementById('rp-title').textContent = '🚚 ' + t.title;
   document.getElementById('rp-sub').textContent =
-    `Solicitante: ${t.requesterName} · Analista: ${t.analystName || '—'} · ${valorLabel}`;
+    `Solicitante: ${t.requesterName} · Analista: ${t.analystName || '—'}${t.motorista ? ' · Motorista: ' + t.motorista : ''} · ${valorLabel}`;
   document.getElementById('rp-summary').innerHTML = `
     <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
+    <div class="report-stat"><div class="report-stat-val" style="color:var(--purple)">${lost}</div><div class="report-stat-lbl">Perdidos FM</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
   document.getElementById('rp-sla-row').innerHTML = `
     <div style="display:flex;gap:16px;font-size:13px;color:var(--text2)">
@@ -1931,8 +1951,8 @@ function renderReportPage(ticketId) {
   document.getElementById('rp-ids-body').innerHTML = (t.ids || []).map(id => {
     const resp = responses.find(r => r.id === id) || {};
     const status = resp.status || 'pending';
-    const icons = { found: '✅ Localizado', notfound: '❌ Não encontrado', analyzing: '🔍 Em análise', pending: '⏳ Pendente' };
-    const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', pending: 'var(--text3)' };
+    const icons = { found: '✅ Localizado', notfound: '❌ Não encontrado', analyzing: '🔍 Em análise', lost: '📦 Perdidos por FM', pending: '⏳ Pendente' };
+    const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', lost: 'var(--purple)', pending: 'var(--text3)' };
     return `<tr>
       <td style="font-family:var(--mono);font-weight:700">${id}</td>
       <td style="font-weight:700;color:${colors[status]}">${icons[status] || status}</td>
@@ -1970,14 +1990,15 @@ function buildMsg(t, resps) {
   const found = resps.filter(r => r.status === 'found').length;
   const notfound = resps.filter(r => r.status === 'notfound').length;
   const analyzing = resps.filter(r => r.status === 'analyzing').length;
+  const lost = resps.filter(r => r.status === 'lost').length;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const dataHora = new Date().toLocaleString('pt-BR');
   const total = (t.ids || []).length;
   const maxIdLen = Math.max(...(t.ids||[]).map(id => id.length), 11);
   const idLines = (t.ids || []).map(id => {
     const resp = resps.find(r => r.id === id) || {};
-    const icon = { found: '(OK)', notfound: '(X)', analyzing: '(?) ' }[resp.status] || '(-)';
-    const statusLbl = { found: 'Localizado', notfound: 'Nao encontrado', analyzing: 'Em analise' }[resp.status] || 'Pendente';
+    const icon = { found: '(OK)', notfound: '(X)', analyzing: '(?)', lost: '(FM)' }[resp.status] || '(-)';
+    const statusLbl = { found: 'Localizado', notfound: 'Nao encontrado', analyzing: 'Em analise', lost: 'Perdidos por FM' }[resp.status] || 'Pendente';
     const obs = resp.obs ? ' - ' + resp.obs : '';
     return `${id.padEnd(maxIdLen + 2)}${icon} ${statusLbl}${obs}`;
   }).join('\n');
@@ -1986,6 +2007,7 @@ function buildMsg(t, resps) {
     '━━━━━━━━━━━━━━━━━━━━',
     'Chamado: *' + fmDisplay + '*',
     'Transportadora: *' + t.title + '*',
+    ...(t.motorista ? ['🚛 Motorista: *' + t.motorista + '*'] : []),
     '',
     '👤 *Solicitado por: ' + (t.requesterName || '—') + '*',
     '🔍 Analista: ' + (t.analystName || '—'),
@@ -1994,6 +2016,7 @@ function buildMsg(t, resps) {
     'TOTAL: *' + total + ' IDs*',
     '✅ Localizado: ' + found,
     '❌ Nao encontrado: ' + notfound,
+    ...(lost > 0 ? ['📦 Perdidos por FM: ' + lost] : []),
     ...(analyzing > 0 ? ['🔍 Em analise: ' + analyzing] : []),
     '━━━━━━━━━━━━━━━━━━━━',
     'ID' + ' '.repeat(Math.max(maxIdLen, 11) - 1) + 'Status',
@@ -2010,7 +2033,8 @@ async function notifyDone(ticketId, reportUrl) {
   const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
 }
 async function notifyNew(ticket) {
-  const msg = `🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}\n⚡ *Prioridade:* ${{ normal: 'Normal', high: 'Alta 🟡', urgent: 'URGENTE 🔴' }[ticket.priority] || ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids || []).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
+  const motorLine = ticket.motorista ? `\n🚛 *Motorista:* ${ticket.motorista}` : '';
+  const msg = `🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}${motorLine}\n⚡ *Prioridade:* ${{ normal: 'Normal', high: 'Alta 🟡', urgent: 'URGENTE 🔴' }[ticket.priority] || ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids || []).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
   const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
   const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
 }
