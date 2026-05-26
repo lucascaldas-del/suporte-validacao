@@ -440,7 +440,10 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
         <div class="card">
           <div class="card-title" style="justify-content:space-between">
             <span><span class="ci ci-b">👥</span> Usuários</span>
-            <button class="btn btn-y btn-sm" onclick="openNewUser()">+ Novo usuário</button>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost btn-sm" onclick="exportUsers()">⬇ Exportar</button>
+              <button class="btn btn-y btn-sm" onclick="openNewUser()">+ Novo usuário</button>
+            </div>
           </div>
           <div id="users-list"></div>
         </div>
@@ -1645,11 +1648,33 @@ function exportCSV() {
   a.download = 'tickets_' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
 }
 
+function exportUsers() {
+  if (!_cache.users.length) { toast('Nenhum usuário'); return; }
+  const rows = [['Nome', 'Username', 'Senha', 'Papel', 'Status', 'Criado']];
+  _cache.users.forEach(u => {
+    const _cA = u.createdAt || u.createdat;
+    rows.push([
+      u.name || '',
+      u.username || '',
+      u.password || '',
+      u.role || '',
+      u.status || '',
+      _cA ? new Date(_cA).toLocaleString('pt-BR') : '—'
+    ]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'usuarios_' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+  toast('⬇ Usuários exportados!');
+}
+
 // ====================================================
 //  USERS & REQUESTS
 // ====================================================
 function renderUsers() {
-  document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Papel</th><th>Treinamento</th><th></th></tr></thead><tbody>${
+  document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Senha</th><th>Papel</th><th>Treinamento</th><th></th></tr></thead><tbody>${
     _cache.users.map(u => {
       const tutKey = 'tut_done_' + u.id;
       const tutDone = LS.get(tutKey);
@@ -1664,6 +1689,7 @@ function renderUsers() {
       return `<tr>
         <td style="font-weight:700">${u.name}</td>
         <td><code class="usr">${u.username}</code></td>
+        <td><code class="usr">${u.password || '—'}</code></td>
         <td><span class="badge ${{ admin: 'b-notfound', analista: 'b-progress', solicitante: 'b-open' }[u.role] || 'b-open'}">${u.role}</span></td>
         <td>${tutBadge}</td>
         <td style="display:flex;gap:4px;align-items:center">${resetBtn}${u.id !== 'admin-001' ? `<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>` : '—'}</td>
