@@ -75,6 +75,24 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .rt-adm{background:#fce8e6;color:#c5221f;border:1px solid #f28b82}
 .topbar-exit{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .15s}
 .topbar-exit:hover{border-color:var(--red);color:var(--red);background:#fce8e6}
+/* === REFRESH BUTTON === */
+.btn-refresh{background:var(--yellow-dim);border:1.5px solid #e8c80060;border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:#8a6f00;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
+.btn-refresh:hover{background:var(--yellow);border-color:#e8c800;color:#333;box-shadow:var(--yellow-glow)}
+.btn-refresh.spinning .refresh-icon{animation:spin .6s linear infinite}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.refresh-icon{display:inline-block;font-size:13px}
+/* === DATE FILTER === */
+.date-filter-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-xl);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.date-filter-label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+.date-inp{padding:7px 11px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--radius-lg);font-size:13px;color:var(--text);outline:none;transition:border-color .15s;cursor:pointer}
+.date-inp:focus{border-color:var(--yellow)}
+.date-sep{color:var(--text3);font-size:12px;font-weight:600}
+.date-quick-btns{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto}
+.dq-btn{padding:5px 12px;border:1.5px solid var(--border2);border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg3);color:var(--text2);transition:all .15s}
+.dq-btn:hover,.dq-btn.active{background:var(--yellow);border-color:#e8c800;color:#333}
+.date-clear-btn{padding:5px 10px;border:1.5px solid var(--border2);border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg3);color:var(--text3);transition:all .15s}
+.date-clear-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+/* === REST OF STYLES === */
 .app-layout{display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 .app-body{flex:1}
 .wrap{max-width:980px;margin:0 auto;padding:18px 14px}
@@ -185,7 +203,9 @@ input,select,button,textarea{-webkit-user-select:auto;user-select:auto;font-fami
 .tbl tr:hover td{background:var(--bg3)}
 .tbl tr:last-child td{border-bottom:none}
 code.usr{background:var(--bg4);padding:2px 7px;border-radius:5px;font-family:var(--mono);font-size:11px;color:var(--text2)}
-.chart-wrap{position:relative;height:185px;margin-top:10px}
+.chart-wrap{position:relative;height:200px;margin-top:10px}
+.chart-wrap-lg{position:relative;height:240px;margin-top:10px}
+.chart-wrap-pie{position:relative;height:220px;margin-top:10px}
 .rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .rank-row:last-child{border-bottom:none}
 .rank-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
@@ -208,6 +228,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .td-meta{font-size:12px;color:var(--text3);margin-top:4px}
 .tags-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .cfg-sts{border-radius:var(--radius-lg);padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600}
 .cfg-ok{background:var(--green-dim);border:1.5px solid #22c55e30;color:var(--green)}
 .cfg-warn{background:var(--amber-dim);border:1.5px solid #f59e0b30;color:var(--amber)}
@@ -293,7 +314,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .tut-phone-bd{padding:10px;background:#f7f7f7;min-height:120px;font-size:11px}
 .tut-two{display:grid;grid-template-columns:1fr 200px;gap:14px;align-items:start;color:#1a1a1a}
 @media(max-width:500px){.tut-two{grid-template-columns:1fr}.tut-phone{display:none}}
-@media(max-width:560px){.grid-2{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.grid-2{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}.date-filter-bar{flex-wrap:wrap}.date-quick-btns{margin-left:0}}
 /* DELETE TICKET STYLES */
 .tkt-del-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;background:#fce8e6;color:#c5221f;border:1.5px solid #f28b8250;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .tkt-del-btn:hover{background:#f28b8240;border-color:#c5221f;transform:scale(1.03)}
@@ -309,6 +330,12 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 .del-confirm-cancel:hover{border-color:var(--yellow);color:var(--text)}
 .del-confirm-yes{padding:13px;background:#e02020;border:1.5px solid #c5221f;border-radius:var(--radius-lg);font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .del-confirm-yes:hover{background:#c5221f;filter:brightness(1.1)}
+/* CHART LEGEND */
+.chart-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text2)}
+.chart-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+/* LAST UPDATED */
+.last-updated{font-size:10px;color:var(--text3);font-weight:500;margin-left:auto}
 </style>
 </head>
 <body>
@@ -389,6 +416,9 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
       <div class="logo-mark">🎫</div>
       <span class="logo-text">Suporte <span class="logo-sep">·</span> Admin</span>
       <div class="topbar-right">
+        <button class="btn-refresh" id="adm-refresh-btn" onclick="refreshData()" title="Atualizar dados">
+          <span class="refresh-icon">🔄</span> Atualizar
+        </button>
         <div class="user-chip">
           <div class="user-av" id="adm-av">A</div>
           <span class="user-nm" id="adm-nm">Admin</span>
@@ -405,23 +435,50 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
         <button class="adm-tab" data-tab="at-config" onclick="switchAdmTab(this)">⚙️ Config</button>
       </div>
       <div id="at-dash">
+        <!-- DATE FILTER BAR -->
+        <div class="date-filter-bar" id="adm-date-filter">
+          <span class="date-filter-label">📅 Período:</span>
+          <input type="date" class="date-inp" id="adm-date-from" onchange="applyDateFilter('adm')"/>
+          <span class="date-sep">até</span>
+          <input type="date" class="date-inp" id="adm-date-to" onchange="applyDateFilter('adm')"/>
+          <div class="date-quick-btns">
+            <button class="dq-btn active" id="adm-dq-all" onclick="setDateQuick('adm','all')">Tudo</button>
+            <button class="dq-btn" id="adm-dq-today" onclick="setDateQuick('adm','today')">Hoje</button>
+            <button class="dq-btn" id="adm-dq-week" onclick="setDateQuick('adm','week')">Semana</button>
+            <button class="dq-btn" id="adm-dq-month" onclick="setDateQuick('adm','month')">Mês</button>
+          </div>
+          <button class="date-clear-btn" onclick="clearDateFilter('adm')" title="Limpar filtro">✕</button>
+          <span class="last-updated" id="adm-last-updated"></span>
+        </div>
+
         <div class="stat-grid" id="adm-stats"></div>
         <div class="grid-2" style="margin-bottom:12px">
-          <div class="card"><div class="card-title"><span class="ci ci-y">📅</span>IDs tratados hoje</div><div class="chart-wrap"><canvas id="chart-daily"></canvas></div></div>
-          <div class="card"><div class="card-title"><span class="ci ci-g">📈</span>Semana atual</div><div class="chart-wrap"><canvas id="chart-weekly"></canvas></div></div>
+          <div class="card">
+            <div class="card-title"><span class="ci ci-y">📅</span>IDs tratados — por onda do dia
+              <div style="margin-left:auto;font-size:10px;color:var(--text3);font-weight:400">Ondas de 4h cada</div>
+            </div>
+            <div class="chart-wrap-lg"><canvas id="chart-daily"></canvas></div>
+            <div class="chart-legend" id="adm-legend-daily"></div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="ci ci-g">📈</span>Semana atual — por dia</div>
+            <div class="chart-wrap"><canvas id="chart-weekly"></canvas></div>
+          </div>
         </div>
-        <div class="grid-2">
+        <div class="grid-3" style="margin-bottom:12px">
           <div class="card"><div class="card-title"><span class="ci ci-y">🏆</span>Ranking analistas
-      <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
-        <span class="rank-filter-lbl">Filtrar:</span>
-        <select class="sinp" id="adm-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderAdmDash()">
-          <option value="all">Tudo</option>
-          <option value="today">Hoje</option>
-          <option value="week">Esta semana</option>
-        </select>
-      </div>
-    </div><div id="rank-analysts"></div></div>
+            <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
+              <select class="sinp" id="adm-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderAdmDash()">
+                <option value="all">Tudo</option>
+                <option value="today">Hoje</option>
+                <option value="week">Esta semana</option>
+              </select>
+            </div>
+          </div><div id="rank-analysts"></div></div>
           <div class="card"><div class="card-title"><span class="ci ci-b">⏱</span>SLA — Resumo</div><div id="sla-summary"></div></div>
+          <div class="card"><div class="card-title"><span class="ci ci-p">🥧</span>Distribuição de status</div>
+            <div class="chart-wrap-pie"><canvas id="chart-status-pie"></canvas></div>
+          </div>
         </div>
       </div>
       <div id="at-tickets" style="display:none">
@@ -482,6 +539,9 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
       <div class="logo-mark">🎫</div>
       <span class="logo-text">Suporte & Validação</span>
       <div class="topbar-right">
+        <button class="btn-refresh" id="app-refresh-btn" onclick="refreshData()" title="Atualizar dados">
+          <span class="refresh-icon">🔄</span> Atualizar
+        </button>
         <span class="role-tag" id="app-role-tag">—</span>
         <div class="user-chip">
           <div class="user-av" id="app-av">U</div>
@@ -507,19 +567,45 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
         <div id="tickets-list"></div>
       </div>
       <div id="tab-dash" style="display:none">
+        <!-- DATE FILTER for user dashboard -->
+        <div class="date-filter-bar" id="my-date-filter">
+          <span class="date-filter-label">📅 Período:</span>
+          <input type="date" class="date-inp" id="my-date-from" onchange="applyDateFilter('my')"/>
+          <span class="date-sep">até</span>
+          <input type="date" class="date-inp" id="my-date-to" onchange="applyDateFilter('my')"/>
+          <div class="date-quick-btns">
+            <button class="dq-btn active" id="my-dq-all" onclick="setDateQuick('my','all')">Tudo</button>
+            <button class="dq-btn" id="my-dq-today" onclick="setDateQuick('my','today')">Hoje</button>
+            <button class="dq-btn" id="my-dq-week" onclick="setDateQuick('my','week')">Semana</button>
+            <button class="dq-btn" id="my-dq-month" onclick="setDateQuick('my','month')">Mês</button>
+          </div>
+          <button class="date-clear-btn" onclick="clearDateFilter('my')" title="Limpar filtro">✕</button>
+          <span class="last-updated" id="my-last-updated"></span>
+        </div>
+
         <div class="stat-grid" id="my-stats"></div>
-        <div class="card" style="margin-bottom:12px"><div class="card-title"><span class="ci ci-y">📅</span>IDs tratados hoje (por hora)</div><div class="chart-wrap"><canvas id="my-ch-daily"></canvas></div></div>
-        <div class="card" style="margin-bottom:12px"><div class="card-title"><span class="ci ci-g">📈</span>Esta semana</div><div class="chart-wrap"><canvas id="my-ch-weekly"></canvas></div></div>
+        <div class="card" style="margin-bottom:12px">
+          <div class="card-title"><span class="ci ci-y">📅</span>IDs tratados — por onda do dia
+            <div style="margin-left:auto;font-size:10px;color:var(--text3);font-weight:400">Ondas de 4h cada</div>
+          </div>
+          <div class="chart-wrap-lg"><canvas id="my-ch-daily"></canvas></div>
+          <div class="chart-legend" id="my-legend-daily"></div>
+        </div>
+        <div class="grid-2" style="margin-bottom:12px">
+          <div class="card"><div class="card-title"><span class="ci ci-g">📈</span>Esta semana</div><div class="chart-wrap"><canvas id="my-ch-weekly"></canvas></div></div>
+          <div class="card"><div class="card-title"><span class="ci ci-p">🥧</span>Distribuição dos resultados</div>
+            <div class="chart-wrap-pie"><canvas id="my-ch-pie"></canvas></div>
+          </div>
+        </div>
         <div class="card"><div class="card-title"><span class="ci ci-y">🏆</span>Ranking da equipe
-      <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
-        <span class="rank-filter-lbl">Filtrar:</span>
-        <select class="sinp" id="my-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderMyDash()">
-          <option value="all">Tudo</option>
-          <option value="today">Hoje</option>
-          <option value="week">Esta semana</option>
-        </select>
-      </div>
-    </div><div id="my-ranking"></div></div>
+          <div class="rank-filter-row" style="margin-left:auto;margin-bottom:0">
+            <select class="sinp" id="my-rank-filter" style="padding:5px 10px;font-size:12px;min-height:30px;flex:none;width:auto" onchange="renderMyDash()">
+              <option value="all">Tudo</option>
+              <option value="today">Hoje</option>
+              <option value="week">Esta semana</option>
+            </select>
+          </div>
+        </div><div id="my-ranking"></div></div>
       </div>
     </div></div>
   </div>
@@ -535,40 +621,20 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
       <label>Transportadora</label>
       <select id="t-title">
         <option value="">— Selecione —</option>
-        <option>A L C TRANSPORTES</option>
-        <option>BASEPEX ENCOM</option>
-        <option>CEVA</option>
-        <option>DHL</option>
-        <option>FLYPACK</option>
-        <option>Hawk Transportes</option>
-        <option>JM Transportes</option>
-        <option>Kangu Logistics</option>
-        <option>KN Logistica</option>
-        <option>Murici</option>
-        <option>PANTERA LOG TRAN</option>
-        <option>PRA LOG</option>
-        <option>SEQUOIA LM</option>
-        <option>TORRESTRANSP</option>
+        <option>A L C TRANSPORTES</option><option>BASEPEX ENCOM</option><option>CEVA</option><option>DHL</option>
+        <option>FLYPACK</option><option>Hawk Transportes</option><option>JM Transportes</option>
+        <option>Kangu Logistics</option><option>KN Logistica</option><option>Murici</option>
+        <option>PANTERA LOG TRAN</option><option>PRA LOG</option><option>SEQUOIA LM</option><option>TORRESTRANSP</option>
       </select>
     </div>
     <div class="frow"><label>Prioridade</label>
-      <select id="t-priority">
-        <option value="normal">Normal</option>
-        <option value="high">🟡 Alta</option>
-        <option value="urgent">🔴 Urgente</option>
-      </select>
+      <select id="t-priority"><option value="normal">Normal</option><option value="high">🟡 Alta</option><option value="urgent">🔴 Urgente</option></select>
     </div>
     <div class="frow">
       <label>Valor do chamado</label>
       <div class="value-row">
-        <div class="value-opt selected" id="val-low" onclick="selectValue('low')">
-          <div class="value-opt-lbl">📉 Até R$ 1.000</div>
-          <div class="value-opt-sub">Abaixo de R$ 1.000</div>
-        </div>
-        <div class="value-opt" id="val-high" onclick="selectValue('high')">
-          <div class="value-opt-lbl">📈 Acima de R$ 1.000</div>
-          <div class="value-opt-sub">Acima de R$ 1.000</div>
-        </div>
+        <div class="value-opt selected" id="val-low" onclick="selectValue('low')"><div class="value-opt-lbl">📉 Até R$ 1.000</div><div class="value-opt-sub">Abaixo de R$ 1.000</div></div>
+        <div class="value-opt" id="val-high" onclick="selectValue('high')"><div class="value-opt-lbl">📈 Acima de R$ 1.000</div><div class="value-opt-sub">Acima de R$ 1.000</div></div>
       </div>
     </div>
     <div class="frow">
@@ -587,10 +653,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
 
 <!-- MODAL: VER TICKET -->
 <div class="overlay" id="ov-view" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div id="view-content"></div>
-  </div>
+  <div class="sheet"><div class="sheet-handle"></div><div id="view-content"></div></div>
 </div>
 
 <!-- MODAL: NOVO USUÁRIO -->
@@ -601,13 +664,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
     <div class="frow"><label>Nome completo</label><input id="nu-name" placeholder="Nome Sobrenome"/></div>
     <div class="frow"><label>Username</label><input id="nu-user" placeholder="ex: joaosilva" autocapitalize="off"/></div>
     <div class="frow"><label>Senha</label><input id="nu-pass" type="password" placeholder="Senha inicial"/></div>
-    <div class="frow"><label>Papel</label>
-      <select id="nu-role">
-        <option value="solicitante">Solicitante</option>
-        <option value="analista">Analista</option>
-        <option value="admin">Admin</option>
-      </select>
-    </div>
+    <div class="frow"><label>Papel</label><select id="nu-role"><option value="solicitante">Solicitante</option><option value="analista">Analista</option><option value="admin">Admin</option></select></div>
     <div class="ferr" id="err-nu">Preencha todos os campos</div>
     <button class="btn btn-y btn-block" style="min-height:48px" onclick="saveNewUser()">Salvar usuário</button>
   </div>
@@ -618,7 +675,7 @@ select.sinp{cursor:pointer;min-height:38px}.sinp option{background:var(--bg3)}
   <div class="del-confirm-box">
     <span class="del-confirm-ico">🗑️</span>
     <div class="del-confirm-title">Apagar chamado?</div>
-    <div class="del-confirm-desc">Esta ação é permanente e não pode ser desfeita. O ticket e todas as respostas serão removidos.</div>
+    <div class="del-confirm-desc">Esta ação é permanente e não pode ser desfeita.</div>
     <div class="del-confirm-code" id="del-ticket-code">—</div>
     <div class="del-confirm-btns">
       <button class="del-confirm-cancel" onclick="document.getElementById('ov-del-ticket').classList.remove('open')">Cancelar</button>
@@ -637,10 +694,8 @@ const SB_URL  = 'https://htijjjxscfwafwgukawu.supabase.co';
 const SB_KEY  = 'sb_publishable_8l-ojufmricoxT3S21gL_w_79MGn1D_';
 
 const SBH = () => ({
-  'apikey': SB_KEY,
-  'Authorization': 'Bearer ' + SB_KEY,
-  'Content-Type': 'application/json',
-  'Prefer': 'return=representation'
+  'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY,
+  'Content-Type': 'application/json', 'Prefer': 'return=representation'
 });
 
 async function sbGet(table, filter) {
@@ -653,25 +708,23 @@ async function sbGet(table, filter) {
 }
 async function sbInsert(table, data) {
   try {
-    const r = await fetch(SB_URL + '/rest/v1/' + table, {
-      method: 'POST', headers: SBH(), body: JSON.stringify(data)
-    });
-    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
-  } catch(e) { return { ok: false, error: e.message }; }
+    const r = await fetch(SB_URL + '/rest/v1/' + table, { method:'POST', headers:SBH(), body:JSON.stringify(data) });
+    return r.ok ? { ok:true } : { ok:false, error:await r.text() };
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 async function sbPatch(table, key, val, data) {
   try {
     const url = SB_URL + '/rest/v1/' + table + '?' + key + '=eq.' + encodeURIComponent(val);
-    const r = await fetch(url, { method: 'PATCH', headers: SBH(), body: JSON.stringify(data) });
-    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
-  } catch(e) { return { ok: false, error: e.message }; }
+    const r = await fetch(url, { method:'PATCH', headers:SBH(), body:JSON.stringify(data) });
+    return r.ok ? { ok:true } : { ok:false, error:await r.text() };
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 async function sbDelete(table, key, val) {
   try {
     const url = SB_URL + '/rest/v1/' + table + '?' + key + '=eq.' + encodeURIComponent(val);
-    const r = await fetch(url, { method: 'DELETE', headers: SBH() });
-    return r.ok ? { ok: true } : { ok: false, error: await r.text() };
-  } catch(e) { return { ok: false, error: e.message }; }
+    const r = await fetch(url, { method:'DELETE', headers:SBH() });
+    return r.ok ? { ok:true } : { ok:false, error:await r.text() };
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 function sbParseArr(v) {
   if (Array.isArray(v)) return v;
@@ -679,127 +732,71 @@ function sbParseArr(v) {
   try { return JSON.parse(v); } catch { return []; }
 }
 
-// ====================================================
-//  FIX PRINCIPAL: Mapeamento de colunas Supabase → camelCase
-// ====================================================
 async function apiGet(action) {
   try {
     switch(action) {
       case 'getUsers': {
         const rows = await sbGet('usuarios');
-        return rows.map(u => ({
-          ...u,
-          createdAt: u.createdat || u.createdAt || u.createdat
-        }));
+        return rows.map(u => ({ ...u, createdAt: u.createdat || u.createdAt }));
       }
       case 'getTickets': {
         const rows = await sbGet('tickets');
         return rows.map(t => ({
-          ...t,
-          ids:           sbParseArr(t.ids),
-          responses:     sbParseArr(t.responses),
-          requesterId:   t.requesterid   || t.requesterId,
-          requesterName: t.requestername || t.requesterName,
-          analystId:     t.analystid     || t.analystId,
-          analystName:   t.analystname   || t.analystName,
-          respondedAt:   t.respondedat   || t.respondedAt,
-          createdAt:     t.createdat     || t.createdAt,
-          fmCode:        t.fmcode        || t.fmCode,
-          motorista:     t.motorista      || null
+          ...t, ids: sbParseArr(t.ids), responses: sbParseArr(t.responses),
+          requesterId: t.requesterid || t.requesterId, requesterName: t.requestername || t.requesterName,
+          analystId: t.analystid || t.analystId, analystName: t.analystname || t.analystName,
+          respondedAt: t.respondedat || t.respondedAt, createdAt: t.createdat || t.createdAt,
+          fmCode: t.fmcode || t.fmCode, motorista: t.motorista || null
         }));
       }
       case 'getRequests': {
         const rows = await sbGet('solicitacoes');
-        return rows.map(r => ({
-          ...r,
-          createdAt: r.createdat || r.createdAt
-        }));
+        return rows.map(r => ({ ...r, createdAt: r.createdat || r.createdAt }));
       }
       default: return [];
     }
-  } catch(e) { console.error('apiGet', e); return []; }
+  } catch(e) { return []; }
 }
 
 async function apiPost(action, data) {
   try {
     switch(action) {
-      case 'addUser':       return await sbInsert('usuarios', {
-        id: data.id, name: data.name, username: data.username,
-        password: data.password, role: data.role,
-        status: data.status || 'approved',
-        createdat: data.createdAt || new Date().toISOString()
-      });
-      case 'deleteUser':    return await sbDelete('usuarios', 'id', data.id);
-      case 'deleteTicket':  return await sbDelete('tickets', 'id', data.id);
+      case 'addUser': return await sbInsert('usuarios', { id:data.id, name:data.name, username:data.username, password:data.password, role:data.role, status:data.status||'approved', createdat:data.createdAt||new Date().toISOString() });
+      case 'deleteUser': return await sbDelete('usuarios','id',data.id);
+      case 'deleteTicket': return await sbDelete('tickets','id',data.id);
       case 'addTicket': {
-        const base = {
-          id: data.id, title: data.title,
-          ids: JSON.stringify(data.ids || []),
-          obs: data.obs || '', priority: data.priority,
-          requesterid: data.requesterId, requestername: data.requesterName,
-          analystid: data.analystId || null, analystname: data.analystName || null,
-          status: data.status || 'open',
-          responses: JSON.stringify(data.responses || []),
-          respondedat: data.respondedAt || null,
-          createdat: data.createdAt || new Date().toISOString(),
-          fmcode: data.fmCode || null, valor: data.valor || 'low'
-        };
-        const withMotorista = { ...base, motorista: data.motorista || null };
-        const r1 = await sbInsert('tickets', withMotorista);
-        if (r1?.ok === false) {
-          return await sbInsert('tickets', base);
-        }
+        const base = { id:data.id, title:data.title, ids:JSON.stringify(data.ids||[]), obs:data.obs||'', priority:data.priority, requesterid:data.requesterId, requestername:data.requesterName, analystid:data.analystId||null, analystname:data.analystName||null, status:data.status||'open', responses:JSON.stringify(data.responses||[]), respondedat:data.respondedAt||null, createdat:data.createdAt||new Date().toISOString(), fmcode:data.fmCode||null, valor:data.valor||'low' };
+        const r1 = await sbInsert('tickets', { ...base, motorista:data.motorista||null });
+        if (r1?.ok === false) return await sbInsert('tickets', base);
         return r1;
       }
-      case 'respondTicket': return await sbPatch('tickets', 'id', data.ticketId, {
-        analystid: data.analystId, analystname: data.analystName,
-        status: data.status,
-        responses: JSON.stringify(data.responses || []),
-        respondedat: data.respondedAt || null
-      });
-      case 'claimTicket':   return await sbPatch('tickets', 'id', data.ticketId, {
-        analystid: data.analystId, analystname: data.analystName, status: 'progress'
-      });
-      case 'addRequest':    return await sbInsert('solicitacoes', {
-        id: data.id || 'req-'+Date.now(), name: data.name,
-        username: data.username, password: data.password,
-        role: data.role || 'solicitante', status: 'pending',
-        createdat: data.createdAt || new Date().toISOString()
-      });
+      case 'respondTicket': return await sbPatch('tickets','id',data.ticketId, { analystid:data.analystId, analystname:data.analystName, status:data.status, responses:JSON.stringify(data.responses||[]), respondedat:data.respondedAt||null });
+      case 'claimTicket': return await sbPatch('tickets','id',data.ticketId, { analystid:data.analystId, analystname:data.analystName, status:'progress' });
+      case 'addRequest': return await sbInsert('solicitacoes', { id:data.id||'req-'+Date.now(), name:data.name, username:data.username, password:data.password, role:data.role||'solicitante', status:'pending', createdat:data.createdAt||new Date().toISOString() });
       case 'approveRequest': {
-        await sbPatch('solicitacoes', 'username', data.username, { status: 'approved' });
-        return await sbInsert('usuarios', {
-          id: 'u-'+Date.now(), name: data.name, username: data.username,
-          password: data.password, role: data.role || 'solicitante',
-          status: 'approved', createdat: new Date().toISOString()
-        });
+        await sbPatch('solicitacoes','username',data.username,{status:'approved'});
+        return await sbInsert('usuarios', { id:'u-'+Date.now(), name:data.name, username:data.username, password:data.password, role:data.role||'solicitante', status:'approved', createdat:new Date().toISOString() });
       }
       case 'rejectRequest': return await sbPatch('solicitacoes','username',data.username,{status:'rejected'});
       case 'sendGoogleChatReport': return sendNotifGchat(data);
-      case 'sendCallMeBot':        return sendNotifWA(data);
-      default: return { ok: false, error: 'Acao desconhecida' };
+      case 'sendCallMeBot': return sendNotifWA(data);
+      default: return { ok:false, error:'Acao desconhecida' };
     }
-  } catch(e) { return { ok: false, error: e.message }; }
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 
 async function sendNotifGchat(data) {
   try {
-    const r = await fetch(data.webhook, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: data.text })
-    });
-    return r.ok ? { ok: true } : { ok: false, error: 'HTTP '+r.status };
-  } catch(e) { return { ok: false, error: e.message }; }
+    const r = await fetch(data.webhook, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text:data.text}) });
+    return r.ok ? { ok:true } : { ok:false, error:'HTTP '+r.status };
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 async function sendNotifWA(data) {
   try {
-    const url = 'https://api.callmebot.com/whatsapp.php'
-      + '?phone='  + encodeURIComponent(data.phone)
-      + '&apikey=' + encodeURIComponent(data.apikey)
-      + '&text='   + encodeURIComponent(data.message);
+    const url = 'https://api.callmebot.com/whatsapp.php?phone='+encodeURIComponent(data.phone)+'&apikey='+encodeURIComponent(data.apikey)+'&text='+encodeURIComponent(data.message);
     const r = await fetch(url);
-    return r.ok ? { ok: true } : { ok: false, error: 'HTTP '+r.status };
-  } catch(e) { return { ok: false, error: e.message }; }
+    return r.ok ? { ok:true } : { ok:false, error:'HTTP '+r.status };
+  } catch(e) { return { ok:false, error:e.message }; }
 }
 
 // ====================================================
@@ -807,17 +804,23 @@ async function sendNotifWA(data) {
 // ====================================================
 const LS = {
   get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
-  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  set: (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 };
 
 // ====================================================
 //  STATE
 // ====================================================
 let currentUser = null;
-let _cache = { users: [], requests: [], tickets: [] };
+let _cache = { users:[], requests:[], tickets:[] };
 let _slaHours = 4, _slaWarnPct = 75;
 window._respSel = {};
 window._delTicketId = null;
+
+// === DATE FILTER STATE ===
+window._dateFilters = {
+  adm: { from: null, to: null, quick: 'all' },
+  my:  { from: null, to: null, quick: 'all' }
+};
 
 // ====================================================
 //  TOAST
@@ -844,6 +847,158 @@ window.addEventListener('load', () => {
 });
 
 // ====================================================
+//  REFRESH DATA
+// ====================================================
+async function refreshData() {
+  const prefix = currentUser?.role === 'admin' ? 'adm' : 'app';
+  const btn = document.getElementById(prefix + '-refresh-btn') || document.getElementById('adm-refresh-btn') || document.getElementById('app-refresh-btn');
+  if (btn) btn.classList.add('spinning');
+  toast('🔄 Atualizando dados...', 10000);
+  await loadAll();
+  if (btn) btn.classList.remove('spinning');
+  const now = new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  const luEl = document.getElementById('adm-last-updated') || document.getElementById('my-last-updated');
+  if (luEl) luEl.textContent = '🕐 Atualizado ' + now;
+  // Also update both elements
+  ['adm-last-updated','my-last-updated'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '🕐 ' + now;
+  });
+  toast('✅ Dados atualizados!', 2200);
+  if (currentUser?.role === 'admin') {
+    renderAdmDash(); renderAdmTickets(); renderUsers(); renderRequests();
+  } else {
+    renderTickets(); renderMyDash(); checkSLABanner();
+  }
+}
+
+// ====================================================
+//  DATE FILTER LOGIC
+// ====================================================
+function getDateFilterRange(scope) {
+  const f = window._dateFilters[scope];
+  if (!f) return null;
+  if (f.from || f.to) {
+    return { from: f.from ? new Date(f.from + 'T00:00:00') : null, to: f.to ? new Date(f.to + 'T23:59:59') : null };
+  }
+  return null;
+}
+
+function applyDateFilter(scope) {
+  const from = document.getElementById(scope+'-date-from')?.value;
+  const to = document.getElementById(scope+'-date-to')?.value;
+  window._dateFilters[scope].from = from || null;
+  window._dateFilters[scope].to = to || null;
+  window._dateFilters[scope].quick = 'custom';
+  // deactivate quick buttons
+  ['all','today','week','month'].forEach(q => {
+    const btn = document.getElementById(scope+'-dq-'+q);
+    if (btn) btn.classList.remove('active');
+  });
+  if (scope === 'adm') renderAdmDash();
+  else renderMyDash();
+}
+
+function setDateQuick(scope, period) {
+  const now = new Date();
+  let from = null, to = null;
+  if (period === 'today') {
+    from = now.toISOString().split('T')[0];
+    to = from;
+  } else if (period === 'week') {
+    const mon = new Date(now); mon.setDate(now.getDate() - now.getDay() + 1);
+    from = mon.toISOString().split('T')[0];
+    to = now.toISOString().split('T')[0];
+  } else if (period === 'month') {
+    from = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+    to = now.toISOString().split('T')[0];
+  }
+  window._dateFilters[scope] = { from, to, quick: period };
+  const fromEl = document.getElementById(scope+'-date-from');
+  const toEl = document.getElementById(scope+'-date-to');
+  if (fromEl) fromEl.value = from || '';
+  if (toEl) toEl.value = to || '';
+  ['all','today','week','month'].forEach(q => {
+    const btn = document.getElementById(scope+'-dq-'+q);
+    if (btn) btn.classList.toggle('active', q === period);
+  });
+  if (scope === 'adm') renderAdmDash();
+  else renderMyDash();
+}
+
+function clearDateFilter(scope) {
+  window._dateFilters[scope] = { from:null, to:null, quick:'all' };
+  const fromEl = document.getElementById(scope+'-date-from');
+  const toEl = document.getElementById(scope+'-date-to');
+  if (fromEl) fromEl.value = '';
+  if (toEl) toEl.value = '';
+  ['all','today','week','month'].forEach(q => {
+    const btn = document.getElementById(scope+'-dq-'+q);
+    if (btn) btn.classList.toggle('active', q === 'all');
+  });
+  if (scope === 'adm') renderAdmDash();
+  else renderMyDash();
+}
+
+function filterByDateRange(tickets, scope) {
+  const range = getDateFilterRange(scope);
+  if (!range || (!range.from && !range.to)) return tickets;
+  return tickets.filter(t => {
+    const dateStr = t.createdAt || t.createdat;
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    if (range.from && d < range.from) return false;
+    if (range.to && d > range.to) return false;
+    return true;
+  });
+}
+
+// ====================================================
+//  WAVE (ONDA) DEFINITIONS
+// ====================================================
+// Ondas do dia: grupos de 4 horas
+const ONDAS = [
+  { label: 'Onda 1\n00–04h', range: [0,4],  color: '#3483fa', colorAlpha: '#3483fa35' },
+  { label: 'Onda 2\n04–08h', range: [4,8],  color: '#00a650', colorAlpha: '#00a65035' },
+  { label: 'Onda 3\n08–12h', range: [8,12], color: '#f5d800', colorAlpha: '#f5d80035' },
+  { label: 'Onda 4\n12–16h', range: [12,16],color: '#f5a623', colorAlpha: '#f5a62335' },
+  { label: 'Onda 5\n16–20h', range: [16,20],color: '#8a2be2', colorAlpha: '#8a2be235' },
+  { label: 'Onda 6\n20–24h', range: [20,24],color: '#e02020', colorAlpha: '#e0202035' },
+];
+
+function getOndaData(tickets, dateScope) {
+  // Filter by selected date
+  const range = getDateFilterRange(dateScope);
+  let filtered = tickets.filter(t => t.status === 'done');
+  if (range && (range.from || range.to)) {
+    filtered = filtered.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      if (!ra) return false;
+      const d = new Date(ra);
+      if (range.from && d < range.from) return false;
+      if (range.to && d > range.to) return false;
+      return true;
+    });
+  } else {
+    // Default: today only for wave chart
+    const today = new Date().toLocaleDateString('pt-BR');
+    filtered = filtered.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
+    });
+  }
+  return ONDAS.map(o => ({
+    ...o,
+    count: filtered.filter(t => {
+      const ra = t.respondedAt || t.respondedat;
+      if (!ra) return false;
+      const h = new Date(ra).getHours();
+      return h >= o.range[0] && h < o.range[1];
+    }).flatMap(t => t.ids || []).length
+  }));
+}
+
+// ====================================================
 //  LOGIN
 // ====================================================
 function showPage(id) {
@@ -863,9 +1018,9 @@ async function loginUser() {
   const users = await apiGet('getUsers');
   toast('');
   _cache.users = Array.isArray(users) ? users : [];
-  const found = _cache.users.find(x => (x.username || '').toLowerCase() === u);
+  const found = _cache.users.find(x => (x.username||'').toLowerCase() === u);
   if (!found) { err.textContent = 'Usuário não encontrado'; err.style.display = 'block'; return; }
-  document.getElementById('login-name').textContent = (found.name || u).split(' ')[0];
+  document.getElementById('login-name').textContent = (found.name||u).split(' ')[0];
   document.getElementById('inp-pass').value = '';
   window._loginUser = found;
   goStep('step-pass');
@@ -894,9 +1049,7 @@ function logout() {
 async function loadAll() {
   const cfg = LS.get('suporte_cfg') || {};
   _slaHours = cfg.slaHours || 4; _slaWarnPct = cfg.slaWarnPct || 75;
-  const [users, requests, tickets] = await Promise.all([
-    apiGet('getUsers'), apiGet('getRequests'), apiGet('getTickets')
-  ]);
+  const [users, requests, tickets] = await Promise.all([apiGet('getUsers'), apiGet('getRequests'), apiGet('getTickets')]);
   _cache.users    = Array.isArray(users)    ? users    : [];
   _cache.requests = Array.isArray(requests) ? requests : [];
   _cache.tickets  = Array.isArray(tickets)  ? tickets  : [];
@@ -913,8 +1066,8 @@ function launchApp() {
     document.getElementById('app-av').textContent = u.name.charAt(0).toUpperCase();
     document.getElementById('app-nm').textContent = u.name.split(' ')[0];
     const tagEl = document.getElementById('app-role-tag');
-    tagEl.textContent = { solicitante: 'Solicitante', analista: 'Analista' }[u.role] || u.role;
-    tagEl.className = 'role-tag ' + ({ solicitante: 'rt-sol', analista: 'rt-ana' }[u.role] || 'rt-sol');
+    tagEl.textContent = { solicitante:'Solicitante', analista:'Analista' }[u.role] || u.role;
+    tagEl.className = 'role-tag ' + ({ solicitante:'rt-sol', analista:'rt-ana' }[u.role] || 'rt-sol');
     if (u.role === 'solicitante') document.getElementById('btn-new-tkt').style.display = 'flex';
     showPage('page-app');
     renderTickets(); renderMyDash(); checkSLABanner();
@@ -928,14 +1081,14 @@ function launchApp() {
 function switchTab(btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['tab-tickets', 'tab-dash'].forEach(id => document.getElementById(id).style.display = 'none');
+  ['tab-tickets','tab-dash'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById(btn.dataset.tab).style.display = 'block';
   if (btn.dataset.tab === 'tab-dash') renderMyDash();
 }
 function switchAdmTab(btn) {
   document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['at-dash', 'at-tickets', 'at-users', 'at-requests', 'at-config'].forEach(id => document.getElementById(id).style.display = 'none');
+  ['at-dash','at-tickets','at-users','at-requests','at-config'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById(btn.dataset.tab).style.display = 'block';
   if (btn.dataset.tab === 'at-tickets') { populateAnalystFilter(); renderAdmTickets(); }
   if (btn.dataset.tab === 'at-dash') renderAdmDash();
@@ -946,7 +1099,7 @@ function switchAdmTab(btn) {
 // ====================================================
 function getSLA(t) {
   const created = t.createdAt || t.createdat;
-  if (!created) return { elapsed: 0, pct: 0, remaining: _slaHours, expired: false, warn: false };
+  if (!created) return { elapsed:0, pct:0, remaining:_slaHours, expired:false, warn:false };
   const elapsed = (Date.now() - new Date(created)) / 3600000;
   const pct = Math.min(100, Math.round(elapsed / _slaHours * 100));
   const remaining = Math.max(0, _slaHours - elapsed);
@@ -967,23 +1120,15 @@ function checkSLABanner() {
 // ====================================================
 //  HELPERS
 // ====================================================
-const sLbl = s => ({ open: 'Aberto', progress: 'Em andamento', done: 'Concluído' }[s] || s);
-const sBadge = s => `<span class="badge ${{ open: 'b-open', progress: 'b-progress', done: 'b-done' }[s] || 'b-open'}">${sLbl(s)}</span>`;
-const pBadge = p => `<span class="badge ${{ normal: 'b-pnormal', high: 'b-phigh', urgent: 'b-purgent' }[p] || 'b-pnormal'}">${{ normal: 'Normal', high: '🟡 Alta', urgent: '🔴 Urgente' }[p] || p}</span>`;
+const sLbl = s => ({ open:'Aberto', progress:'Em andamento', done:'Concluído' }[s] || s);
+const sBadge = s => `<span class="badge ${{ open:'b-open', progress:'b-progress', done:'b-done' }[s]||'b-open'}">${sLbl(s)}</span>`;
+const pBadge = p => `<span class="badge ${{ normal:'b-pnormal', high:'b-phigh', urgent:'b-purgent' }[p]||'b-pnormal'}">${{ normal:'Normal', high:'🟡 Alta', urgent:'🔴 Urgente' }[p]||p}</span>`;
 
 function myTickets() {
-  if (currentUser.role === 'analista') {
-    return _cache.tickets.filter(t =>
-      t.analystId === currentUser.id ||
-      t.status === 'open'
-    );
-  }
-  if (currentUser.role === 'solicitante') {
-    return _cache.tickets.filter(t => t.requesterId === currentUser.id);
-  }
+  if (currentUser.role === 'analista') return _cache.tickets.filter(t => t.analystId === currentUser.id || t.status === 'open');
+  if (currentUser.role === 'solicitante') return _cache.tickets.filter(t => t.requesterId === currentUser.id);
   return _cache.tickets;
 }
-
 function parseIDs(raw) {
   return raw.split(/[\n,;]+/).map(s => s.trim().toUpperCase()).filter(s => s.length > 0);
 }
@@ -995,9 +1140,9 @@ function renderTickets() {
   const search = (document.getElementById('app-search')?.value || '').toLowerCase();
   const sf = document.getElementById('app-status')?.value || '';
   let list = myTickets();
-  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids || []).some(id => id.toLowerCase().includes(search)));
+  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids||[]).some(id => id.toLowerCase().includes(search)));
   if (sf) list = list.filter(t => t.status === sf);
-  list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  list.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
   const el = document.getElementById('tickets-list');
   if (!list.length) { el.innerHTML = '<div class="empty"><span class="empty-ico">🎫</span>Nenhum ticket encontrado</div>'; return; }
   el.innerHTML = list.map(t => tktCard(t)).join('');
@@ -1006,72 +1151,58 @@ function renderTickets() {
 function tktCard(t) {
   const sla = getSLA(t);
   const cls = t.status === 'done' ? '' : (sla.expired ? 'tkt-exp' : sla.warn ? 'tkt-warn' : '');
-  const done = (t.responses || []).filter(r => r.status !== '').length;
-  const total = (t.ids || []).length;
+  const done = (t.responses||[]).filter(r => r.status !== '').length;
+  const total = (t.ids||[]).length;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorBadge = t.valor === 'high' ? '<span class="badge b-phigh">📈 Acima R$1k</span>' : '<span class="badge b-pnormal">📉 Até R$1k</span>';
   const canDelete = currentUser && (currentUser.role === 'admin' || currentUser.role === 'analista');
   return `<div class="tkt ${cls}" onclick="openTicket('${t.id}')">
     <div class="tkt-head">
-      <div class="tkt-stripe sp-${t.priority || 'normal'}"></div>
+      <div class="tkt-stripe sp-${t.priority||'normal'}"></div>
       <div class="tkt-main">
-        <div class="tkt-r1">
-          <span class="tkt-code">${fmDisplay}</span>
-          ${sBadge(t.status)}
-          ${valorBadge}
-          ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
-        </div>
+        <div class="tkt-r1"><span class="tkt-code">${fmDisplay}</span>${sBadge(t.status)}${valorBadge}${t.analystName?`<span class="badge b-progress">👤 ${t.analystName}</span>`:''}</div>
         <div class="tkt-ttl">🚚 ${t.title}</div>
-        <div class="tkt-meta"><span>👤 ${t.requesterName}</span>${t.motorista ? `<span>🚛 ${t.motorista}</span>` : ''}<span>📦 ${done}/${total} IDs</span><span>🕐 ${new Date(t.createdAt).toLocaleString('pt-BR')}</span></div>
+        <div class="tkt-meta"><span>👤 ${t.requesterName}</span>${t.motorista?`<span>🚛 ${t.motorista}</span>`:''}<span>📦 ${done}/${total} IDs</span><span>🕐 ${new Date(t.createdAt).toLocaleString('pt-BR')}</span></div>
       </div>
       <div class="tkt-arrow">›</div>
     </div>
-    ${t.status === 'done' ? `<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
-      ${canDelete ? `<button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button>` : ''}
-      <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none;font-size:11px;padding:4px 12px;border-radius:99px" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        Enviar
-      </button>
+    ${t.status==='done'?`<div style="padding:0 16px 10px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
+      ${canDelete?`<button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button>`:''}
+      <button class="btn btn-sm" style="background:#25D366;color:#fff;border:none;font-size:11px;padding:4px 12px;border-radius:99px" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">📱 Enviar</button>
       <button class="btn btn-sm btn-ghost" style="font-size:11px;padding:4px 10px;border-radius:99px" onclick="resendNotifications('${t.id}');event.stopPropagation()">📤 Grupo</button>
-    </div>` : `${canDelete ? `<div style="padding:0 16px 4px;display:flex;justify-content:flex-end"><button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button></div>` : ''}`}
-    ${t.status !== 'done' ? `<div class="sla-wrap">
+    </div>`:`${canDelete?`<div style="padding:0 16px 4px;display:flex;justify-content:flex-end"><button class="tkt-del-btn" onclick="promptDeleteTicket('${t.id}');event.stopPropagation()">🗑️ Apagar</button></div>`:''}`}
+    ${t.status!=='done'?`<div class="sla-wrap">
       <div class="sla-hdr">
-        <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
-        <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text3)'}; font-weight:700">${fmtSLA(sla.remaining)}</span>
+        <span style="color:${sla.expired?'var(--red)':sla.warn?'var(--amber)':'var(--text3)'}">⏱ SLA ${sla.pct}%</span>
+        <span style="color:${sla.expired?'var(--red)':sla.warn?'var(--amber)':'var(--text3)'};font-weight:700">${fmtSLA(sla.remaining)}</span>
       </div>
-      <div class="sla-bg"><div class="sla-fill ${sla.expired ? 'sla-exp' : sla.warn ? 'sla-warn' : 'sla-ok'}" style="width:${sla.pct}%"></div></div>
-    </div>` : ''}
+      <div class="sla-bg"><div class="sla-fill ${sla.expired?'sla-exp':sla.warn?'sla-warn':'sla-ok'}" style="width:${sla.pct}%"></div></div>
+    </div>`:''}
   </div>`;
 }
 
 // ====================================================
-//  DELETE TICKET (ADMIN ONLY)
+//  DELETE TICKET
 // ====================================================
 function promptDeleteTicket(ticketId) {
-  const t = _cache.tickets.find(x => x.id === ticketId);
-  if (!t) return;
+  const t = _cache.tickets.find(x => x.id === ticketId); if (!t) return;
   window._delTicketId = ticketId;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   document.getElementById('del-ticket-code').textContent = fmDisplay + ' — ' + t.title;
   document.getElementById('ov-del-ticket').classList.add('open');
 }
-
 async function confirmDeleteTicket() {
-  const ticketId = window._delTicketId;
-  if (!ticketId) return;
+  const ticketId = window._delTicketId; if (!ticketId) return;
   document.getElementById('ov-del-ticket').classList.remove('open');
-  toast('🗑️ Apagando chamado...', 10000);
-  const result = await apiPost('deleteTicket', { id: ticketId });
+  toast('🗑️ Apagando...', 10000);
+  const result = await apiPost('deleteTicket', { id:ticketId });
   if (result?.ok !== false) {
     _cache.tickets = _cache.tickets.filter(x => x.id !== ticketId);
-    toast('✅ Chamado apagado com sucesso!', 3000);
-    // Close ticket detail if open
+    toast('✅ Chamado apagado!', 3000);
     document.getElementById('ov-view').classList.remove('open');
     renderTickets();
     if (currentUser.role === 'admin') { renderAdmTickets(); renderAdmDash(); }
-  } else {
-    toast('⚠️ Erro ao apagar: ' + (result?.error || 'tente novamente'), 4000);
-  }
+  } else toast('⚠️ Erro: ' + (result?.error || 'tente novamente'), 4000);
   window._delTicketId = null;
 }
 
@@ -1086,50 +1217,36 @@ function openTicket(id) {
   const sla = getSLA(t);
   const responses = t.responses || [];
   const done = responses.filter(r => r.status !== '').length;
-  const total = (t.ids || []).length;
+  const total = (t.ids||[]).length;
   const icon = t.status === 'done' ? '✅' : sla.expired ? '🔴' : t.status === 'progress' ? '🔵' : '🟡';
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
   const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
-
   const dupMap = {};
   _cache.tickets.filter(x => x.id !== t.id).forEach(x => (x.ids||[]).forEach(rid => { dupMap[rid] = (dupMap[rid]||0)+1; }));
   const dupIds = (t.ids||[]).filter(rid => (dupMap[rid]||0) >= 2);
 
-  let html = `<div class="td-hdr">
-    <div class="td-icon">${icon}</div>
-    <div style="flex:1;min-width:0">
-      <div class="td-code" style="display:flex;align-items:center;gap:6px">
-        ${fmDisplay}
-        <button class="copy-btn" title="Copiar chamado" data-copy="${encodeURIComponent(fmDisplay)}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
-      </div>
-      <div class="td-ttl">🚚 ${t.title}</div>
-      <div class="td-meta">📤 ${t.requesterName} · ${new Date(t.createdAt).toLocaleString('pt-BR')} · ${done}/${total} IDs · ${valorLabel}</div>
+  let html = `<div class="td-hdr"><div class="td-icon">${icon}</div><div style="flex:1;min-width:0">
+    <div class="td-code" style="display:flex;align-items:center;gap:6px">${fmDisplay}
+      <button class="copy-btn" data-copy="${encodeURIComponent(fmDisplay)}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
     </div>
-  </div>
+    <div class="td-ttl">🚚 ${t.title}</div>
+    <div class="td-meta">📤 ${t.requesterName} · ${new Date(t.createdAt).toLocaleString('pt-BR')} · ${done}/${total} IDs · ${valorLabel}</div>
+  </div></div>
   <div class="tags-row">${sBadge(t.status)} ${pBadge(t.priority)}
     <button class="copy-all-btn" data-ids="${encodeURIComponent((t.ids||[]).join('\n'))}" onclick="copyText(decodeURIComponent(this.dataset.ids))">📋 Copiar todos IDs</button>
-    ${t.analystName ? `<span class="badge b-progress">👤 ${t.analystName}</span>` : ''}
-    ${canDelete ? `<button class="tkt-del-btn" style="margin-left:auto" onclick="promptDeleteTicket('${t.id}')">🗑️ Apagar chamado</button>` : ''}
+    ${t.analystName?`<span class="badge b-progress">👤 ${t.analystName}</span>`:''}
+    ${canDelete?`<button class="tkt-del-btn" style="margin-left:auto" onclick="promptDeleteTicket('${t.id}')">🗑️ Apagar chamado</button>`:''}
   </div>`;
 
   if (t.obs) html += `<div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:var(--text2);margin-bottom:14px">${t.obs}</div>`;
-
   if (t.motorista) html += `<div style="background:#e8f0fe;border:1.5px solid #aecbfa;border-radius:var(--radius-lg);padding:10px 13px;font-size:13px;color:#1a73e8;margin-bottom:14px;font-weight:600">🚛 Motorista: ${t.motorista}</div>`;
 
   if (t.status !== 'done') html += `<div style="margin-bottom:16px">
-    <div class="sla-hdr">
-      <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text2)'}">⏱ SLA — ${sla.pct}% utilizado</span>
-      <span style="color:${sla.expired ? 'var(--red)' : sla.warn ? 'var(--amber)' : 'var(--text2)'}; font-weight:700">${fmtSLA(sla.remaining)}</span>
-    </div>
-    <div class="sla-bg" style="height:8px;margin-top:5px"><div class="sla-fill ${sla.expired ? 'sla-exp' : sla.warn ? 'sla-warn' : 'sla-ok'}" style="width:${sla.pct}%"></div></div>
+    <div class="sla-hdr"><span style="color:${sla.expired?'var(--red)':sla.warn?'var(--amber)':'var(--text2)'}">⏱ SLA — ${sla.pct}% utilizado</span><span style="color:${sla.expired?'var(--red)':sla.warn?'var(--amber)':'var(--text2)'};font-weight:700">${fmtSLA(sla.remaining)}</span></div>
+    <div class="sla-bg" style="height:8px;margin-top:5px"><div class="sla-fill ${sla.expired?'sla-exp':sla.warn?'sla-warn':'sla-ok'}" style="width:${sla.pct}%"></div></div>
   </div>`;
 
-  if (dupIds.length) {
-    html += `<div class="dup-warn" style="display:block">
-      <div class="dup-warn-title">⚠️ IDs já solicitados 2+ vezes anteriormente:</div>
-      <ul>${dupIds.map(d=>`<li>${d} — solicitado ${dupMap[d]} vez(es)</li>`).join('')}</ul>
-    </div>`;
-  }
+  if (dupIds.length) html += `<div class="dup-warn" style="display:block"><div class="dup-warn-title">⚠️ IDs já solicitados 2+ vezes:</div><ul>${dupIds.map(d=>`<li>${d} — ${dupMap[d]} vez(es)</li>`).join('')}</ul></div>`;
 
   html += `<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">${total} IDs para validar</div>`;
 
@@ -1137,25 +1254,23 @@ function openTicket(id) {
     window._openTktIds = t.ids || [];
     window._obsValues = {};
     html += `<div id="resp-form-list">`;
-    (t.ids || []).forEach((id, idx) => {
+    (t.ids||[]).forEach((id, idx) => {
       const ex = responses.find(r => r.id === id) || {};
       if (ex.status) window._respSel[id] = ex.status;
       if (ex.obs) window._obsValues[id] = ex.obs;
       const safeId = encodeURIComponent(id);
       let obsHtml = '';
       if (ex.status === 'found') {
-        const isDev = (ex.obs || '') === 'Devolução';
-        const isProc = (ex.obs || '') === 'Processado';
-        obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-pills">
-          <span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
-          <button class="obs-pill ${isDev ? 'sel' : ''}" data-idx="${idx}" data-obs="Devolução" onclick="setObsPill(this)">📦 Devolução</button>
-          <button class="obs-pill ${isProc ? 'sel' : ''}" data-idx="${idx}" data-obs="Processado" onclick="setObsPill(this)">✅ Processado</button>
+        const isDev = (ex.obs||'') === 'Devolução', isProc = (ex.obs||'') === 'Processado';
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-pills"><span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
+          <button class="obs-pill ${isDev?'sel':''}" data-idx="${idx}" data-obs="Devolução" onclick="setObsPill(this)">📦 Devolução</button>
+          <button class="obs-pill ${isProc?'sel':''}" data-idx="${idx}" data-obs="Processado" onclick="setObsPill(this)">✅ Processado</button>
         </div></div>`;
       } else if (ex.status === 'notfound') {
         if (!ex.obs) window._obsValues[id] = 'Somente Coletado';
         obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-auto">❌ Obs: Somente Coletado</div></div>`;
       } else if (ex.status === 'analyzing') {
-        obsHtml = `<div class="obs-area" data-idx="${idx}"><input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs || '').replace(/"/g,'&quot;')}"/></div>`;
+        obsHtml = `<div class="obs-area" data-idx="${idx}"><input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value="${(ex.obs||'').replace(/"/g,'&quot;')}"/></div>`;
       } else if (ex.status === 'lost') {
         if (!ex.obs) window._obsValues[id] = 'Perdidos por FM';
         obsHtml = `<div class="obs-area" data-idx="${idx}"><div class="obs-auto" style="background:var(--purple-dim);border-color:#a855f730;color:var(--purple)">📦 Obs: Perdidos por FM</div></div>`;
@@ -1163,57 +1278,43 @@ function openTicket(id) {
         obsHtml = `<div class="obs-area" data-idx="${idx}"></div>`;
       }
       html += `<div class="resp-blk" data-idx="${idx}">
-        <div class="resp-id" style="display:flex;align-items:center;gap:6px">
-          ${id}
-          <button class="copy-btn" title="Copiar ID" data-copy="${safeId}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
+        <div class="resp-id" style="display:flex;align-items:center;gap:6px">${id}
+          <button class="copy-btn" data-copy="${safeId}" onclick="copyText(decodeURIComponent(this.dataset.copy))">📋</button>
         </div>
         <div class="resp-btns">
-          <button class="rb found ${ex.status === 'found' ? 'sel' : ''}" data-idx="${idx}" data-status="found" onclick="setRespByIdx(this)">✅ Localizado</button>
-          <button class="rb notfound ${ex.status === 'notfound' ? 'sel' : ''}" data-idx="${idx}" data-status="notfound" onclick="setRespByIdx(this)">❌ Não encontrado</button>
-          <button class="rb analyzing ${ex.status === 'analyzing' ? 'sel' : ''}" data-idx="${idx}" data-status="analyzing" onclick="setRespByIdx(this)">🔍 Em análise</button>
-          <button class="rb lost ${ex.status === 'lost' ? 'sel' : ''}" data-idx="${idx}" data-status="lost" onclick="setRespByIdx(this)">📦 Perdidos por FM</button>
-        </div>
-        ${obsHtml}
+          <button class="rb found ${ex.status==='found'?'sel':''}" data-idx="${idx}" data-status="found" onclick="setRespByIdx(this)">✅ Localizado</button>
+          <button class="rb notfound ${ex.status==='notfound'?'sel':''}" data-idx="${idx}" data-status="notfound" onclick="setRespByIdx(this)">❌ Não encontrado</button>
+          <button class="rb analyzing ${ex.status==='analyzing'?'sel':''}" data-idx="${idx}" data-status="analyzing" onclick="setRespByIdx(this)">🔍 Em análise</button>
+          <button class="rb lost ${ex.status==='lost'?'sel':''}" data-idx="${idx}" data-status="lost" onclick="setRespByIdx(this)">📦 Perdidos por FM</button>
+        </div>${obsHtml}
       </div>`;
     });
-    html += `</div>
-    <div style="margin-top:14px">
+    html += `</div><div style="margin-top:14px">
       <button class="btn btn-g btn-block" style="min-height:50px;font-size:15px" id="btn-finalizar" onclick="saveResp(false)">✅ Finalizar & Enviar</button>
       <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:4px">IDs em análise continuarão em aberto</div>
     </div>`;
     if (t.status === 'open') html += `<button class="btn btn-p btn-block" style="margin-top:8px;min-height:44px" data-tid="${t.id}" onclick="claimTicketById(this.dataset.tid)">🙋 Assumir ticket</button>`;
   } else {
     html += `<div class="id-list">`;
-    (t.ids || []).forEach(id => {
+    (t.ids||[]).forEach(id => {
       const resp = responses.find(r => r.id === id);
-      const bc = resp ? ({ found: 'b-found', notfound: 'b-notfound', analyzing: 'b-analyzing', lost: 'b-lost' }[resp.status] || 'b-pending') : 'b-pending';
-      const bl = resp ? ({ found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', lost: 'Perdidos por FM' }[resp.status] || 'Pendente') : 'Pendente';
-      const safeId2 = encodeURIComponent(id);
-      html += `<div class="id-item">
-        <span class="id-code">${id}</span>
-        <button class="copy-btn" title="Copiar" data-copy="${safeId2}" onclick="copyText(decodeURIComponent(this.dataset.copy));event.stopPropagation()">📋</button>
-        <span class="badge ${bc}">${bl}</span>
-        ${resp?.obs ? `<span class="id-obs">${resp.obs}</span>` : ''}
+      const bc = resp ? ({found:'b-found',notfound:'b-notfound',analyzing:'b-analyzing',lost:'b-lost'}[resp.status]||'b-pending') : 'b-pending';
+      const bl = resp ? ({found:'Localizado',notfound:'Não encontrado',analyzing:'Em análise',lost:'Perdidos por FM'}[resp.status]||'Pendente') : 'Pendente';
+      html += `<div class="id-item"><span class="id-code">${id}</span>
+        <button class="copy-btn" data-copy="${encodeURIComponent(id)}" onclick="copyText(decodeURIComponent(this.dataset.copy));event.stopPropagation()">📋</button>
+        <span class="badge ${bc}">${bl}</span>${resp?.obs?`<span class="id-obs">${resp.obs}</span>`:''}
       </div>`;
     });
     html += `</div>`;
-    if (t.respondedAt) html += `<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:right">Respondido por ${t.analystName || '—'} em ${new Date(t.respondedAt).toLocaleString('pt-BR')}</div>`;
-
+    if (t.respondedAt) html += `<div style="font-size:11px;color:var(--text3);margin-top:10px;text-align:right">Respondido por ${t.analystName||'—'} em ${new Date(t.respondedAt).toLocaleString('pt-BR')}</div>`;
     if (t.status === 'done' && (currentUser.role === 'analista' || currentUser.role === 'admin')) {
       html += `<div style="margin-top:16px;padding-top:14px;border-top:1.5px solid var(--border)">
         <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">📤 Compartilhar resultado</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:var(--radius-lg)" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Enviar WhatsApp
-          </button>
-          <button class="btn btn-ghost" style="min-height:44px;font-size:13px" onclick="resendNotifications('${t.id}');event.stopPropagation()">
-            📤 Reenviar p/ grupo
-          </button>
+          <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none;border-radius:var(--radius-lg)" onclick="resendWhatsApp('${t.id}');event.stopPropagation()">📱 Enviar WhatsApp</button>
+          <button class="btn btn-ghost" style="min-height:44px;font-size:13px" onclick="resendNotifications('${t.id}');event.stopPropagation()">📤 Reenviar p/ grupo</button>
         </div>
-        <button class="btn btn-ghost btn-block" style="margin-top:8px;font-size:12px" onclick="copyReportText('${t.id}');event.stopPropagation()">
-          📋 Copiar texto do relatório
-        </button>
+        <button class="btn btn-ghost btn-block" style="margin-top:8px;font-size:12px" onclick="copyReportText('${t.id}');event.stopPropagation()">📋 Copiar texto do relatório</button>
       </div>`;
     }
   }
@@ -1222,103 +1323,60 @@ function openTicket(id) {
   document.getElementById('ov-view').classList.add('open');
 }
 
-function setResp(id, status, btn) {
-  window._respSel[id] = status;
-  btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-}
 function setRespByIdx(btn) {
-  const idx = parseInt(btn.dataset.idx);
-  const status = btn.dataset.status;
-  const id = (window._openTktIds || [])[idx];
-  if (!id) return;
+  const idx = parseInt(btn.dataset.idx), status = btn.dataset.status;
+  const id = (window._openTktIds||[])[idx]; if (!id) return;
   window._respSel[id] = status;
   btn.closest('.resp-blk').querySelectorAll('.rb').forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
-  const obsArea = document.querySelector(`.obs-area[data-idx="${idx}"]`);
-  if (!obsArea) return;
+  const obsArea = document.querySelector(`.obs-area[data-idx="${idx}"]`); if (!obsArea) return;
   if (status === 'found') {
     window._obsValues[id] = '';
-    obsArea.innerHTML = `<div class="obs-pills">
-      <span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
+    obsArea.innerHTML = `<div class="obs-pills"><span style="font-size:11px;color:var(--text3);font-weight:600;align-self:center">Obs:</span>
       <button class="obs-pill" data-idx="${idx}" data-obs="Devolução" onclick="setObsPill(this)">📦 Devolução</button>
       <button class="obs-pill" data-idx="${idx}" data-obs="Processado" onclick="setObsPill(this)">✅ Processado</button>
     </div>`;
-  } else if (status === 'notfound') {
-    window._obsValues[id] = 'Somente Coletado';
-    obsArea.innerHTML = `<div class="obs-auto">❌ Obs: Somente Coletado</div>`;
-  } else if (status === 'analyzing') {
-    window._obsValues[id] = '';
-    obsArea.innerHTML = `<input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value=""/>`;
-  } else if (status === 'lost') {
-    window._obsValues[id] = 'Perdidos por FM';
-    obsArea.innerHTML = `<div class="obs-auto" style="background:var(--purple-dim);border-color:#a855f730;color:var(--purple)">📦 Obs: Perdidos por FM</div>`;
-  } else {
-    window._obsValues[id] = '';
-    obsArea.innerHTML = '';
-  }
+  } else if (status === 'notfound') { window._obsValues[id] = 'Somente Coletado'; obsArea.innerHTML = `<div class="obs-auto">❌ Obs: Somente Coletado</div>`; }
+  else if (status === 'analyzing') { window._obsValues[id] = ''; obsArea.innerHTML = `<input class="resp-obs" data-idx="${idx}" placeholder="Observação (opcional)" value=""/>`; }
+  else if (status === 'lost') { window._obsValues[id] = 'Perdidos por FM'; obsArea.innerHTML = `<div class="obs-auto" style="background:var(--purple-dim);border-color:#a855f730;color:var(--purple)">📦 Obs: Perdidos por FM</div>`; }
+  else { window._obsValues[id] = ''; obsArea.innerHTML = ''; }
 }
 function setObsPill(btn) {
-  const idx = parseInt(btn.dataset.idx);
-  const obs = btn.dataset.obs;
-  const id = (window._openTktIds || [])[idx];
-  if (!id) return;
+  const idx = parseInt(btn.dataset.idx), obs = btn.dataset.obs;
+  const id = (window._openTktIds||[])[idx]; if (!id) return;
   window._obsValues[id] = obs;
   btn.closest('.obs-pills').querySelectorAll('.obs-pill').forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
 }
 function getObsValue(idx) {
-  const id = (window._openTktIds || [])[idx];
-  if (!id) return '';
+  const id = (window._openTktIds||[])[idx]; if (!id) return '';
   if (window._obsValues && window._obsValues[id]) return window._obsValues[id];
   const input = document.querySelector(`.resp-obs[data-idx="${idx}"]`);
-  if (input) return input.value || '';
-  return '';
+  return input ? (input.value || '') : '';
 }
 function claimTicketById(id) { claimTicket(id); }
 
 async function saveResp(finalize) {
   const t = window._openTkt; if (!t) return;
   const ids = window._openTktIds || t.ids || [];
-  const responses = ids.map((id, idx) => ({
-    id,
-    status: window._respSel[id] || (t.responses || []).find(r => r.id === id)?.status || '',
-    obs: getObsValue(idx)
-  }));
-
-  const treated = responses.filter(r => r.status === 'found' || r.status === 'notfound' || r.status === 'lost');
-  const analyzing = responses.filter(r => r.status === 'analyzing');
-  const pending = responses.filter(r => r.status === '');
-
+  const responses = ids.map((id, idx) => ({ id, status: window._respSel[id] || (t.responses||[]).find(r=>r.id===id)?.status||'', obs: getObsValue(idx) }));
+  const treated = responses.filter(r => r.status==='found'||r.status==='notfound'||r.status==='lost');
+  const analyzing = responses.filter(r => r.status==='analyzing');
   if (treated.length === 0) { toast('⚠️ Marque pelo menos 1 ID como Localizado ou Não encontrado'); return; }
-
-  const foundMissing = responses.filter(r => r.status === 'found' && !r.obs);
+  const foundMissing = responses.filter(r => r.status==='found' && !r.obs);
   if (foundMissing.length > 0) { toast('⚠️ Selecione Devolução ou Processado para os IDs localizados'); return; }
-
-  const allTreated = analyzing.length === 0 && pending.length === 0;
+  const allTreated = analyzing.length === 0 && responses.filter(r=>r.status==='').length === 0;
   const newStatus = allTreated ? 'done' : 'progress';
-
   const ticketId = t.id;
   toast('⏳ Finalizando...', 10000);
   const respondedAt = allTreated ? new Date().toISOString() : null;
-  const data = {
-    ticketId, responses,
-    analystId: currentUser.id, analystName: currentUser.name,
-    status: newStatus, respondedAt: respondedAt || t.respondedAt || null
-  };
+  const data = { ticketId, responses, analystId:currentUser.id, analystName:currentUser.name, status:newStatus, respondedAt:respondedAt||t.respondedAt||null };
   const result = await apiPost('respondTicket', data);
   if (result?.ok !== false) {
     const idx = _cache.tickets.findIndex(x => x.id === ticketId);
-    if (idx >= 0) Object.assign(_cache.tickets[idx], {
-      responses, status: newStatus,
-      analystId: currentUser.id, analystid: currentUser.id,
-      analystName: currentUser.name, analystname: currentUser.name,
-      ...(respondedAt ? { respondedAt, respondedat: respondedAt } : {})
-    });
-    window._respSel = {};
-    window._obsValues = {};
+    if (idx >= 0) Object.assign(_cache.tickets[idx], { responses, status:newStatus, analystId:currentUser.id, analystid:currentUser.id, analystName:currentUser.name, analystname:currentUser.name, ...(respondedAt?{respondedAt,respondedat:respondedAt}:{}) });
+    window._respSel = {}; window._obsValues = {};
     document.getElementById('ov-view').classList.remove('open');
-
     if (allTreated) {
       const reportUrl = buildReportUrl(ticketId);
       const ticket = _cache.tickets.find(x => x.id === ticketId);
@@ -1326,43 +1384,27 @@ async function saveResp(finalize) {
       toast('✅ Ticket finalizado!', 3000);
       await notifyDone(ticketId, reportUrl);
     } else {
-      toast(`✅ ${treated.length} IDs tratados · ${analyzing.length} em análise (ticket continua aberto)`, 4000);
+      toast(`✅ ${treated.length} IDs tratados · ${analyzing.length} em análise`, 4000);
       await notifyPartial(ticketId, treated.length, analyzing.length);
     }
     renderTickets();
     if (currentUser.role === 'admin') renderAdmTickets();
-  } else toast('⚠️ Erro: ' + (result?.error || 'tente novamente'));
+  } else toast('⚠️ Erro: ' + (result?.error||'tente novamente'));
 }
 
 async function notifyPartial(ticketId, treatedCount, analyzingCount) {
   const t = _cache.tickets.find(x => x.id === ticketId); if (!t) return;
   const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
-  const msg = [
-    '📋 *ATUALIZAÇÃO DE TICKET*',
-    'Chamado: *' + fmDisplay + '*',
-    'Transportadora: *' + t.title + '*',
-    ...(t.motorista ? ['🚛 Motorista: *' + t.motorista + '*'] : []),
-    '',
-    'Solicitado por: *' + (t.requesterName || '—') + '*',
-    'Analista: ' + (t.analystName || '—'),
-    '--------------------',
-    'IDs tratados: ' + treatedCount,
-    'IDs em análise: ' + analyzingCount + ' (ticket continua aberto)',
-    '--------------------'
-  ].join('\n');
-  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
-  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+  const msg = ['📋 *ATUALIZAÇÃO DE TICKET*','Chamado: *'+fmDisplay+'*','Transportadora: *'+t.title+'*',...(t.motorista?['🚛 Motorista: *'+t.motorista+'*']:[]),'','Solicitado por: *'+(t.requesterName||'—')+'*','Analista: '+(t.analystName||'—'),'--------------------','IDs tratados: '+treatedCount,'IDs em análise: '+analyzingCount,'--------------------'].join('\n');
+  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', {webhook:gchat,text:msg}).catch(()=>{});
+  const wa = LS.get('suporte_wa')||{}; if (wa.phone&&wa.apikey) await apiPost('sendCallMeBot', {phone:wa.phone,apikey:wa.apikey,message:msg}).catch(()=>{});
 }
 
 async function claimTicket(id) {
-  const r = await apiPost('claimTicket', { ticketId: id, analystId: currentUser.id, analystName: currentUser.name });
+  const r = await apiPost('claimTicket', {ticketId:id,analystId:currentUser.id,analystName:currentUser.name});
   if (r?.ok !== false) {
     const idx = _cache.tickets.findIndex(x => x.id === id);
-    if (idx >= 0) Object.assign(_cache.tickets[idx], {
-      analystId: currentUser.id, analystid: currentUser.id,
-      analystName: currentUser.name, analystname: currentUser.name,
-      status: 'progress'
-    });
+    if (idx >= 0) Object.assign(_cache.tickets[idx], {analystId:currentUser.id,analystid:currentUser.id,analystName:currentUser.name,analystname:currentUser.name,status:'progress'});
     document.getElementById('ov-view').classList.remove('open');
     toast('✅ Ticket assumido!'); renderTickets();
     setTimeout(() => openTicket(id), 320);
@@ -1373,7 +1415,7 @@ async function claimTicket(id) {
 //  NOVO TICKET
 // ====================================================
 function openNewTicket() {
-  ['t-title', 't-ids', 't-obs', 't-motorista'].forEach(id => document.getElementById(id).value = '');
+  ['t-title','t-ids','t-obs','t-motorista'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('t-priority').value = 'normal';
   document.getElementById('err-ticket').style.display = 'none';
   document.getElementById('ids-count-lbl').textContent = 'Cole ou digite os IDs (11 dígitos cada)';
@@ -1381,12 +1423,12 @@ function openNewTicket() {
   document.getElementById('ov-ticket').classList.add('open');
 }
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('t-ids')?.addEventListener('input', function () {
+  document.getElementById('t-ids')?.addEventListener('input', function() {
     const ids = parseIDs(this.value);
-    document.getElementById('ids-count-lbl').textContent = ids.length ? `${ids.length} ID${ids.length > 1 ? 's' : ''} detectado${ids.length > 1 ? 's' : ''} (11 dígitos)` : 'Cole ou digite os IDs (11 dígitos cada)';
+    document.getElementById('ids-count-lbl').textContent = ids.length ? `${ids.length} ID${ids.length>1?'s':''} detectado${ids.length>1?'s':''}` : 'Cole ou digite os IDs (11 dígitos cada)';
   });
-  document.getElementById('inp-user')?.addEventListener('keydown', e => { if (e.key === 'Enter') loginUser(); });
-  document.getElementById('inp-pass')?.addEventListener('keydown', e => { if (e.key === 'Enter') loginPass(); });
+  document.getElementById('inp-user')?.addEventListener('keydown', e => { if(e.key==='Enter') loginUser(); });
+  document.getElementById('inp-pass')?.addEventListener('keydown', e => { if(e.key==='Enter') loginPass(); });
 });
 
 window._selectedValue = 'low';
@@ -1397,11 +1439,8 @@ function selectValue(v) {
 }
 function genFMCode() {
   const now = new Date();
-  const dd = String(now.getDate()).padStart(2,'0');
-  const mm = String(now.getMonth()+1).padStart(2,'0');
-  const yyyy = now.getFullYear();
-  const seq = String(Math.floor(Math.random()*900000)+100000);
-  return `FM-${seq}/${dd}${mm}${yyyy}`;
+  const dd = String(now.getDate()).padStart(2,'0'), mm = String(now.getMonth()+1).padStart(2,'0'), yyyy = now.getFullYear();
+  return `FM-${String(Math.floor(Math.random()*900000)+100000)}/${dd}${mm}${yyyy}`;
 }
 function copyText(txt) {
   navigator.clipboard.writeText(txt).then(()=>toast('📋 Copiado!',1400)).catch(()=>{
@@ -1419,14 +1458,7 @@ async function submitTicket() {
   if (!title || !ids.length) { err.style.display = 'block'; return; }
   toast('📤 Enviando...', 10000);
   const fmCode = genFMCode();
-  const ticket = {
-    id: 'tkt-' + Date.now(), title, fmCode, ids, obs, motorista, priority,
-    valor: window._selectedValue || 'low',
-    requesterId: currentUser.id, requesterName: currentUser.name,
-    status: 'open', responses: [],
-    analystId: null, analystName: null, respondedAt: null,
-    createdAt: new Date().toISOString()
-  };
+  const ticket = { id:'tkt-'+Date.now(), title, fmCode, ids, obs, motorista, priority, valor:window._selectedValue||'low', requesterId:currentUser.id, requesterName:currentUser.name, status:'open', responses:[], analystId:null, analystName:null, respondedAt:null, createdAt:new Date().toISOString() };
   const result = await apiPost('addTicket', ticket);
   if (result?.ok !== false) {
     _cache.tickets.unshift(ticket);
@@ -1437,151 +1469,213 @@ async function submitTicket() {
 }
 
 // ====================================================
-//  MY DASHBOARD
+//  CHART FUNCTIONS (com Ondas + Datalabels + Pie)
 // ====================================================
-let _chD = null, _chW = null;
-function renderMyDash() {
-  const finished = currentUser.role === 'analista'
-    ? _cache.tickets.filter(t => t.status === 'done' && t.analystId === currentUser.id)
-    : _cache.tickets.filter(t => t.requesterId === currentUser.id);
-  const today = new Date().toLocaleDateString('pt-BR');
-  const todayIds = finished.filter(t => {
-    const ra = t.respondedAt || t.respondedat;
-    return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
-  }).flatMap(t => t.ids || []).length;
-  const weekIds = weekTkts(finished).flatMap(t => t.ids || []).length;
-  const totalIds = finished.flatMap(t => t.ids || []).length;
-  const open = currentUser.role === 'solicitante'
-    ? _cache.tickets.filter(t => t.requesterId === currentUser.id && t.status !== 'done').length
-    : _cache.tickets.filter(t => t.status === 'open').length;
+let _charts = {};
 
-  document.getElementById('my-stats').innerHTML = `
-    <div class="sbox"><div class="slbl">IDs hoje</div><div class="sval sv-y">${todayIds}</div></div>
-    <div class="sbox"><div class="slbl">Esta semana</div><div class="sval sv-g">${weekIds}</div></div>
-    <div class="sbox"><div class="slbl">Total IDs</div><div class="sval">${totalIds}</div></div>
-    <div class="sbox"><div class="slbl">Em aberto</div><div class="sval sv-a">${open}</div></div>
-    <div class="sbox"><div class="slbl">SLA médio</div><div class="sval sv-b" style="font-size:18px">${avgSLA(finished)}</div></div>`;
-
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  _chD = mkChart('my-ch-daily', _chD, hours.map(h => h + 'h'), hours.map(h => finished.filter(t => {
-    const ra = t.respondedAt || t.respondedat;
-    if (!ra) return false;
-    const d = new Date(ra);
-    return d.toLocaleDateString('pt-BR') === today && d.getHours() === h;
-  }).flatMap(t => t.ids || []).length), '#f5d800');
-  const wd = weekData(finished);
-  _chW = mkChart('my-ch-weekly', _chW, wd.labels, wd.data, '#22c55e');
-  renderRanking('my-ranking', _cache.tickets, 'my-rank-filter');
+function destroyChart(key) {
+  if (_charts[key]) { _charts[key].destroy(); _charts[key] = null; }
 }
 
-function avgSLA(tickets) {
-  const done = tickets.filter(t => (t.respondedAt || t.respondedat) && (t.createdAt || t.createdat));
-  if (!done.length) return '—';
-  const avg = done.reduce((s, t) => s + (new Date(t.respondedAt || t.respondedat) - new Date(t.createdAt || t.createdat)) / 3600000, 0) / done.length;
-  return avg < 1 ? Math.round(avg * 60) + 'min' : avg.toFixed(1) + 'h';
-}
-function weekTkts(tickets) {
-  const now = new Date(), mon = new Date(now);
-  mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
-  return tickets.filter(t => {
-    const ra = t.respondedAt || t.respondedat;
-    return ra && new Date(ra) >= mon;
-  });
-}
-function weekData(tickets) {
-  const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-  const now = new Date(), mon = new Date(now);
-  mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0, 0, 0, 0);
-  return { labels: days, data: days.map((_, i) => {
-    const d = new Date(mon); d.setDate(mon.getDate() + i);
-    const ds = d.toLocaleDateString('pt-BR');
-    return tickets.filter(t => {
-      const ra = t.respondedAt || t.respondedat;
-      return ra && new Date(ra).toLocaleDateString('pt-BR') === ds;
-    }).flatMap(t => t.ids || []).length;
-  }) };
-}
-function mkChart(cId, existing, labels, data, color) {
-  const canvas = document.getElementById(cId); if (!canvas) return null;
-  if (existing) existing.destroy();
+// Bar chart with wave labels, data above bars, multi-color support
+function mkOndaChart(cId, ondaData) {
+  destroyChart(cId);
+  const canvas = document.getElementById(cId); if (!canvas) return;
   if (window.ChartDataLabels) Chart.register(ChartDataLabels);
-  return new Chart(canvas, {
+
+  const labels = ondaData.map(o => o.label);
+  const data = ondaData.map(o => o.count);
+  const bgColors = ondaData.map(o => o.colorAlpha);
+  const borderColors = ondaData.map(o => o.color);
+
+  _charts[cId] = new Chart(canvas, {
     type: 'bar',
-    data: { labels, datasets: [{ data, backgroundColor: color + '28', borderColor: color, borderWidth: 2, borderRadius: 6, borderSkipped: false }] },
+    data: {
+      labels,
+      datasets: [{
+        data, backgroundColor: bgColors, borderColor: borderColors,
+        borderWidth: 2, borderRadius: 8, borderSkipped: false
+      }]
+    },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
         datalabels: {
           anchor: 'end', align: 'end',
-          color: '#666666', font: { size: 10, weight: 'bold' },
+          color: ctx => ondaData[ctx.dataIndex]?.color || '#666',
+          font: { size: 12, weight: 'bold' },
           formatter: v => v > 0 ? v : '',
           padding: { bottom: 2 }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw} IDs tratados`,
+            title: ctx => ctx[0].label.replace('\n', ' ')
+          }
         }
       },
       scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 }, color: '#999999' }, grid: { color: '#eeeeee' } },
-        x: { ticks: { font: { size: 11 }, color: '#999999' }, grid: { display: false } }
+        y: { beginAtZero: true, ticks: { stepSize: 1, font:{ size:11 }, color:'#999' }, grid:{ color:'#eeeeee' } },
+        x: { ticks: { font:{ size:10 }, color:'#666', maxRotation:0 }, grid:{ display:false } }
       },
-      layout: { padding: { top: 18 } }
+      layout: { padding: { top: 24 } }
     }
   });
 }
-function filterTicketsByPeriod(tickets, period) {
-  if (period === 'all') return tickets;
-  const now = new Date();
-  if (period === 'today') {
-    const today = now.toLocaleDateString('pt-BR');
-    return tickets.filter(t => {
-      const ra = t.respondedAt || t.respondedat;
-      return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
-    });
-  }
-  if (period === 'week') {
-    const mon = new Date(now); mon.setDate(now.getDate() - now.getDay() + 1); mon.setHours(0,0,0,0);
-    return tickets.filter(t => {
-      const ra = t.respondedAt || t.respondedat;
-      return ra && new Date(ra) >= mon;
-    });
-  }
-  return tickets;
-}
-function renderRanking(elId, tickets, filterId) {
-  const el = document.getElementById(elId); if (!el) return;
-  const period = filterId ? (document.getElementById(filterId)?.value || 'all') : 'all';
-  const filtered = filterTicketsByPeriod(tickets, period);
-  const map = {};
-  filtered.filter(t => t.status === 'done' && t.analystName).forEach(t => {
-    const name = t.analystName;
-    map[name] = (map[name] || 0) + (t.ids || []).length;
+
+// Simple bar chart (for weekly)
+function mkChart(cId, labels, data, color) {
+  destroyChart(cId);
+  const canvas = document.getElementById(cId); if (!canvas) return;
+  if (window.ChartDataLabels) Chart.register(ChartDataLabels);
+  _charts[cId] = new Chart(canvas, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: color+'28', borderColor: color, borderWidth:2, borderRadius:6, borderSkipped:false }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display:false },
+        datalabels: {
+          anchor:'end', align:'end',
+          color:'#666666', font:{ size:11, weight:'bold' },
+          formatter: v => v > 0 ? v : '',
+          padding:{ bottom:2 }
+        }
+      },
+      scales: {
+        y: { beginAtZero:true, ticks:{ stepSize:1, font:{size:11}, color:'#999999' }, grid:{ color:'#eeeeee' } },
+        x: { ticks:{ font:{size:11}, color:'#999999' }, grid:{ display:false } }
+      },
+      layout: { padding:{ top:18 } }
+    }
   });
-  const sorted = Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 8);
-  if (!sorted.length) { el.innerHTML = '<div class="empty">Nenhum dado ainda</div>'; return; }
-  const periodLabel = { all: 'Total', today: 'Hoje', week: 'Semana' }[period] || '';
-  el.innerHTML = sorted.map(([name, count], i) => `<div class="rank-row">
-    <div class="rank-num ${i === 0 ? 'r1' : i === 1 ? 'r2' : i === 2 ? 'r3' : 'rn'}">${i + 1}</div>
-    <div class="rank-name">${name}</div>
-    <div class="rank-score">${count} IDs <span style="font-size:10px;color:var(--text3);font-weight:400">${periodLabel}</span></div>
-  </div>`).join('');
+}
+
+// Pie/Donut chart with percentages
+function mkPieChart(cId, labels, data, colors) {
+  destroyChart(cId);
+  const canvas = document.getElementById(cId); if (!canvas) return;
+  if (window.ChartDataLabels) Chart.register(ChartDataLabels);
+  const total = data.reduce((s, v) => s + v, 0);
+  if (total === 0) {
+    _charts[cId] = new Chart(canvas, {
+      type: 'doughnut',
+      data: { labels:['Sem dados'], datasets:[{ data:[1], backgroundColor:['#eeeeee'], borderWidth:0 }] },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, datalabels:{ display:false } } }
+    });
+    return;
+  }
+  _charts[cId] = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data, backgroundColor: colors,
+        borderWidth: 2, borderColor: '#ffffff', hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '52%',
+      plugins: {
+        legend: {
+          display: true, position: 'bottom',
+          labels: { font:{ size:11, weight:'600' }, color:'#666', padding:10, boxWidth:12, boxHeight:12 }
+        },
+        datalabels: {
+          color: '#fff',
+          font: { size: 11, weight: 'bold' },
+          formatter: (v, ctx) => {
+            const pct = Math.round(v / total * 100);
+            return pct >= 5 ? v + '\n' + pct + '%' : '';
+          },
+          textAlign: 'center'
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/total*100)}%)`
+          }
+        }
+      }
+    }
+  });
+}
+
+// Build wave legend HTML
+function buildOndaLegend(elId, ondaData) {
+  const el = document.getElementById(elId); if (!el) return;
+  el.innerHTML = ondaData.filter(o => o.count > 0).map(o =>
+    `<div class="chart-legend-item">
+      <div class="chart-legend-dot" style="background:${o.color}"></div>
+      <span>${o.label.replace('\n',' ')}: <strong>${o.count}</strong></span>
+    </div>`
+  ).join('') || '<span style="font-size:11px;color:var(--text3)">Sem dados para o período</span>';
+}
+
+// ====================================================
+//  MY DASHBOARD
+// ====================================================
+function renderMyDash() {
+  const scope = 'my';
+  const allFinished = currentUser.role === 'analista'
+    ? _cache.tickets.filter(t => t.status==='done' && t.analystId===currentUser.id)
+    : _cache.tickets.filter(t => t.requesterId===currentUser.id);
+
+  const finished = filterByDateRange(allFinished, scope);
+  const today = new Date().toLocaleDateString('pt-BR');
+  const todayIds = allFinished.filter(t => { const ra = t.respondedAt||t.respondedat; return ra && new Date(ra).toLocaleDateString('pt-BR')===today; }).flatMap(t=>t.ids||[]).length;
+  const weekIds = weekTkts(allFinished).flatMap(t=>t.ids||[]).length;
+  const totalIds = finished.flatMap(t=>t.ids||[]).length;
+  const open = currentUser.role === 'solicitante'
+    ? _cache.tickets.filter(t=>t.requesterId===currentUser.id && t.status!=='done').length
+    : _cache.tickets.filter(t=>t.status==='open').length;
+
+  document.getElementById('my-stats').innerHTML = `
+    <div class="sbox"><div class="slbl">IDs (filtro)</div><div class="sval sv-y">${totalIds}</div></div>
+    <div class="sbox"><div class="slbl">IDs hoje</div><div class="sval sv-g">${todayIds}</div></div>
+    <div class="sbox"><div class="slbl">Esta semana</div><div class="sval">${weekIds}</div></div>
+    <div class="sbox"><div class="slbl">Em aberto</div><div class="sval sv-a">${open}</div></div>
+    <div class="sbox"><div class="slbl">SLA médio</div><div class="sval sv-b" style="font-size:18px">${avgSLA(finished)}</div></div>`;
+
+  // Wave (onda) chart
+  const ondaData = getOndaData(currentUser.role==='analista' ? _cache.tickets.filter(t=>t.status==='done'&&t.analystId===currentUser.id) : allFinished, scope);
+  mkOndaChart('my-ch-daily', ondaData);
+  buildOndaLegend('my-legend-daily', ondaData);
+
+  // Weekly chart
+  const wd = weekData(allFinished);
+  mkChart('my-ch-weekly', wd.labels, wd.data, '#22c55e');
+
+  // Pie chart — resultado dos IDs
+  const allResponses = finished.flatMap(t => t.responses||[]);
+  const pieData = [
+    allResponses.filter(r=>r.status==='found').length,
+    allResponses.filter(r=>r.status==='notfound').length,
+    allResponses.filter(r=>r.status==='lost').length,
+    allResponses.filter(r=>r.status==='analyzing').length,
+  ];
+  mkPieChart('my-ch-pie', ['Localizado','Não encontrado','Perdidos FM','Em análise'], pieData, ['#00a650','#e02020','#8a2be2','#f5a623']);
+
+  renderRanking('my-ranking', _cache.tickets, 'my-rank-filter');
 }
 
 // ====================================================
 //  ADMIN DASHBOARD
 // ====================================================
-let _chAdmD = null, _chAdmW = null;
 function renderAdmDash() {
-  const t = _cache.tickets;
-  const open = t.filter(x => x.status === 'open').length;
-  const prog = t.filter(x => x.status === 'progress').length;
-  const done = t.filter(x => x.status === 'done').length;
-  const exp = t.filter(x => x.status !== 'done' && getSLA(x).expired).length;
+  const scope = 'adm';
+  const allTickets = _cache.tickets;
+  const filteredTickets = filterByDateRange(allTickets, scope);
+
+  const open = filteredTickets.filter(x=>x.status==='open').length;
+  const prog = filteredTickets.filter(x=>x.status==='progress').length;
+  const done = filteredTickets.filter(x=>x.status==='done').length;
+  const exp = filteredTickets.filter(x=>x.status!=='done' && getSLA(x).expired).length;
   const today = new Date().toLocaleDateString('pt-BR');
-  const todayIds = t.filter(x => {
-    const ra = x.respondedAt || x.respondedat;
-    return ra && new Date(ra).toLocaleDateString('pt-BR') === today;
-  }).flatMap(x => x.ids || []).length;
-  const totalIds = t.flatMap(x => x.ids || []).length;
-  const pend = (_cache.requests || []).filter(r => r.status === 'pending').length;
+  const todayIds = allTickets.filter(x=>{ const ra=x.respondedAt||x.respondedat; return ra && new Date(ra).toLocaleDateString('pt-BR')===today; }).flatMap(x=>x.ids||[]).length;
+  const totalIds = filteredTickets.flatMap(x=>x.ids||[]).length;
+  const pend = (_cache.requests||[]).filter(r=>r.status==='pending').length;
   const badge = document.getElementById('req-badge');
   badge.style.display = pend ? 'inline' : 'none'; if (pend) badge.textContent = pend;
 
@@ -1593,40 +1687,58 @@ function renderAdmDash() {
     <div class="sbox"><div class="slbl">IDs hoje</div><div class="sval sv-y">${todayIds}</div></div>
     <div class="sbox"><div class="slbl">Total IDs</div><div class="sval">${totalIds}</div></div>`;
 
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  _chAdmD = mkChart('chart-daily', _chAdmD, hours.map(h => h + 'h'), hours.map(h => t.filter(x => {
-    const ra = x.respondedAt || x.respondedat;
-    if (!ra) return false;
-    const d = new Date(ra);
-    return d.toLocaleDateString('pt-BR') === today && d.getHours() === h;
-  }).flatMap(x => x.ids || []).length), '#f5d800');
-  const wd = weekData(t.filter(x => x.status === 'done'));
-  _chAdmW = mkChart('chart-weekly', _chAdmW, wd.labels, wd.data, '#22c55e');
-  renderRanking('rank-analysts', t, 'adm-rank-filter');
+  // Wave chart (ondas)
+  const ondaData = getOndaData(filteredTickets, scope);
+  mkOndaChart('chart-daily', ondaData);
+  buildOndaLegend('adm-legend-daily', ondaData);
+
+  // Weekly chart
+  const wd = weekData(allTickets.filter(x=>x.status==='done'));
+  mkChart('chart-weekly', wd.labels, wd.data, '#22c55e');
+
+  // Ranking
+  renderRanking('rank-analysts', _cache.tickets, 'adm-rank-filter');
+
+  // SLA Summary
   document.getElementById('sla-summary').innerHTML = `<div style="font-size:13px;color:var(--text2);line-height:2.3">
-    <div>⏱ Tempo médio: <strong style="color:var(--text)">${avgSLA(t.filter(x => x.status === 'done'))}</strong></div>
+    <div>⏱ Tempo médio: <strong style="color:var(--text)">${avgSLA(filteredTickets.filter(x=>x.status==='done'))}</strong></div>
     <div>🎯 SLA configurado: <strong style="color:var(--yellow)">${_slaHours}h</strong></div>
     <div>⚠️ Alerta em: <strong style="color:var(--amber)">${_slaWarnPct}% do SLA</strong></div>
-    <div style="color:var(--red)">🔴 Tickets expirados: <strong>${exp}</strong></div>
+    <div style="color:var(--red)">🔴 Expirados: <strong>${exp}</strong></div>
   </div>`;
+
+  // Status pie chart
+  const allResponses = filteredTickets.flatMap(x => x.responses||[]);
+  const pieData = [
+    allResponses.filter(r=>r.status==='found').length,
+    allResponses.filter(r=>r.status==='notfound').length,
+    allResponses.filter(r=>r.status==='lost').length,
+    allResponses.filter(r=>r.status==='analyzing').length,
+    filteredTickets.filter(x=>x.status==='open').flatMap(x=>x.ids||[]).length,
+  ];
+  mkPieChart('chart-status-pie',
+    ['Localizado','Não encontrado','Perdidos FM','Em análise','Pendente'],
+    pieData,
+    ['#00a650','#e02020','#8a2be2','#f5a623','#cccccc']
+  );
 }
 
 function renderAdmTickets() {
-  const search = (document.getElementById('tf-search')?.value || '').toLowerCase();
-  const sf = document.getElementById('tf-status')?.value || '';
-  const af = document.getElementById('tf-analyst')?.value || '';
-  let list = [..._cache.tickets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids || []).some(id => id.toLowerCase().includes(search)));
-  if (sf) list = list.filter(t => t.status === sf);
-  if (af) list = list.filter(t => t.analystName === af);
+  const search = (document.getElementById('tf-search')?.value||'').toLowerCase();
+  const sf = document.getElementById('tf-status')?.value||'';
+  const af = document.getElementById('tf-analyst')?.value||'';
+  let list = [..._cache.tickets].sort((a,b) => new Date(b.createdAt)-new Date(a.createdAt));
+  if (search) list = list.filter(t => t.title?.toLowerCase().includes(search) || (t.ids||[]).some(id=>id.toLowerCase().includes(search)));
+  if (sf) list = list.filter(t => t.status===sf);
+  if (af) list = list.filter(t => t.analystName===af);
   const el = document.getElementById('adm-tkt-list');
   if (!list.length) { el.innerHTML = '<div class="empty"><span class="empty-ico">🎫</span>Nenhum ticket</div>'; return; }
   el.innerHTML = list.map(t => tktCard(t)).join('');
 }
 function populateAnalystFilter() {
-  const analysts = [...new Set(_cache.tickets.filter(t => t.analystName).map(t => t.analystName))].sort();
+  const analysts = [...new Set(_cache.tickets.filter(t=>t.analystName).map(t=>t.analystName))].sort();
   const sel = document.getElementById('tf-analyst');
-  sel.innerHTML = '<option value="">Todos analistas</option>' + analysts.map(a => `<option>${a}</option>`).join('');
+  sel.innerHTML = '<option value="">Todos analistas</option>' + analysts.map(a=>`<option>${a}</option>`).join('');
 }
 function clearAdmFilters() {
   document.getElementById('tf-search').value = '';
@@ -1636,38 +1748,71 @@ function clearAdmFilters() {
 }
 function exportCSV() {
   if (!_cache.tickets.length) { toast('Nenhum dado'); return; }
-  const rows = [['ID', 'Título', 'Solicitante', 'Motorista', 'Analista', 'Status', 'Prioridade', 'IDs', 'Criado', 'Respondido', 'SLA']];
+  const rows = [['ID','Título','Solicitante','Motorista','Analista','Status','Prioridade','IDs','Criado','Respondido','SLA']];
   _cache.tickets.forEach(t => {
-    const _rA = t.respondedAt || t.respondedat;
-    const _cA = t.createdAt || t.createdat;
-    const sla = _rA ? ((new Date(_rA) - new Date(_cA)) / 3600000).toFixed(1) + 'h' : '—';
-    rows.push([t.id, t.title, t.requesterName || '', t.motorista || '', t.analystName || '', t.status, t.priority, (t.ids || []).join(' | '), _cA ? new Date(_cA).toLocaleString('pt-BR') : '—', _rA ? new Date(_rA).toLocaleString('pt-BR') : '—', sla]);
+    const _rA = t.respondedAt||t.respondedat, _cA = t.createdAt||t.createdat;
+    const sla = _rA ? ((new Date(_rA)-new Date(_cA))/3600000).toFixed(1)+'h' : '—';
+    rows.push([t.id,t.title,t.requesterName||'',t.motorista||'',t.analystName||'',t.status,t.priority,(t.ids||[]).join(' | '),_cA?new Date(_cA).toLocaleString('pt-BR'):'—',_rA?new Date(_rA).toLocaleString('pt-BR'):'—',sla]);
   });
-  const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
-  a.download = 'tickets_' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
+  const csv = rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'tickets_'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
 }
-
 function exportUsers() {
   if (!_cache.users.length) { toast('Nenhum usuário'); return; }
-  const rows = [['Nome', 'Username', 'Senha', 'Papel', 'Status', 'Criado']];
-  _cache.users.forEach(u => {
-    const _cA = u.createdAt || u.createdat;
-    rows.push([
-      u.name || '',
-      u.username || '',
-      u.password || '',
-      u.role || '',
-      u.status || '',
-      _cA ? new Date(_cA).toLocaleString('pt-BR') : '—'
-    ]);
-  });
-  const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }));
-  a.download = 'usuarios_' + new Date().toISOString().slice(0, 10) + '.csv';
-  a.click();
+  const rows = [['Nome','Username','Senha','Papel','Status','Criado']];
+  _cache.users.forEach(u => { const _cA=u.createdAt||u.createdat; rows.push([u.name||'',u.username||'',u.password||'',u.role||'',u.status||'',_cA?new Date(_cA).toLocaleString('pt-BR'):'—']); });
+  const csv = rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'usuarios_'+new Date().toISOString().slice(0,10)+'.csv'; a.click();
   toast('⬇ Usuários exportados!');
+}
+
+// ====================================================
+//  HELPERS (weekly, avgSLA, ranking)
+// ====================================================
+function avgSLA(tickets) {
+  const done = tickets.filter(t => (t.respondedAt||t.respondedat) && (t.createdAt||t.createdat));
+  if (!done.length) return '—';
+  const avg = done.reduce((s,t) => s + (new Date(t.respondedAt||t.respondedat)-new Date(t.createdAt||t.createdat))/3600000, 0) / done.length;
+  return avg < 1 ? Math.round(avg*60)+'min' : avg.toFixed(1)+'h';
+}
+function weekTkts(tickets) {
+  const now = new Date(), mon = new Date(now);
+  mon.setDate(now.getDate()-now.getDay()+1); mon.setHours(0,0,0,0);
+  return tickets.filter(t => { const ra=t.respondedAt||t.respondedat; return ra && new Date(ra)>=mon; });
+}
+function weekData(tickets) {
+  const days = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  const now = new Date(), mon = new Date(now);
+  mon.setDate(now.getDate()-now.getDay()+1); mon.setHours(0,0,0,0);
+  return { labels:days, data:days.map((_,i) => {
+    const d = new Date(mon); d.setDate(mon.getDate()+i);
+    const ds = d.toLocaleDateString('pt-BR');
+    return tickets.filter(t => { const ra=t.respondedAt||t.respondedat; return ra && new Date(ra).toLocaleDateString('pt-BR')===ds; }).flatMap(t=>t.ids||[]).length;
+  }) };
+}
+function filterTicketsByPeriod(tickets, period) {
+  if (period==='all') return tickets;
+  const now = new Date();
+  if (period==='today') { const today=now.toLocaleDateString('pt-BR'); return tickets.filter(t=>{ const ra=t.respondedAt||t.respondedat; return ra&&new Date(ra).toLocaleDateString('pt-BR')===today; }); }
+  if (period==='week') { const mon=new Date(now); mon.setDate(now.getDate()-now.getDay()+1); mon.setHours(0,0,0,0); return tickets.filter(t=>{ const ra=t.respondedAt||t.respondedat; return ra&&new Date(ra)>=mon; }); }
+  return tickets;
+}
+function renderRanking(elId, tickets, filterId) {
+  const el = document.getElementById(elId); if (!el) return;
+  const period = filterId ? (document.getElementById(filterId)?.value||'all') : 'all';
+  const filtered = filterTicketsByPeriod(tickets, period);
+  const map = {};
+  filtered.filter(t=>t.status==='done'&&t.analystName).forEach(t => { const name=t.analystName; map[name]=(map[name]||0)+(t.ids||[]).length; });
+  const sorted = Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  if (!sorted.length) { el.innerHTML = '<div class="empty">Nenhum dado ainda</div>'; return; }
+  const periodLabel = { all:'Total', today:'Hoje', week:'Semana' }[period]||'';
+  el.innerHTML = sorted.map(([name,count],i) => `<div class="rank-row">
+    <div class="rank-num ${i===0?'r1':i===1?'r2':i===2?'r3':'rn'}">${i+1}</div>
+    <div class="rank-name">${name}</div>
+    <div class="rank-score">${count} IDs <span style="font-size:10px;color:var(--text3);font-weight:400">${periodLabel}</span></div>
+  </div>`).join('');
 }
 
 // ====================================================
@@ -1676,49 +1821,26 @@ function exportUsers() {
 function renderUsers() {
   document.getElementById('users-list').innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Senha</th><th>Papel</th><th>Treinamento</th><th></th></tr></thead><tbody>${
     _cache.users.map(u => {
-      const tutKey = 'tut_done_' + u.id;
-      const tutDone = LS.get(tutKey);
-      const tutBadge = u.role === 'solicitante'
-        ? (tutDone
-            ? `<span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">✅ Concluído</span>`
-            : `<span style="background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">⏳ Pendente</span>`)
-        : `<span style="color:#999;font-size:11px">—</span>`;
-      const resetBtn = u.role === 'solicitante'
-        ? `<button class="btn btn-sm" style="background:#fffde7;color:#b45309;border:1.5px solid #fcd34d;margin-right:4px" onclick="resetUserTutorial('${u.id}','${u.name}')">🎓 Ativar</button>`
-        : '';
-      return `<tr>
-        <td style="font-weight:700">${u.name}</td>
-        <td><code class="usr">${u.username}</code></td>
-        <td><code class="usr">${u.password || '—'}</code></td>
-        <td><span class="badge ${{ admin: 'b-notfound', analista: 'b-progress', solicitante: 'b-open' }[u.role] || 'b-open'}">${u.role}</span></td>
-        <td>${tutBadge}</td>
-        <td style="display:flex;gap:4px;align-items:center">${resetBtn}${u.id !== 'admin-001' ? `<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>` : '—'}</td>
-      </tr>`;
+      const tutKey='tut_done_'+u.id, tutDone=LS.get(tutKey);
+      const tutBadge = u.role==='solicitante' ? (tutDone?`<span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">✅ Concluído</span>`:`<span style="background:#fff8e6;color:#b45309;border:1px solid #fcd34d;border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700">⏳ Pendente</span>`) : `<span style="color:#999;font-size:11px">—</span>`;
+      const resetBtn = u.role==='solicitante'?`<button class="btn btn-sm" style="background:#fffde7;color:#b45309;border:1.5px solid #fcd34d;margin-right:4px" onclick="resetUserTutorial('${u.id}','${u.name}')">🎓 Ativar</button>`:'';
+      return `<tr><td style="font-weight:700">${u.name}</td><td><code class="usr">${u.username}</code></td><td><code class="usr">${u.password||'—'}</code></td><td><span class="badge ${{admin:'b-notfound',analista:'b-progress',solicitante:'b-open'}[u.role]||'b-open'}">${u.role}</span></td><td>${tutBadge}</td><td style="display:flex;gap:4px;align-items:center">${resetBtn}${u.id!=='admin-001'?`<button class="btn btn-r btn-sm" onclick="deleteUser('${u.id}')">🗑</button>`:'—'}</td></tr>`;
     }).join('')
   }</tbody></table></div>`;
 }
-
-function resetUserTutorial(userId, userName) {
-  const tutKey = 'tut_done_' + userId;
-  localStorage.removeItem(tutKey);
-  toast('🎓 Treinamento de ' + userName + ' foi reativado!', 4000);
-  renderUsers();
-}
+function resetUserTutorial(userId, userName) { localStorage.removeItem('tut_done_'+userId); toast('🎓 Treinamento de '+userName+' reativado!', 4000); renderUsers(); }
 function openNewUser() {
-  ['nu-name', 'nu-user', 'nu-pass'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('nu-role').value = 'solicitante';
-  document.getElementById('err-nu').style.display = 'none';
+  ['nu-name','nu-user','nu-pass'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('nu-role').value='solicitante';
+  document.getElementById('err-nu').style.display='none';
   document.getElementById('ov-newuser').classList.add('open');
 }
 async function saveNewUser() {
-  const name = document.getElementById('nu-name').value.trim();
-  const username = document.getElementById('nu-user').value.trim().toLowerCase();
-  const pass = document.getElementById('nu-pass').value.trim();
-  const role = document.getElementById('nu-role').value;
-  const err = document.getElementById('err-nu'); err.style.display = 'none';
-  if (!name || !username || !pass) { err.style.display = 'block'; return; }
-  if (_cache.users.find(u => u.username === username)) { err.textContent = 'Username já existe'; err.style.display = 'block'; return; }
-  const ud = { id: 'u-' + Date.now(), name, username, password: pass, role, status: 'approved', createdAt: new Date().toISOString() };
+  const name=document.getElementById('nu-name').value.trim(), username=document.getElementById('nu-user').value.trim().toLowerCase(), pass=document.getElementById('nu-pass').value.trim(), role=document.getElementById('nu-role').value;
+  const err=document.getElementById('err-nu'); err.style.display='none';
+  if (!name||!username||!pass) { err.style.display='block'; return; }
+  if (_cache.users.find(u=>u.username===username)) { err.textContent='Username já existe'; err.style.display='block'; return; }
+  const ud = { id:'u-'+Date.now(), name, username, password:pass, role, status:'approved', createdAt:new Date().toISOString() };
   await apiPost('addUser', ud);
   _cache.users.push(ud);
   document.getElementById('ov-newuser').classList.remove('open');
@@ -1726,34 +1848,29 @@ async function saveNewUser() {
 }
 async function deleteUser(id) {
   if (!confirm('Remover este usuário?')) return;
-  await apiPost('deleteUser', { id });
-  _cache.users = _cache.users.filter(u => u.id !== id);
+  await apiPost('deleteUser', {id});
+  _cache.users = _cache.users.filter(u=>u.id!==id);
   renderUsers(); toast('🗑 Usuário removido');
 }
 function renderRequests() {
-  const reqs = (_cache.requests || []).filter(r => r.status === 'pending');
+  const reqs = (_cache.requests||[]).filter(r=>r.status==='pending');
   const el = document.getElementById('req-list');
-  if (!reqs.length) { el.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:12px">Nenhuma solicitação pendente</div>'; return; }
+  if (!reqs.length) { el.innerHTML='<div style="color:var(--text3);font-size:13px;padding:12px">Nenhuma solicitação pendente</div>'; return; }
   el.innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Nome</th><th>Username</th><th>Data</th><th>Ações</th></tr></thead><tbody>${
-    reqs.map(r => `<tr>
-      <td style="font-weight:700">${r.name}</td>
-      <td><code class="usr">${r.username}</code></td>
-      <td style="font-size:11px;color:var(--text3)">${new Date(r.createdAt).toLocaleDateString('pt-BR')}</td>
-      <td style="display:flex;gap:6px"><button class="btn btn-g btn-sm" onclick="approveReq(${JSON.stringify(r).replace(/"/g,"'")})">✓ Aprovar</button><button class="btn btn-r btn-sm" onclick="rejectReq(${JSON.stringify(r).replace(/"/g,"'")})">✕</button></td>
-    </tr>`).join('')
+    reqs.map(r=>`<tr><td style="font-weight:700">${r.name}</td><td><code class="usr">${r.username}</code></td><td style="font-size:11px;color:var(--text3)">${new Date(r.createdAt).toLocaleDateString('pt-BR')}</td><td style="display:flex;gap:6px"><button class="btn btn-g btn-sm" onclick="approveReq(${JSON.stringify(r).replace(/"/g,"'")})">✓ Aprovar</button><button class="btn btn-r btn-sm" onclick="rejectReq(${JSON.stringify(r).replace(/"/g,"'")})">✕</button></td></tr>`).join('')
   }</tbody></table></div>`;
 }
 async function approveReq(r) {
-  const req = typeof r === 'string' ? JSON.parse(r.replace(/'/g, '"')) : r;
+  const req = typeof r==='string' ? JSON.parse(r.replace(/'/g,'"')) : r;
   await apiPost('approveRequest', req);
-  const idx = _cache.requests.findIndex(x => x.username === req.username); if (idx >= 0) _cache.requests[idx].status = 'approved';
-  _cache.users.push({ id: 'u-' + Date.now(), name: req.name, username: req.username, password: req.password, role: req.role || 'solicitante', status: 'approved', createdAt: new Date().toISOString() });
+  const idx=_cache.requests.findIndex(x=>x.username===req.username); if (idx>=0) _cache.requests[idx].status='approved';
+  _cache.users.push({id:'u-'+Date.now(),name:req.name,username:req.username,password:req.password,role:req.role||'solicitante',status:'approved',createdAt:new Date().toISOString()});
   renderRequests(); renderUsers(); renderAdmDash(); toast(`✅ ${req.name} aprovado!`);
 }
 async function rejectReq(r) {
-  const req = typeof r === 'string' ? JSON.parse(r.replace(/'/g, '"')) : r;
+  const req = typeof r==='string' ? JSON.parse(r.replace(/'/g,'"')) : r;
   await apiPost('rejectRequest', req);
-  const idx = _cache.requests.findIndex(x => x.username === req.username); if (idx >= 0) _cache.requests[idx].status = 'rejected';
+  const idx=_cache.requests.findIndex(x=>x.username===req.username); if (idx>=0) _cache.requests[idx].status='rejected';
   renderRequests(); toast('❌ Rejeitado');
 }
 
@@ -1761,105 +1878,77 @@ async function rejectReq(r) {
 //  CONFIG
 // ====================================================
 function loadConfig() {
-  const cfg = LS.get('suporte_cfg') || {};
-  document.getElementById('cfg-sla').value = cfg.slaHours || 4;
-  document.getElementById('cfg-sla-warn').value = cfg.slaWarnPct || 75;
-  document.getElementById('gchat-wh').value = LS.get('suporte_gchat') || '';
-  const wa = LS.get('suporte_wa') || {};
-  document.getElementById('wa-phone').value = wa.phone || '';
-  document.getElementById('wa-key').value = wa.apikey || '';
+  const cfg=LS.get('suporte_cfg')||{};
+  document.getElementById('cfg-sla').value=cfg.slaHours||4;
+  document.getElementById('cfg-sla-warn').value=cfg.slaWarnPct||75;
+  document.getElementById('gchat-wh').value=LS.get('suporte_gchat')||'';
+  const wa=LS.get('suporte_wa')||{};
+  document.getElementById('wa-phone').value=wa.phone||'';
+  document.getElementById('wa-key').value=wa.apikey||'';
   updateGchatStatus();
 }
 function saveSLAConfig() {
-  const h = parseInt(document.getElementById('cfg-sla').value) || 4;
-  const w = parseInt(document.getElementById('cfg-sla-warn').value) || 75;
-  LS.set('suporte_cfg', { slaHours: h, slaWarnPct: w }); _slaHours = h; _slaWarnPct = w;
-  toast(`✅ SLA configurado: ${h}h (alerta em ${w}%)`);
+  const h=parseInt(document.getElementById('cfg-sla').value)||4, w=parseInt(document.getElementById('cfg-sla-warn').value)||75;
+  LS.set('suporte_cfg',{slaHours:h,slaWarnPct:w}); _slaHours=h; _slaWarnPct=w;
+  toast(`✅ SLA: ${h}h (alerta em ${w}%)`);
 }
 function saveGchat() {
-  const val = (document.getElementById('gchat-wh')?.value || '').trim();
-  if (!val || !val.startsWith('https://chat.googleapis.com')) { toast('⚠️ URL de webhook inválida'); return; }
-  LS.set('suporte_gchat', val); updateGchatStatus(); toast('✅ Google Chat salvo!');
+  const val=(document.getElementById('gchat-wh')?.value||'').trim();
+  if (!val||!val.startsWith('https://chat.googleapis.com')) { toast('⚠️ URL inválida'); return; }
+  LS.set('suporte_gchat',val); updateGchatStatus(); toast('✅ Google Chat salvo!');
 }
 function updateGchatStatus() {
-  const w = LS.get('suporte_gchat'), el = document.getElementById('gchat-status'); if (!el) return;
-  el.className = 'cfg-sts ' + (w ? 'cfg-ok' : 'cfg-warn');
-  el.textContent = w ? '✅ Webhook configurado e ativo' : '⚠️ Webhook não configurado';
+  const w=LS.get('suporte_gchat'), el=document.getElementById('gchat-status'); if (!el) return;
+  el.className='cfg-sts '+(w?'cfg-ok':'cfg-warn');
+  el.textContent=w?'✅ Webhook configurado e ativo':'⚠️ Webhook não configurado';
 }
 async function testGchat() {
-  const w = LS.get('suporte_gchat'); if (!w) { toast('⚠️ Configure o webhook primeiro'); return; }
+  const w=LS.get('suporte_gchat'); if (!w) { toast('⚠️ Configure o webhook primeiro'); return; }
   toast('📤 Testando...', 10000);
-  const r = await apiPost('sendGoogleChatReport', { webhook: w, text: '✅ *Teste — Suporte & Validação ML Logística*\nConectado com sucesso!' });
-  toast(r?.ok ? '✅ Google Chat funcionando!' : '⚠️ Erro: ' + (r?.error || 'verifique o webhook'));
+  const r=await apiPost('sendGoogleChatReport',{webhook:w,text:'✅ *Teste — Suporte & Validação ML Logística*\nConectado com sucesso!'});
+  toast(r?.ok?'✅ Google Chat funcionando!':'⚠️ Erro: '+(r?.error||'verifique o webhook'));
 }
 function saveWA() {
-  const phone = (document.getElementById('wa-phone')?.value || '').trim().replace(/\D/g, '');
-  const apikey = (document.getElementById('wa-key')?.value || '').trim();
-  if (!phone || !apikey) { toast('⚠️ Preencha número e API Key'); return; }
-  LS.set('suporte_wa', { phone, apikey }); toast('✅ WhatsApp salvo!');
+  const phone=(document.getElementById('wa-phone')?.value||'').trim().replace(/\D/g,''), apikey=(document.getElementById('wa-key')?.value||'').trim();
+  if (!phone||!apikey) { toast('⚠️ Preencha número e API Key'); return; }
+  LS.set('suporte_wa',{phone,apikey}); toast('✅ WhatsApp salvo!');
 }
 async function testWA() {
-  const cfg = LS.get('suporte_wa') || {}; if (!cfg.phone || !cfg.apikey) { toast('⚠️ Configure o WhatsApp primeiro'); return; }
+  const cfg=LS.get('suporte_wa')||{}; if (!cfg.phone||!cfg.apikey) { toast('⚠️ Configure o WhatsApp primeiro'); return; }
   toast('📤 Testando...', 10000);
-  const r = await apiPost('sendCallMeBot', { phone: cfg.phone, apikey: cfg.apikey, message: '✅ Teste — Suporte & Validação ML Logística' });
-  toast(r?.ok ? '✅ WhatsApp funcionando!' : '⚠️ Erro: ' + (r?.error || 'verifique as configurações'));
+  const r=await apiPost('sendCallMeBot',{phone:cfg.phone,apikey:cfg.apikey,message:'✅ Teste — Suporte & Validação ML Logística'});
+  toast(r?.ok?'✅ WhatsApp funcionando!':'⚠️ Erro: '+(r?.error||'verifique as configurações'));
 }
 
 // ====================================================
-//  TUTORIAL ONBOARDING
+//  TUTORIAL
 // ====================================================
 let _tutCur = 0;
 const TUT_TOTAL = 6;
-
 function initTutorial(user) {
   if (user.role !== 'solicitante') return;
-  const key = 'tut_done_' + user.id;
-  if (LS.get(key)) return;
-  _tutCur = 0;
-  buildTutDots();
-  tutGoTo(0);
-  const ov = document.getElementById('tut-overlay');
-  if (!ov) { console.error('tut-overlay not found'); return; }
+  if (LS.get('tut_done_'+user.id)) return;
+  _tutCur = 0; buildTutDots(); tutGoTo(0);
+  const ov = document.getElementById('tut-overlay'); if (!ov) return;
   ov.style.cssText = 'display:flex !important; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:9999; align-items:center; justify-content:center; padding:16px;';
   ov.classList.add('open');
 }
-
 function buildTutDots() {
-  const el = document.getElementById('tut-dots');
-  el.innerHTML = Array.from({length: TUT_TOTAL}, (_, i) =>
-    `<div class="tut-dot${i < _tutCur ? ' done' : i === _tutCur ? ' on' : ''}" onclick="tutGoTo(${i})"></div>`
-  ).join('');
-  const btn = document.getElementById('tut-next');
-  btn.textContent = _tutCur === TUT_TOTAL - 1 ? '✅ Começar!' : 'Próximo →';
+  document.getElementById('tut-dots').innerHTML = Array.from({length:TUT_TOTAL},(_,i)=>
+    `<div class="tut-dot${i<_tutCur?' done':i===_tutCur?' on':''}" onclick="tutGoTo(${i})"></div>`).join('');
+  document.getElementById('tut-next').textContent = _tutCur===TUT_TOTAL-1?'✅ Começar!':'Próximo →';
 }
-
 function tutGoTo(n) {
-  const old = _tutCur;
-  _tutCur = Math.max(0, Math.min(TUT_TOTAL - 1, n));
-  document.querySelectorAll('.tut-slide').forEach((s, i) => {
-    s.classList.remove('active', 'exit');
-    if (i === _tutCur) s.classList.add('active');
-    else if (i === old) s.classList.add('exit');
-  });
+  const old=_tutCur; _tutCur=Math.max(0,Math.min(TUT_TOTAL-1,n));
+  document.querySelectorAll('.tut-slide').forEach((s,i) => { s.classList.remove('active','exit'); if(i===_tutCur) s.classList.add('active'); else if(i===old) s.classList.add('exit'); });
   buildTutDots();
 }
-
-function tutNext() {
-  if (_tutCur < TUT_TOTAL - 1) tutGoTo(_tutCur + 1);
-  else closeTutorial();
-}
-
+function tutNext() { if (_tutCur<TUT_TOTAL-1) tutGoTo(_tutCur+1); else closeTutorial(); }
 function closeTutorial() {
-  const ov = document.getElementById('tut-overlay');
-  if (ov) { ov.classList.remove('open'); ov.style.cssText = 'display:none'; }
-  if (currentUser) LS.set('tut_done_' + currentUser.id, true);
+  const ov=document.getElementById('tut-overlay'); if (ov) { ov.classList.remove('open'); ov.style.cssText='display:none'; }
+  if (currentUser) LS.set('tut_done_'+currentUser.id, true);
 }
-function resetTutorial() {
-  if (currentUser) {
-    localStorage.removeItem('tut_done_' + currentUser.id);
-    initTutorial(currentUser);
-  }
-}
+function resetTutorial() { if (currentUser) { localStorage.removeItem('tut_done_'+currentUser.id); initTutorial(currentUser); } }
 
 // ====================================================
 //  REQUEST ACCESS
@@ -1867,152 +1956,82 @@ function resetTutorial() {
 window._selectedRole = 'solicitante';
 function selectRole(role) {
   window._selectedRole = role;
-  document.getElementById('role-opt-sol').classList.toggle('selected', role === 'solicitante');
-  document.getElementById('role-opt-ana').classList.toggle('selected', role === 'analista');
+  document.getElementById('role-opt-sol').classList.toggle('selected', role==='solicitante');
+  document.getElementById('role-opt-ana').classList.toggle('selected', role==='analista');
 }
 async function submitRequest() {
-  const name = (document.getElementById('req-name')?.value || '').trim();
-  const username = (document.getElementById('req-user')?.value || '').trim().toLowerCase();
-  const pass = (document.getElementById('req-pass')?.value || '').trim();
-  const err = document.getElementById('err-req'); err.style.display = 'none';
-  if (!name || !username || !pass) { err.textContent = 'Preencha todos os campos'; err.style.display = 'block'; return; }
-  if (username.length < 3) { err.textContent = 'Username muito curto (mínimo 3 caracteres)'; err.style.display = 'block'; return; }
-  if (pass.length < 4) { err.textContent = 'Senha muito curta (mínimo 4 caracteres)'; err.style.display = 'block'; return; }
+  const name=(document.getElementById('req-name')?.value||'').trim(), username=(document.getElementById('req-user')?.value||'').trim().toLowerCase(), pass=(document.getElementById('req-pass')?.value||'').trim();
+  const err=document.getElementById('err-req'); err.style.display='none';
+  if (!name||!username||!pass) { err.textContent='Preencha todos os campos'; err.style.display='block'; return; }
+  if (username.length<3) { err.textContent='Username muito curto'; err.style.display='block'; return; }
+  if (pass.length<4) { err.textContent='Senha muito curta'; err.style.display='block'; return; }
   toast('📩 Enviando...', 10000);
-  const req = { id: 'req-' + Date.now(), name, username, password: pass, role: window._selectedRole, status: 'pending', createdAt: new Date().toISOString() };
-  const result = await apiPost('addRequest', req);
-  toast('');
-  if (result?.ok !== false) {
-    document.getElementById('req-form-fields').style.display = 'none';
-    document.getElementById('req-success-box').style.display = 'block';
-    toast('✅ Solicitação enviada!');
-  } else {
-    err.textContent = 'Erro ao enviar: ' + (result?.error || 'tente novamente');
-    err.style.display = 'block';
-  }
+  const req={id:'req-'+Date.now(),name,username,password:pass,role:window._selectedRole,status:'pending',createdAt:new Date().toISOString()};
+  const result=await apiPost('addRequest',req); toast('');
+  if (result?.ok!==false) { document.getElementById('req-form-fields').style.display='none'; document.getElementById('req-success-box').style.display='block'; toast('✅ Solicitação enviada!'); }
+  else { err.textContent='Erro: '+(result?.error||'tente novamente'); err.style.display='block'; }
 }
 
 // ====================================================
 //  REPORT
 // ====================================================
 function buildReportUrl(ticketId) {
-  const base = window.location.href.split('#')[0].split('?')[0];
-  return base + '#report/' + ticketId;
+  return window.location.href.split('#')[0].split('?')[0] + '#report/' + ticketId;
 }
-
 function showReportModal(t, responses, url) {
-  const found = responses.filter(r => r.status === 'found').length;
-  const notfound = responses.filter(r => r.status === 'notfound').length;
-  const analyzing = responses.filter(r => r.status === 'analyzing').length;
-  const lost = responses.filter(r => r.status === 'lost').length;
-
+  const found=responses.filter(r=>r.status==='found').length, notfound=responses.filter(r=>r.status==='notfound').length, analyzing=responses.filter(r=>r.status==='analyzing').length, lost=responses.filter(r=>r.status==='lost').length;
   document.getElementById('report-summary-row').innerHTML = `
     <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--purple)">${lost}</div><div class="report-stat-lbl">Perdidos FM</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
-
-  const icons = { found: '✅', notfound: '❌', analyzing: '🔍', lost: '📦', '': '⏳' };
-  const labels = { found: 'Localizado', notfound: 'Não encontrado', analyzing: 'Em análise', lost: 'Perdidos por FM', '': 'Pendente' };
-  const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', lost: 'var(--purple)', '': 'var(--text3)' };
-  document.getElementById('modal-ids-body').innerHTML = (t.ids || []).map(id => {
-    const resp = responses.find(r => r.id === id) || {};
-    const s = resp.status || '';
-    return `<tr>
-      <td style="font-family:var(--mono);font-weight:700;font-size:12px">${id}</td>
-      <td style="font-weight:700;color:${colors[s]};font-size:12px">${icons[s]} ${labels[s]}</td>
-      <td style="color:var(--text3);font-size:11px">${resp.obs || '—'}</td>
-    </tr>`;
+  const icons={found:'✅',notfound:'❌',analyzing:'🔍',lost:'📦','':'⏳'}, labels={found:'Localizado',notfound:'Não encontrado',analyzing:'Em análise',lost:'Perdidos por FM','':'Pendente'}, colors={found:'var(--green)',notfound:'var(--red)',analyzing:'var(--amber)',lost:'var(--purple)','':'var(--text3)'};
+  document.getElementById('modal-ids-body').innerHTML = (t.ids||[]).map(id => {
+    const resp=responses.find(r=>r.id===id)||{}, s=resp.status||'';
+    return `<tr><td style="font-family:var(--mono);font-weight:700;font-size:12px">${id}</td><td style="font-weight:700;color:${colors[s]};font-size:12px">${icons[s]} ${labels[s]}</td><td style="color:var(--text3);font-size:11px">${resp.obs||'—'}</td></tr>`;
   }).join('');
-
   document.getElementById('report-link-txt').textContent = url;
-  window._reportUrl = url;
-  window._reportTicketId = t.id;
-  window._reportTicket = t;
-  window._reportResponses = responses;
+  window._reportUrl=url; window._reportTicketId=t.id; window._reportTicket=t; window._reportResponses=responses;
   document.getElementById('ov-report').classList.add('open');
 }
-
-function copyReportLink() {
-  const url = window._reportUrl || document.getElementById('report-link-txt').textContent;
-  copyText(url);
-}
-
+function copyReportLink() { copyText(window._reportUrl||document.getElementById('report-link-txt').textContent); }
 function shareWhatsApp() {
-  const t = window._reportTicket;
-  const responses = window._reportResponses || [];
-  if (!t) { toast('⚠️ Sem dados para compartilhar'); return; }
-  const msg = buildMsg(t, responses);
-  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  window.open(waUrl, '_blank');
+  const t=window._reportTicket, responses=window._reportResponses||[];
+  if (!t) { toast('⚠️ Sem dados'); return; }
+  window.open('https://wa.me/?text='+encodeURIComponent(buildMsg(t,responses)),'_blank');
 }
-
-function openReportPage() {
-  document.getElementById('ov-report').classList.remove('open');
-  renderReportPage(window._reportTicketId);
-}
-
+function openReportPage() { document.getElementById('ov-report').classList.remove('open'); renderReportPage(window._reportTicketId); }
 function renderReportPage(ticketId) {
-  const t = _cache.tickets.find(x => x.id === ticketId);
-  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
-  const responses = t.responses || [];
-  const found = responses.filter(r => r.status === 'found').length;
-  const notfound = responses.filter(r => r.status === 'notfound').length;
-  const analyzing = responses.filter(r => r.status === 'analyzing').length;
-  const lost = responses.filter(r => r.status === 'lost').length;
-  const _rAt = t.respondedAt || t.respondedat;
-  const _cAt = t.createdAt || t.createdat;
-  const sla = _rAt && _cAt ? ((new Date(_rAt) - new Date(_cAt)) / 3600000).toFixed(1) + 'h' : '—';
-  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
-  const valorLabel = t.valor === 'high' ? '📈 Acima de R$ 1.000' : '📉 Até R$ 1.000';
-
-  document.getElementById('rp-fm').textContent = fmDisplay;
-  document.getElementById('rp-title').textContent = '🚚 ' + t.title;
-  document.getElementById('rp-sub').textContent =
-    `Solicitante: ${t.requesterName} · Analista: ${t.analystName || '—'}${t.motorista ? ' · Motorista: ' + t.motorista : ''} · ${valorLabel}`;
-  document.getElementById('rp-summary').innerHTML = `
+  const t=_cache.tickets.find(x=>x.id===ticketId); if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const responses=t.responses||[], found=responses.filter(r=>r.status==='found').length, notfound=responses.filter(r=>r.status==='notfound').length, analyzing=responses.filter(r=>r.status==='analyzing').length, lost=responses.filter(r=>r.status==='lost').length;
+  const _rAt=t.respondedAt||t.respondedat, _cAt=t.createdAt||t.createdat;
+  const sla=_rAt&&_cAt?((new Date(_rAt)-new Date(_cAt))/3600000).toFixed(1)+'h':'—';
+  const fmDisplay=t.fmCode||'#'+t.id.slice(-6).toUpperCase(), valorLabel=t.valor==='high'?'📈 Acima de R$ 1.000':'📉 Até R$ 1.000';
+  document.getElementById('rp-fm').textContent=fmDisplay;
+  document.getElementById('rp-title').textContent='🚚 '+t.title;
+  document.getElementById('rp-sub').textContent=`Solicitante: ${t.requesterName} · Analista: ${t.analystName||'—'}${t.motorista?' · Motorista: '+t.motorista:''} · ${valorLabel}`;
+  document.getElementById('rp-summary').innerHTML=`
     <div class="report-stat"><div class="report-stat-val" style="color:var(--green)">${found}</div><div class="report-stat-lbl">Localizados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--red)">${notfound}</div><div class="report-stat-lbl">Não encontrados</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--purple)">${lost}</div><div class="report-stat-lbl">Perdidos FM</div></div>
     <div class="report-stat"><div class="report-stat-val" style="color:var(--amber)">${analyzing}</div><div class="report-stat-lbl">Em análise</div></div>`;
-  document.getElementById('rp-sla-row').innerHTML = `
-    <div style="display:flex;gap:16px;font-size:13px;color:var(--text2)">
-      <span>⏱ Tempo de resposta: <strong style="color:var(--text)">${sla}</strong></span>
-      <span>📦 Total IDs: <strong style="color:var(--text)">${(t.ids||[]).length}</strong></span>
-      <span>📅 Criado: <strong style="color:var(--text)">${_cAt ? new Date(_cAt).toLocaleDateString('pt-BR') : '—'}</strong></span>
-    </div>`;
-  document.getElementById('rp-ids-body').innerHTML = (t.ids || []).map(id => {
-    const resp = responses.find(r => r.id === id) || {};
-    const status = resp.status || 'pending';
-    const icons = { found: '✅ Localizado', notfound: '❌ Não encontrado', analyzing: '🔍 Em análise', lost: '📦 Perdidos por FM', pending: '⏳ Pendente' };
-    const colors = { found: 'var(--green)', notfound: 'var(--red)', analyzing: 'var(--amber)', lost: 'var(--purple)', pending: 'var(--text3)' };
-    return `<tr>
-      <td style="font-family:var(--mono);font-weight:700">${id}</td>
-      <td style="font-weight:700;color:${colors[status]}">${icons[status] || status}</td>
-      <td style="color:var(--text3);font-size:12px">${resp.obs || '—'}</td>
-    </tr>`;
+  document.getElementById('rp-sla-row').innerHTML=`<div style="display:flex;gap:16px;font-size:13px;color:var(--text2)"><span>⏱ Resposta: <strong>${sla}</strong></span><span>📦 IDs: <strong>${(t.ids||[]).length}</strong></span><span>📅 Criado: <strong>${_cAt?new Date(_cAt).toLocaleDateString('pt-BR'):'—'}</strong></span></div>`;
+  document.getElementById('rp-ids-body').innerHTML=(t.ids||[]).map(id => {
+    const resp=responses.find(r=>r.id===id)||{}, status=resp.status||'pending';
+    const icons={found:'✅ Localizado',notfound:'❌ Não encontrado',analyzing:'🔍 Em análise',lost:'📦 Perdidos por FM',pending:'⏳ Pendente'};
+    const colors={found:'var(--green)',notfound:'var(--red)',analyzing:'var(--amber)',lost:'var(--purple)',pending:'var(--text3)'};
+    return `<tr><td style="font-family:var(--mono);font-weight:700">${id}</td><td style="font-weight:700;color:${colors[status]}">${icons[status]||status}</td><td style="color:var(--text3);font-size:12px">${resp.obs||'—'}</td></tr>`;
   }).join('');
-  document.getElementById('rp-date').textContent = _rAt ? new Date(_rAt).toLocaleString('pt-BR') : new Date().toLocaleString('pt-BR');
-  showPage('page-report');
-  window.location.hash = 'report/' + ticketId;
+  document.getElementById('rp-date').textContent=_rAt?new Date(_rAt).toLocaleString('pt-BR'):new Date().toLocaleString('pt-BR');
+  showPage('page-report'); window.location.hash='report/'+ticketId;
 }
-
-function launchIfLogged() {
-  if (currentUser) launchApp();
-}
-
+function launchIfLogged() { if (currentUser) launchApp(); }
 function checkHashRoute() {
-  const hash = window.location.hash;
-  if (hash && hash.startsWith('#report/')) {
-    const ticketId = hash.replace('#report/', '');
-    if (_cache.tickets.length) {
-      renderReportPage(ticketId);
-    } else {
-      apiGet('getTickets').then(tickets => {
-        _cache.tickets = Array.isArray(tickets) ? tickets : [];
-        renderReportPage(ticketId);
-      });
-    }
+  const hash=window.location.hash;
+  if (hash&&hash.startsWith('#report/')) {
+    const ticketId=hash.replace('#report/','');
+    if (_cache.tickets.length) { renderReportPage(ticketId); }
+    else { apiGet('getTickets').then(tickets => { _cache.tickets=Array.isArray(tickets)?tickets:[]; renderReportPage(ticketId); }); }
   }
 }
 
@@ -2020,109 +2039,61 @@ function checkHashRoute() {
 //  NOTIFICATIONS
 // ====================================================
 function buildMsg(t, resps) {
-  const found = resps.filter(r => r.status === 'found').length;
-  const notfound = resps.filter(r => r.status === 'notfound').length;
-  const analyzing = resps.filter(r => r.status === 'analyzing').length;
-  const lost = resps.filter(r => r.status === 'lost').length;
-  const fmDisplay = t.fmCode || '#' + t.id.slice(-6).toUpperCase();
-  const dataHora = new Date().toLocaleString('pt-BR');
-  const total = (t.ids || []).length;
-  const maxIdLen = Math.max(...(t.ids||[]).map(id => id.length), 11);
-  const idLines = (t.ids || []).map(id => {
-    const resp = resps.find(r => r.id === id) || {};
-    const icon = { found: '(OK)', notfound: '(X)', analyzing: '(?)', lost: '(FM)' }[resp.status] || '(-)';
-    const statusLbl = { found: 'Localizado', notfound: 'Nao encontrado', analyzing: 'Em analise', lost: 'Perdidos por FM' }[resp.status] || 'Pendente';
-    const obs = resp.obs ? ' - ' + resp.obs : '';
-    return `${id.padEnd(maxIdLen + 2)}${icon} ${statusLbl}${obs}`;
+  const found=resps.filter(r=>r.status==='found').length, notfound=resps.filter(r=>r.status==='notfound').length, analyzing=resps.filter(r=>r.status==='analyzing').length, lost=resps.filter(r=>r.status==='lost').length;
+  const fmDisplay=t.fmCode||'#'+t.id.slice(-6).toUpperCase(), dataHora=new Date().toLocaleString('pt-BR'), total=(t.ids||[]).length;
+  const maxIdLen=Math.max(...(t.ids||[]).map(id=>id.length),11);
+  const idLines=(t.ids||[]).map(id => {
+    const resp=resps.find(r=>r.id===id)||{};
+    const icon={found:'(OK)',notfound:'(X)',analyzing:'(?)',lost:'(FM)'}[resp.status]||'(-)';
+    const statusLbl={found:'Localizado',notfound:'Nao encontrado',analyzing:'Em analise',lost:'Perdidos por FM'}[resp.status]||'Pendente';
+    const obs=resp.obs?' - '+resp.obs:'';
+    return `${id.padEnd(maxIdLen+2)}${icon} ${statusLbl}${obs}`;
   }).join('\n');
-  return [
-    '*TICKET RESPONDIDO*',
-    '━━━━━━━━━━━━━━━━━━━━',
-    'Chamado: *' + fmDisplay + '*',
-    'Transportadora: *' + t.title + '*',
-    ...(t.motorista ? ['🚛 Motorista: *' + t.motorista + '*'] : []),
-    '',
-    '👤 *Solicitado por: ' + (t.requesterName || '—') + '*',
-    '🔍 Analista: ' + (t.analystName || '—'),
-    '📅 Data: ' + dataHora,
-    '━━━━━━━━━━━━━━━━━━━━',
-    'TOTAL: *' + total + ' IDs*',
-    '✅ Localizado: ' + found,
-    '❌ Nao encontrado: ' + notfound,
-    ...(lost > 0 ? ['📦 Perdidos por FM: ' + lost] : []),
-    ...(analyzing > 0 ? ['🔍 Em analise: ' + analyzing] : []),
-    '━━━━━━━━━━━━━━━━━━━━',
-    'ID' + ' '.repeat(Math.max(maxIdLen, 11) - 1) + 'Status',
-    idLines,
-    '━━━━━━━━━━━━━━━━━━━━'
-  ].join('\n');
+  return ['*TICKET RESPONDIDO*','━━━━━━━━━━━━━━━━━━━━','Chamado: *'+fmDisplay+'*','Transportadora: *'+t.title+'*',...(t.motorista?['🚛 Motorista: *'+t.motorista+'*']:[]),'','👤 *Solicitado por: '+(t.requesterName||'—')+'*','🔍 Analista: '+(t.analystName||'—'),'📅 Data: '+dataHora,'━━━━━━━━━━━━━━━━━━━━','TOTAL: *'+total+' IDs*','✅ Localizado: '+found,'❌ Nao encontrado: '+notfound,...(lost>0?['📦 Perdidos por FM: '+lost]:[]),...(analyzing>0?['🔍 Em analise: '+analyzing]:[]),'━━━━━━━━━━━━━━━━━━━━','ID'+' '.repeat(Math.max(maxIdLen,11)-1)+'Status',idLines,'━━━━━━━━━━━━━━━━━━━━'].join('\n');
 }
-
 async function notifyDone(ticketId, reportUrl) {
-  const t = _cache.tickets.find(x => x.id === ticketId); if (!t) return;
-  const resps = t.responses || [];
-  const msg = buildMsg(t, resps);
-  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
-  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+  const t=_cache.tickets.find(x=>x.id===ticketId); if (!t) return;
+  const msg=buildMsg(t,t.responses||[]);
+  const gchat=LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport',{webhook:gchat,text:msg}).catch(()=>{});
+  const wa=LS.get('suporte_wa')||{}; if (wa.phone&&wa.apikey) await apiPost('sendCallMeBot',{phone:wa.phone,apikey:wa.apikey,message:msg}).catch(()=>{});
 }
 async function notifyNew(ticket) {
-  const motorLine = ticket.motorista ? `\n🚛 *Motorista:* ${ticket.motorista}` : '';
-  const msg = `🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}${motorLine}\n⚡ *Prioridade:* ${{ normal: 'Normal', high: 'Alta 🟡', urgent: 'URGENTE 🔴' }[ticket.priority] || ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids || []).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
-  const gchat = LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => {});
-  const wa = LS.get('suporte_wa') || {}; if (wa.phone && wa.apikey) await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => {});
+  const motorLine=ticket.motorista?`\n🚛 *Motorista:* ${ticket.motorista}`:'';
+  const msg=`🆕 *NOVO TICKET — ML Logística*\n━━━━━━━━━━━━━━━━━━━━\n📋 *#${ticket.id.slice(-6).toUpperCase()}* — ${ticket.title}\n👤 *Solicitante:* ${ticket.requesterName}${motorLine}\n⚡ *Prioridade:* ${{normal:'Normal',high:'Alta 🟡',urgent:'URGENTE 🔴'}[ticket.priority]||ticket.priority}\n📦 *IDs para validar:* ${(ticket.ids||[]).length}\n🕐 *Criado:* ${new Date().toLocaleString('pt-BR')}\n━━━━━━━━━━━━━━━━━━━━\n_Suporte & Validação · ML Logística_`;
+  const gchat=LS.get('suporte_gchat'); if (gchat) await apiPost('sendGoogleChatReport',{webhook:gchat,text:msg}).catch(()=>{});
+  const wa=LS.get('suporte_wa')||{}; if (wa.phone&&wa.apikey) await apiPost('sendCallMeBot',{phone:wa.phone,apikey:wa.apikey,message:msg}).catch(()=>{});
 }
-
-// ====================================================
-//  REENVIO
-// ====================================================
 function resendWhatsApp(ticketId) {
-  const t = _cache.tickets.find(x => x.id === ticketId);
-  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
-  const resps = t.responses || [];
-  const msg = buildMsg(t, resps);
-  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
-  window.open(waUrl, '_blank');
+  const t=_cache.tickets.find(x=>x.id===ticketId); if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  window.open('https://wa.me/?text='+encodeURIComponent(buildMsg(t,t.responses||[])),'_blank');
 }
-
 async function resendNotifications(ticketId) {
-  const t = _cache.tickets.find(x => x.id === ticketId);
-  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
-  const resps = t.responses || [];
-  const msg = buildMsg(t, resps);
+  const t=_cache.tickets.find(x=>x.id===ticketId); if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  const msg=buildMsg(t,t.responses||[]);
   toast('📤 Reenviando...', 10000);
-  let sent = false;
-  const gchat = LS.get('suporte_gchat');
-  if (gchat) { const r = await apiPost('sendGoogleChatReport', { webhook: gchat, text: msg }).catch(() => null); if (r?.ok) sent = true; }
-  const wa = LS.get('suporte_wa') || {};
-  if (wa.phone && wa.apikey) { const r = await apiPost('sendCallMeBot', { phone: wa.phone, apikey: wa.apikey, message: msg }).catch(() => null); if (r?.ok) sent = true; }
-  if (sent) toast('✅ Relatório reenviado para o grupo!', 3000);
-  else toast('⚠️ Nenhum canal configurado (Google Chat / WhatsApp). Configure em Admin > Config.', 4000);
+  let sent=false;
+  const gchat=LS.get('suporte_gchat');
+  if (gchat) { const r=await apiPost('sendGoogleChatReport',{webhook:gchat,text:msg}).catch(()=>null); if(r?.ok) sent=true; }
+  const wa=LS.get('suporte_wa')||{};
+  if (wa.phone&&wa.apikey) { const r=await apiPost('sendCallMeBot',{phone:wa.phone,apikey:wa.apikey,message:msg}).catch(()=>null); if(r?.ok) sent=true; }
+  toast(sent?'✅ Relatório reenviado!':'⚠️ Nenhum canal configurado. Configure em Admin > Config.', 4000);
 }
-
 function copyReportText(ticketId) {
-  const t = _cache.tickets.find(x => x.id === ticketId);
-  if (!t) { toast('⚠️ Ticket não encontrado'); return; }
-  const resps = t.responses || [];
-  const msg = buildMsg(t, resps);
-  copyText(msg);
+  const t=_cache.tickets.find(x=>x.id===ticketId); if (!t) { toast('⚠️ Ticket não encontrado'); return; }
+  copyText(buildMsg(t,t.responses||[]));
 }
 </script>
 
 <!-- REPORT MODAL -->
 <div class="report-modal-overlay" id="ov-report">
   <div class="report-modal">
-    <div class="report-modal-top">
-      <h2>✅ Ticket Finalizado!</h2>
-      <p>Relatório gerado — compartilhe com o grupo</p>
-    </div>
+    <div class="report-modal-top"><h2>✅ Ticket Finalizado!</h2><p>Relatório gerado — compartilhe com o grupo</p></div>
     <div class="report-modal-body">
       <div class="report-summary-row" id="report-summary-row" style="margin-bottom:16px"></div>
       <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">📦 Resultado por ID</div>
       <div style="overflow-x:auto;max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:16px">
         <table class="report-ids-table" id="modal-ids-table" style="margin-top:0">
-          <thead style="position:sticky;top:0;background:#fff;z-index:1">
-            <tr><th>ID</th><th>Status</th><th>Observação</th></tr>
-          </thead>
+          <thead style="position:sticky;top:0;background:#fff;z-index:1"><tr><th>ID</th><th>Status</th><th>Observação</th></tr></thead>
           <tbody id="modal-ids-body"></tbody>
         </table>
       </div>
@@ -2133,10 +2104,7 @@ function copyReportText(ticketId) {
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
         <button class="btn btn-g" style="min-height:44px;font-size:13px" onclick="openReportPage()">👁 Ver completo</button>
-        <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none" onclick="shareWhatsApp()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.319-1.501A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.663-.502-5.192-1.377l-.373-.215-3.751.891.935-3.639-.243-.39A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Enviar WhatsApp
-        </button>
+        <button class="btn" style="min-height:44px;font-size:13px;background:#25D366;color:#fff;border:none" onclick="shareWhatsApp()">📱 Enviar WhatsApp</button>
       </div>
       <button class="report-close-btn" onclick="document.getElementById('ov-report').classList.remove('open')">Fechar</button>
     </div>
@@ -2163,14 +2131,9 @@ function copyReportText(ticketId) {
       </div>
       <div class="report-card">
         <div class="card-title"><span class="ci ci-y">📦</span>Resultado por ID</div>
-        <table class="report-ids-table">
-          <thead><tr><th>ID</th><th>Status</th><th>Observação</th></tr></thead>
-          <tbody id="rp-ids-body"></tbody>
-        </table>
+        <table class="report-ids-table"><thead><tr><th>ID</th><th>Status</th><th>Observação</th></tr></thead><tbody id="rp-ids-body"></tbody></table>
       </div>
-      <div style="text-align:center;padding:20px;font-size:12px;color:var(--text3)">
-        Gerado em <span id="rp-date"></span> · Suporte & Validação ML Logística
-      </div>
+      <div style="text-align:center;padding:20px;font-size:12px;color:var(--text3)">Gerado em <span id="rp-date"></span> · Suporte & Validação ML Logística</div>
       <button class="btn btn-y btn-block" style="margin-bottom:24px" onclick="showPage('page-login');launchIfLogged()">← Voltar ao sistema</button>
     </div>
   </div>
@@ -2179,205 +2142,82 @@ function copyReportText(ticketId) {
 <!-- TUTORIAL ONBOARDING -->
 <div class="tut-overlay" id="tut-overlay">
   <div class="tut-card">
-    <div class="tut-header">
-      <h2>👋 Bem-vindo ao Suporte &amp; Validação!</h2>
-      <p>Veja como funciona em 6 passos rápidos — só vai aparecer esta vez!</p>
-    </div>
+    <div class="tut-header"><h2>👋 Bem-vindo ao Suporte & Validação!</h2><p>Veja como funciona em 6 passos rápidos</p></div>
     <div class="tut-body" id="tut-body">
       <div class="tut-slide active" id="tut-s0">
         <div class="tut-two">
           <div>
             <div class="tut-step-tag">Passo 1 de 6</div>
             <div class="tut-title">Acessando o sistema</div>
-            <div class="tut-desc">Abra o link do sistema no navegador. Digite seu <strong>username</strong>, clique em Continuar, depois insira sua <strong>senha</strong> e clique em Entrar.</div>
-            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div><strong>Dica:</strong> Funciona no celular e no computador. Nenhuma instalação necessária!</div></div>
+            <div class="tut-desc">Abra o link no navegador. Digite seu <strong>username</strong> e <strong>senha</strong> para entrar.</div>
+            <div class="tut-hl"><div class="tut-hl-ico">💡</div><div>Funciona no celular e computador. Nenhuma instalação!</div></div>
             <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Abra o link do sistema no navegador</span></li>
-              <li><div class="tut-num">2</div><span>Digite seu <strong>username</strong> e clique <strong>Continuar →</strong></span></li>
-              <li><div class="tut-num">3</div><span>Digite sua <strong>senha</strong> e clique <strong>Entrar →</strong></span></li>
-              <li><div class="tut-num">4</div><span>Você verá a tela de <strong>Tickets</strong> automaticamente</span></li>
+              <li><div class="tut-num">1</div><span>Abra o link no navegador</span></li>
+              <li><div class="tut-num">2</div><span>Digite <strong>username</strong> → Continuar</span></li>
+              <li><div class="tut-num">3</div><span>Digite <strong>senha</strong> → Entrar</span></li>
             </ul>
           </div>
-          <div>
-            <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Suporte &amp; Validação</span></div>
-              <div style="background:#f2f2f2;padding:14px 10px;display:flex;flex-direction:column;align-items:center">
-                <div style="width:36px;height:36px;background:#ffe600;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:6px;border:2px solid #e8c800">🎫</div>
-                <div style="font-size:11px;font-weight:800;margin-bottom:1px">Suporte &amp; Validação</div>
-                <div style="font-size:9px;color:#999;margin-bottom:10px">ML Logística</div>
-                <div style="background:#fff;border-radius:10px;padding:12px;width:100%;box-shadow:0 2px 8px rgba(0,0,0,.08)">
-                  <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Username</div>
-                  <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:11px;margin-bottom:7px">thiago</div>
-                  <div style="background:#ffe600;border-radius:7px;padding:8px;text-align:center;font-size:11px;font-weight:800;color:#333;border:1.5px solid #e8c800">Continuar →</div>
-                </div>
+          <div><div class="tut-phone">
+            <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Suporte &amp; Validação</span></div>
+            <div style="background:#f2f2f2;padding:14px 10px;display:flex;flex-direction:column;align-items:center">
+              <div style="width:36px;height:36px;background:#ffe600;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:6px">🎫</div>
+              <div style="font-size:11px;font-weight:800;margin-bottom:10px">Suporte &amp; Validação</div>
+              <div style="background:#fff;border-radius:10px;padding:12px;width:100%">
+                <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px;font-size:11px;margin-bottom:7px">thiago</div>
+                <div style="background:#ffe600;border-radius:7px;padding:8px;text-align:center;font-size:11px;font-weight:800">Continuar →</div>
               </div>
             </div>
-          </div>
+          </div></div>
         </div>
       </div>
-      <div class="tut-slide" id="tut-s1">
-        <div class="tut-two">
-          <div>
-            <div class="tut-step-tag">Passo 2 de 6</div>
-            <div class="tut-title">Primeira vez? Solicite seu acesso</div>
-            <div class="tut-desc">Se não tem conta, clique em <strong>"Solicitar acesso"</strong> na tela de login.</div>
-            <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Clique em <strong>"Solicitar acesso"</strong></span></li>
-              <li><div class="tut-num">2</div><span>Preencha seu <strong>nome completo</strong></span></li>
-              <li><div class="tut-num">3</div><span>Escolha um <strong>username</strong></span></li>
-              <li><div class="tut-num">4</div><span>Selecione <strong>Solicitante</strong> como tipo</span></li>
-              <li><div class="tut-num">5</div><span>Clique em <strong>"Enviar Solicitação"</strong></span></li>
-            </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div>O admin verá sua solicitação e aprovará em breve!</div></div>
-          </div>
-          <div>
-            <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">📋</div><span class="tut-phone-lbl">Solicitar Acesso</span></div>
-              <div style="background:#fff;padding:10px">
-                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Nome completo</div>
-                <div style="background:#f7f7f7;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;margin-bottom:6px">Thiago Souza</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px">
-                  <div style="border:2px solid #e8c800;border-radius:8px;padding:7px 5px;text-align:center;background:#fffde7"><div style="font-size:14px">📤</div><div style="font-size:10px;font-weight:800">Solicitante</div></div>
-                  <div style="border:1.5px solid #e0e0e0;border-radius:8px;padding:7px 5px;text-align:center"><div style="font-size:14px">🔍</div><div style="font-size:10px;font-weight:700">Analista</div></div>
-                </div>
-                <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📩 Enviar Solicitação</div>
-              </div>
-            </div>
-          </div>
+      <div class="tut-slide" id="tut-s1"><div class="tut-two"><div>
+        <div class="tut-step-tag">Passo 2 de 6</div>
+        <div class="tut-title">Solicitando acesso</div>
+        <div class="tut-desc">Sem conta? Clique em <strong>"Solicitar acesso"</strong> e preencha seus dados.</div>
+        <ul class="tut-steps">
+          <li><div class="tut-num">1</div><span>Clique em <strong>"Solicitar acesso"</strong></span></li>
+          <li><div class="tut-num">2</div><span>Preencha nome, username e senha</span></li>
+          <li><div class="tut-num">3</div><span>Selecione <strong>Solicitante</strong></span></li>
+          <li><div class="tut-num">4</div><span>Aguarde aprovação do admin</span></li>
+        </ul>
+      </div><div></div></div></div>
+      <div class="tut-slide" id="tut-s2"><div class="tut-two"><div>
+        <div class="tut-step-tag">Passo 3 de 6</div>
+        <div class="tut-title">Criando um chamado</div>
+        <div class="tut-desc">Clique em <strong>+ Novo Ticket</strong>, selecione a transportadora e cole os IDs.</div>
+        <ul class="tut-steps">
+          <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
+          <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
+          <li><div class="tut-num">3</div><span>Cole os <strong>IDs</strong> — um por linha</span></li>
+          <li><div class="tut-num">4</div><span>Clique em <strong>Enviar Solicitação</strong></span></li>
+        </ul>
+        <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Código <strong>FM-XXXXXX</strong> gerado automaticamente!</div></div>
+      </div><div></div></div></div>
+      <div class="tut-slide" id="tut-s3"><div class="tut-two"><div>
+        <div class="tut-step-tag">Passo 4 de 6</div>
+        <div class="tut-title">Acompanhando o SLA</div>
+        <div class="tut-desc">Cada ticket tem uma <strong>barra de SLA</strong> indicando o prazo de resposta.</div>
+        <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div><span style="color:#00a650;font-weight:700">Verde</span> → <span style="color:#f5a623;font-weight:700">Amarelo</span> → <span style="color:#e02020;font-weight:700">Vermelho</span></div></div>
+      </div><div></div></div></div>
+      <div class="tut-slide" id="tut-s4"><div class="tut-two"><div>
+        <div class="tut-step-tag">Passo 5 de 6</div>
+        <div class="tut-title">Resultado do analista</div>
+        <div class="tut-desc">Quando concluído, o ticket fica <strong>Concluído</strong> com o resultado de cada ID.</div>
+        <div class="tut-hl"><div class="tut-hl-ico">📊</div><div><span style="color:#00a650">Localizado</span> · <span style="color:#e02020">Não encontrado</span> · <span style="color:#f5a623">Em análise</span></div></div>
+      </div><div></div></div></div>
+      <div class="tut-slide" id="tut-s5"><div class="tut-two"><div>
+        <div class="tut-step-tag">Passo 6 de 6</div>
+        <div class="tut-title">Resultado no grupo!</div>
+        <div class="tut-desc">O sistema envia automaticamente o resultado ao <strong>grupo do WhatsApp</strong>.</div>
+        <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria e recebe o resultado!</div></div>
+        <div style="background:#ffe600;border:2px solid #e8c800;border-radius:12px;padding:14px;text-align:center;margin-top:12px">
+          <div style="font-size:16px;font-weight:800">Pronto para começar! 🚀</div>
+          <div style="font-size:12px;color:#555;margin-top:3px">Clique em <strong>+ Novo Ticket</strong></div>
         </div>
-      </div>
-      <div class="tut-slide" id="tut-s2">
-        <div class="tut-two">
-          <div>
-            <div class="tut-step-tag">Passo 3 de 6 — Principal</div>
-            <div class="tut-title">Criando um chamado de validação</div>
-            <div class="tut-desc">Na aba <strong>Tickets</strong>, clique em <strong>+ Novo Ticket</strong>.</div>
-            <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Clique em <strong>+ Novo Ticket</strong></span></li>
-              <li><div class="tut-num">2</div><span>Selecione a <strong>transportadora</strong></span></li>
-              <li><div class="tut-num">3</div><span>Defina <strong>prioridade</strong> e <strong>valor</strong></span></li>
-              <li><div class="tut-num">4</div><span>Cole os <strong>IDs</strong> — um por linha</span></li>
-              <li><div class="tut-num">5</div><span>Clique em <strong>Enviar Solicitação</strong></span></li>
-            </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">📋</div><div>Um código <strong>FM-XXXXXX</strong> é gerado automaticamente.</div></div>
-          </div>
-          <div>
-            <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">🚚</div><span class="tut-phone-lbl">Nova Solicitação</span></div>
-              <div style="background:#fff;padding:10px">
-                <div style="font-size:8px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px">Transportadora</div>
-                <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-size:10px;font-weight:700;margin-bottom:6px">BASEPEX ENCOM ▾</div>
-                <div style="background:#fff;border:2px solid #e8c800;border-radius:7px;padding:7px 9px;font-family:monospace;font-size:9px;line-height:1.7;min-height:50px;margin-bottom:3px">34567898765<br>12656576789<br>12049944056</div>
-                <div style="background:#f5f5f5;padding:3px 9px;font-size:8px;color:#999;border-radius:0 0 5px 5px;margin-bottom:7px">3 IDs detectados</div>
-                <div style="background:#ffe600;border:1.5px solid #e8c800;border-radius:7px;padding:9px;text-align:center;font-size:11px;font-weight:800;color:#333">📤 Enviar Solicitação</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tut-slide" id="tut-s3">
-        <div class="tut-two">
-          <div>
-            <div class="tut-step-tag">Passo 4 de 6</div>
-            <div class="tut-title">Acompanhando o chamado e o SLA</div>
-            <div class="tut-desc">Após criar, o chamado aparece na lista com uma <strong>barra de SLA</strong>.</div>
-            <div class="tut-hl"><div class="tut-hl-ico">⏱</div><div><strong>SLA</strong> é o prazo de resposta. A barra muda: <span style="color:#00a650;font-weight:700">verde</span> → <span style="color:#f5a623;font-weight:700">amarelo</span> → <span style="color:#e02020;font-weight:700">vermelho</span>.</div></div>
-            <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Ticket aparece com status <strong>Aberto</strong></span></li>
-              <li><div class="tut-num">2</div><span>Analista assume → vira <strong>Em andamento</strong></span></li>
-              <li><div class="tut-num">3</div><span>Barra mostra % do tempo utilizado</span></li>
-              <li><div class="tut-num">4</div><span>Clique no ticket para ver detalhes</span></li>
-            </ul>
-          </div>
-          <div>
-            <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">🎫</div><span class="tut-phone-lbl">Meus Tickets</span></div>
-              <div style="background:#f7f7f7;padding:8px">
-                <div style="background:#fff;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px;margin-bottom:6px">
-                  <div style="font-family:monospace;font-size:9px;color:#e8c800;font-weight:700;margin-bottom:2px">FM-375170</div>
-                  <div style="font-size:11px;font-weight:700">🚚 BASEPEX ENCOM</div>
-                  <div style="display:flex;justify-content:space-between;font-size:8px;color:#666;margin-top:5px;margin-bottom:2px"><span>SLA 18%</span><span style="color:#00a650;font-weight:700">3.2h</span></div>
-                  <div style="background:#eee;border-radius:99px;height:4px;overflow:hidden"><div style="width:18%;height:100%;background:#00a650;border-radius:99px"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tut-slide" id="tut-s4">
-        <div class="tut-two">
-          <div>
-            <div class="tut-step-tag">Passo 5 de 6</div>
-            <div class="tut-title">Recebendo o retorno do analista</div>
-            <div class="tut-desc">Quando o analista finalizar, o ticket fica <strong>Concluído</strong>.</div>
-            <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Ticket vira <strong>Concluído</strong> (verde)</span></li>
-              <li><div class="tut-num">2</div><span>Clique para ver o resultado completo</span></li>
-              <li><div class="tut-num">3</div><span>Cada ID tem status individual</span></li>
-              <li><div class="tut-num">4</div><span>Use <strong>📋</strong> para copiar IDs</span></li>
-            </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">📊</div><div><span style="color:#00a650;font-weight:700">Localizado</span> · <span style="color:#e02020;font-weight:700">Não encontrado</span> · <span style="color:#f5a623;font-weight:700">Em análise</span></div></div>
-          </div>
-          <div>
-            <div class="tut-phone">
-              <div class="tut-phone-bar"><div class="tut-phone-ico">✅</div><span class="tut-phone-lbl">Ticket Respondido</span></div>
-              <div style="background:#fff;padding:10px">
-                <div style="display:flex;flex-direction:column;gap:4px">
-                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
-                    <span style="font-family:monospace;font-size:9px;font-weight:700">34567898765</span>
-                    <span style="background:#e6f7ef;color:#007a3d;border:1px solid #b2dfcc;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">✅</span>
-                  </div>
-                  <div style="background:#f5f5f5;border-radius:7px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between">
-                    <span style="font-family:monospace;font-size:9px;font-weight:700">12656576789</span>
-                    <span style="background:#fce8e6;color:#c5221f;border:1px solid #f28b82;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700">❌</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tut-slide" id="tut-s5">
-        <div class="tut-two">
-          <div>
-            <div class="tut-step-tag">Passo 6 de 6 — Automático</div>
-            <div class="tut-title">Resultado chega no grupo!</div>
-            <div class="tut-desc">O sistema envia automaticamente o resultado para o <strong>grupo do WhatsApp</strong>.</div>
-            <ul class="tut-steps">
-              <li><div class="tut-num">1</div><span>Analista clica <strong>Finalizar &amp; Enviar</strong></span></li>
-              <li><div class="tut-num">2</div><span>Mensagem automática vai para o <strong>grupo</strong></span></li>
-              <li><div class="tut-num">3</div><span>Contém chamado, transportadora, IDs e resultado</span></li>
-            </ul>
-            <div class="tut-hl"><div class="tut-hl-ico">🤖</div><div><strong>100% automático</strong> — você cria o chamado e recebe o resultado no grupo!</div></div>
-            <div style="background:#ffe600;border:2px solid #e8c800;border-radius:12px;padding:14px;text-align:center;margin-top:12px">
-              <div style="font-size:16px;font-weight:800;color:#333">Pronto para começar! 🚀</div>
-              <div style="font-size:12px;color:#555;margin-top:3px">Crie seu primeiro chamado clicando em <strong>+ Novo Ticket</strong></div>
-            </div>
-          </div>
-          <div>
-            <div class="tut-phone" style="border-radius:16px">
-              <div style="background:#075e54;padding:8px 10px;display:flex;align-items:center;gap:6px">
-                <div style="width:22px;height:22px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px">👥</div>
-                <span style="color:#fff;font-size:10px;font-weight:700">Suporte ML</span>
-              </div>
-              <div style="background:#e5ddd5;padding:8px;min-height:140px">
-                <div style="background:#fff;border-radius:8px 0 8px 8px;padding:8px 10px;font-size:9px;line-height:1.7;max-width:200px;box-shadow:0 1px 2px rgba(0,0,0,.1)">
-                  <strong>TICKET RESPONDIDO</strong><br>
-                  FM-375170 · BASEPEX<br>
-                  ──────────────<br>
-                  TOTAL: 3 IDs<br>
-                  Localizado: 2<br>
-                  Nao encontrado: 1
-                  <div style="font-size:8px;color:#999;text-align:right;margin-top:2px">15:02 ✓✓</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div><div></div></div></div>
     </div>
     <div class="tut-footer">
-      <button class="tut-btn-skip" onclick="closeTutorial()">Pular tutorial</button>
+      <button class="tut-btn-skip" onclick="closeTutorial()">Pular</button>
       <div class="tut-dots" id="tut-dots"></div>
       <button class="tut-btn-next" id="tut-next" onclick="tutNext()">Próximo →</button>
     </div>
